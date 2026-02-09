@@ -1,0 +1,25 @@
+name: sensor3
+type: VO
+resourceType:
+  specification: WoT
+  version: 1.1
+deploymentType: A
+catalogue: 9094
+bindingNB:
+  # bindingModeNB: [H, M, U, WS]
+  bindingModeNB: [H]
+  hostname: localhost
+  ports:
+    coapPort: 5683
+    httpPort: 8093
+databaseConfig:
+  timeseriesDB:
+    influxDB: enabled
+    address: "http://localhost:8086"
+    dbToken: S18VeAlq042B4naMX31oqIaSGmUmOLAC-DV3VIdkxDJuAhTXLTVFEchyTSmCcUAmB7Wu94KgExzV8gJaDjzR3Q==
+    dbUser: admin
+    dbPass: influxpassword
+  persistentDB:
+    SQLite: enabled
+periodicFunction:
+  update: 1000

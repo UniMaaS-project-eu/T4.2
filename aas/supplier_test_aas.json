@@ -1,0 +1,129 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:supplier:test",
+      "idShort": "Supplier_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:supplier:test"
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:supplier:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:idta:submodeltemplate:supplier:1.0"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:supplier:test",
+      "idShort": "SupplierSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Supplier"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Supplier Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "SupplierName",
+          "valueType": "xs:string",
+          "value": "Supplier_test"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "SupplierIdentifier",
+          "valueType": "xs:string",
+          "value": "SUP001"
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "ContactInformation",
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "Email",
+              "valueType": "xs:string",
+              "value": "contact@supplier_test.com"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "Phone",
+              "valueType": "xs:string",
+              "value": "+1-555-123-4567"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "Address",
+              "valueType": "xs:string",
+              "value": "456 Supplier Boulevard, Supply City, SC 20002"
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "ProvidedResources",
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Resource_test",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:resource:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "LogisticRoutes",
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "LogisticRoute_test",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:logisticroute:test"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": []
+}

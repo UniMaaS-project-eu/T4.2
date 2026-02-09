@@ -1,0 +1,42 @@
+[
+  {
+    "id": "device-1234-temperature",
+    "idShort": "Temperature",
+    "description": "Live temperature for device 1234",
+    "type": "TimeSeries",
+    "submodelRef": {
+      "submodelId": "urn:idta:submodel:timeseries:1234",
+      "submodelElementId": "TemperatureHistory"
+    },
+    "dataSource": {
+      "type": "InfluxDB",
+      "config": {
+        "url": "http://influxdb:8086",
+        "bucket": "basyx",
+        "org": "basyx",
+        "token": "S18VeAlq042B4naMX31oqIaSGmUmOLAC-DV3VIdkxDJuAhTXLTVFEchyTSmCcUAmB7Wu94KgExzV8gJaDjzR3Q==",
+        "query": "from(bucket: \"basyx\") |> range(start: -1h) |> filter(fn: (r) => r._measurement == \"temperature\" and r.device == \"1234\") |> keep(columns: [\"_time\", \"_value\"])"
+      }
+    }
+  },
+  {
+    "id": "device-1234-humidity",
+    "idShort": "Humidity",
+    "description": "Live humidity for device 1234",
+    "type": "TimeSeries",
+    "submodelRef": {
+      "submodelId": "urn:idta:submodel:timeseries:1234",
+      "submodelElementId": "HumidityHistory"
+    },
+    "dataSource": {
+      "type": "InfluxDB",
+      "config": {
+        "url": "http://influxdb:8086",
+        "bucket": "basyx",
+        "org": "basyx",
+        "token": "S18VeAlq042B4naMX31oqIaSGmUmOLAC-DV3VIdkxDJuAhTXLTVFEchyTSmCcUAmB7Wu94KgExzV8gJaDjzR3Q==",
+        "query": "from(bucket: \"basyx\") |> range(start: -1h) |> filter(fn: (r) => r._measurement == \"humidity\" and r.device == \"1234\") |> keep(columns: [\"_time\", \"_value\"])"
+      }
+    }
+  }
+]

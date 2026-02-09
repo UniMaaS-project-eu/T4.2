@@ -1,0 +1,154 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:device:test",
+      "idShort": "Device_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:device:test"
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:device:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "https://admin-shell.io/idta/DigitalNameplate/2/0"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:device:test",
+      "idShort": "DeviceSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Device from the KG ontology"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Device Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Nameplate",
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "ManufacturerName",
+              "valueType": "xs:string",
+              "value": "Test Equipment Inc."
+            },
+            {
+              "modelType": "Property",
+              "idShort": "ManufacturerProductDesignation",
+              "valueType": "xs:string",
+              "value": "TestMachine-3000"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "SerialNumber",
+              "valueType": "xs:string",
+              "value": "SN-TEST-DEV-001"
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "TechnicalData",
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "MaxPower",
+              "valueType": "xs:double",
+              "value": "75.5"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "Weight",
+              "valueType": "xs:double",
+              "value": "500.0"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "WeightUnit",
+              "valueType": "xs:string",
+              "value": "kg"
+            }
+          ]
+        },
+        {
+          "modelType": "ReferenceElement",
+          "idShort": "LocationSite",
+          "value": {
+            "type": "ModelReference",
+            "keys": [
+              {
+                "type": "Submodel",
+                "value": "urn:aas:submodel:site:test"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Properties",
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Property1_test",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:property1:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Properties",
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Property2_test",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:property2:test"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": []
+}

@@ -1,0 +1,16 @@
+name: sensor2
+type: VO
+resourceType:
+  specification: WoT
+  version: 1.1
+deploymentType: A
+catalogue: 9092
+bindingNB:
+  # bindingModeNB: [H, M, U, WS]
+  bindingModeNB: [H]
+  hostname: localhost
+  ports:
+    coapPort: 5683
+    httpPort: 8091
+periodicFunction:
+  update: 1000

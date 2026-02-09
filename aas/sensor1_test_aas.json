@@ -1,0 +1,134 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:sensor1:test",
+      "idShort": "Sensor1_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:sensor1:test"
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:sensor1:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:idta:submodeltemplate:sensor:1.0"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:sensor1:test",
+      "idShort": "Sensor1Submodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Sensor Device"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Sensor1 Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "SensorName",
+          "valueType": "xs:string",
+          "value": "Sensor1"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "SensorIdentifier",
+          "valueType": "xs:string",
+          "value": "SENS_TEST_001"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "SensorType",
+          "valueType": "xs:string",
+          "value": "Temperature"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "ManufacturerName",
+          "valueType": "xs:string",
+          "value": "SensorTech Ltd."
+        },
+        {
+          "modelType": "Property",
+          "idShort": "SerialNumber",
+"valueType": "xs:string",
+"value": "SN-SENS-2024-001"
+},
+{
+"modelType": "Property",
+"idShort": "SamplingRate",
+"valueType": "xs:double",
+"value": "1.0"
+},
+{
+"modelType": "Property",
+"idShort": "Accuracy",
+"valueType": "xs:string",
+"value": "±0.5°C"
+},
+{
+"modelType": "SubmodelElementCollection",
+"idShort": "ObservedProperties",
+"value": [
+{
+"modelType": "ReferenceElement",
+"idShort": "Property_test",
+"value": {
+"type": "ModelReference",
+"keys": [
+{
+"type": "Submodel",
+"value": "urn:aas:submodel:property1:test"
+}
+]
+}
+}
+]
+},
+{
+"modelType": "SubmodelElementCollection",
+"idShort": "InterfaceDescription",
+"value": [
+{
+"modelType": "Property",
+"idShort": "InterfaceType",
+"valueType": "xs:string",
+"value": "OPC UA"
+},
+{
+"modelType": "Property",
+"idShort": "EndpointAddress",
+"valueType": "xs:string",
+"value": "opc.tcp://192.168.1.100:4840"
+}
+]
+}
+]
+}
+],
+"conceptDescriptions": []
+}

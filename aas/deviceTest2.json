@@ -1,0 +1,281 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:device:2",
+      "idShort": "device2",
+      "modelType": "AssetAdministrationShell",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:device:2"
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:device-custom:2"
+            }
+          ]
+        },
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:idta:02006:DigitalNameplate:3.0.1:2"
+            }
+          ]
+        },
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:idta:02003:TechnicalData:1.2:2"
+            }
+          ]
+        },
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:idta:02008:TimeSeriesData:1.1:2"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "id": "urn:aas:submodel:device-custom:2",
+      "idShort": "DeviceCustom",
+      "kind": "Instance",
+      "modelType": "Submodel",
+      "submodelElements": [
+        {
+          "idShort": "temperature2",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "https://admin-shell.io/aas/3/0/Property"
+              }
+            ]
+          },
+          "modelType": "Property",
+          "valueType": "xs:double",
+          "value": "23.4"
+        },
+        {
+          "idShort": "humidity2",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "https://admin-shell.io/aas/3/0/Property"
+              }
+            ]
+          },
+          "modelType": "Property",
+          "valueType": "xs:double",
+          "value": "41.2"
+        }
+      ]
+    },
+
+    {
+        "id": "urn:idta:02006:DigitalNameplate:3.0.1:2",
+        "idShort": "DigitalNameplate",
+        "kind": "Instance",
+        "modelType": "Submodel",
+        "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+            {
+                "type": "GlobalReference",
+                "value": "urn:idta:02006:DigitalNameplate:3.0.1"
+            }
+            ]
+        },
+        "submodelElements": [
+            {
+            "idShort": "ManufacturerName",
+            "modelType": "Property",
+            "valueType": "xs:string",
+            "value": "ACME Corp."
+            },
+            {
+            "idShort": "ManufacturerProductDesignation",
+            "modelType": "Property",
+            "valueType": "xs:string",
+            "value": "Press-2000"
+            },
+            {
+            "idShort": "ManufacturerArticleNumber",
+            "modelType": "Property",
+            "valueType": "xs:string",
+            "value": "ACME-PR2000"
+            },
+            {
+            "idShort": "SerialNumber",
+            "modelType": "Property",
+            "valueType": "xs:string",
+            "value": "SN-2025-0001"
+            },
+            {
+            "idShort": "HardwareVersion",
+            "modelType": "Property",
+            "valueType": "xs:string",
+            "value": ""
+            },
+            {
+            "idShort": "SoftwareVersion",
+            "modelType": "Property",
+            "valueType": "xs:string",
+            "value": ""
+            },
+            {
+            "idShort": "FirmwareVersion",
+            "modelType": "Property",
+            "valueType": "xs:string",
+            "value": ""
+            },
+            {
+            "idShort": "ManufacturerLocation",
+            "modelType": "Property",
+            "valueType": "xs:string",
+            "value": ""
+            },
+            {
+            "idShort": "ProductionDate",
+            "modelType": "Property",
+            "valueType": "xs:dateTime",
+            "value": ""
+            },
+            {
+            "idShort": "AdditionalInformation",
+            "modelType": "Property",
+            "valueType": "xs:string",
+            "value": ""
+            }
+        ]
+    },
+
+    {
+      "id": "urn:idta:02003:TechnicalData:1.2:2",
+      "idShort": "TechnicalData",
+      "kind": "Instance",
+      "modelType": "Submodel",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:idta:02003:TechnicalData:1.2"
+          }
+        ]
+      },
+      "submodelElements": [
+        {
+          "idShort": "MaxPower",
+          "modelType": "Property",
+          "valueType": "xs:double",
+          "value": "50.0"
+        },
+        {
+          "idShort": "OperatingTemperatureRange",
+          "modelType": "Range",
+          "valueType": "xs:double",
+          "min": "-10",
+          "max": "60"
+        }
+      ]
+    },
+
+    {
+      "id": "urn:idta:02008:TimeSeriesData:1.1:2",
+      "idShort": "TimeSeriesData",
+      "kind": "Instance",
+      "modelType": "Submodel",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:idta:02008:TimeSeriesData:1.1"
+          }
+        ]
+      },
+      "submodelElements": [
+        {
+          "idShort": "LinkedSegment",
+          "modelType": "SubmodelElementCollection",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:idta:02008:LinkedSegment:1.1"
+              }
+            ]
+          },
+          "value": [
+            {
+              "idShort": "Endpoint",
+              "modelType": "Property",
+              "valueType": "xs:string",
+              "value": "http://localhost:8086"
+            },
+            {
+              "idShort": "Organization",
+              "modelType": "Property",
+              "valueType": "xs:string",
+              "value": "wot"
+            },
+            {
+              "idShort": "Bucket",
+              "modelType": "Property",
+              "valueType": "xs:string",
+              "value": "observedProperties2"
+            },
+            {
+              "idShort": "Token",
+              "modelType": "Property",
+              "valueType": "xs:string",
+              "value": "S18VeAlq042B4naMX31oqIaSGmUmOLAC-DV3VIdkxDJuAhTXLTVFEchyTSmCcUAmB7Wu94KgExzV8gJaDjzR3Q=="
+            },
+            {
+              "idShort": "Query",
+              "modelType": "Property",
+              "valueType": "xs:string",
+              "value": "from(bucket:\"observedProperties2\") |> range(start: -1h)"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "conceptDescriptions": [
+    {
+      "id": "urn:idta:02006:DigitalNameplate:3.0.1",
+      "idShort": "CD_DigitalNameplate",
+      "modelType": "ConceptDescription"
+    },
+    {
+      "id": "urn:idta:02003:TechnicalData:1.2",
+      "idShort": "CD_TechnicalData",
+      "modelType": "ConceptDescription"
+    },
+    {
+      "id": "urn:idta:02008:TimeSeriesData:1.1",
+      "idShort": "CD_TimeSeriesData",
+      "modelType": "ConceptDescription"
+    }
+  ]
+}

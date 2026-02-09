@@ -1,0 +1,77 @@
+{
+  "title": "sensor2",
+  "id": "urn:asset:sensor:2",
+  "description": "Thing Description of the sensor 2",
+  "support": "git://github.com/eclipse/thingweb.node-wot.git",
+  "@context": [
+    "https://www.w3.org/2019/wot/td/v1"
+  ],
+  "securityDefinitions": {
+    "nosec_sc": {
+      "scheme": "nosec"
+    }
+  },
+  "security": "nosec_sc",
+
+  "properties": {
+    "observedProperties2": {
+      "type": "object",
+      "description": "Realtime observed sensor values.",
+      "properties": {
+        "temperature": {
+          "type": "number",
+          "description": "Current temperature as reported by the sensor",
+          "value": 21
+        }
+      }
+    },
+
+    "digitalNameplate": {
+      "type": "object",
+      "description": "Digital Nameplate per IDTA 02006-1.0",
+      "properties": {
+        "manufacturerName": {
+          "type": "string",
+          "value": "ACME Corp."
+        },
+        "model": {
+          "type": "string",
+          "value": "Press-2000"
+        },
+        "serialNumber": {
+          "type": "string",
+          "value": "SN-2025-0001"
+        }
+      }
+    },
+
+    "technicalData": {
+      "type": "object",
+      "description": "Technical data per IDTA 02003-1.2",
+      "properties": {
+        "maxPower": {
+          "type": "number",
+          "value": 50.0
+        },
+        "operatingTemperatureRange": {
+          "type": "object",
+          "properties": {
+            "min": { "type": "number", "value": -10 },
+            "max": { "type": "number", "value": 60 }
+          }
+        }
+      }
+    }
+  },
+  "events": {
+      "propertyUpdated2": {
+          "description": "observedProperties2 were updated"
+      }
+  },
+
+  "actions": {
+    "update": {
+      "description": "Sets the new temperature and humidity measurements"
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:property4:test",
+      "idShort": "Property4_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:property4:test"
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:property4:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:idta:submodeltemplate:property:1.0"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:property4:test",
+      "idShort": "Property4Submodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Technical Property"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Property4 Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "congestion",
+          "valueType": "xs:double",
+          "value": "20.0"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "PropertyIdentifier",
+          "valueType": "xs:string",
+          "value": "PROP4_TEST"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "PropertyValue",
+          "valueType": "xs:double",
+          "value": "30.0"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "DataType",
+          "valueType": "xs:string",
+          "value": "double"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "Unit",
+          "valueType": "xs:string",
+          "value": "%"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "MinValue",
+          "valueType": "xs:double",
+          "value": "0.0"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "MaxValue",
+          "valueType": "xs:double",
+          "value": "80.0"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "NominalValue",
+          "valueType": "xs:double",
+          "value": "20.0"
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "ObservingSensors",
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Sensor4_test",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:sensor4:test"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": []
+}

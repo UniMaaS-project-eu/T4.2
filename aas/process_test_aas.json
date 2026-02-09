@@ -1,0 +1,117 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:process:test",
+      "idShort": "Process_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:process:test"
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:process:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:idta:submodeltemplate:process:1.0"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:process:test",
+      "idShort": "ProcessSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Manufacturing Process"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Process Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "ProcessName",
+          "valueType": "xs:string",
+          "value": "Test Machining Process"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "ProcessIdentifier",
+          "valueType": "xs:string",
+          "value": "PROC_TEST_001"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "ProcessType",
+          "valueType": "xs:string",
+          "value": "Machining"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "FunctionAspectDesignation",
+          "valueType": "xs:string",
+          "value": "=TestMachining"
+        },
+        {
+          "modelType": "ReferenceElement",
+          "idShort": "PerformedAtSite",
+          "value": {
+            "type": "ModelReference",
+            "keys": [
+              {
+                "type": "Submodel",
+                "value": "urn:aas:submodel:site:test"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "ProcessConfigurations",
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "ProcessConfig_test",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:processconfig:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "Property",
+          "idShort": "ProcessDescription",
+          "valueType": "xs:string",
+          "value": "A standard machining process for metal components using CNC technology"
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": []
+}

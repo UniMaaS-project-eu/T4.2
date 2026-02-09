@@ -1,0 +1,197 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:logisticroute:test",
+      "idShort": "LogisticRoute_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:logisticroute:test"
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:logisticroute:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:idta:submodeltemplate:logisticroute:1.0"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:logisticroute:test",
+      "idShort": "LogisticRouteSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Logistic Route"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Logistic Route Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "RouteIdentifier",
+          "valueType": "xs:string",
+          "value": "LOG_ROUTE_TEST_001"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "RouteName",
+          "valueType": "xs:string",
+          "value": "Supplier_test to Site_test Route"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "TransportMode",
+          "valueType": "xs:string",
+          "value": "Road"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "Distance",
+          "valueType": "xs:double",
+          "value": "125.5"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "EstimatedTransitTime",
+          "valueType": "xs:double",
+          "value": "2.5"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "Cost",
+          "valueType": "xs:double",
+          "value": "450.0"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "Currency",
+          "valueType": "xs:string",
+          "value": "EUR"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "Carrier",
+          "valueType": "xs:string",
+          "value": "FastLogistics GmbH"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "RouteStatus",
+          "valueType": "xs:string",
+          "value": "Active"
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "OriginLocation",
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "LocationType",
+              "valueType": "xs:string",
+              "value": "Supplier"
+            },
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "FromSupplier",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:supplier:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "DestinationLocation",
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "LocationType",
+              "valueType": "xs:string",
+              "value": "Site"
+            },
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "ToSite",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:site:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "TransportedMaterials",
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Resource_test",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:resource:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "TechnicalProperties",
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Property4_test",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:property4:test"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": []
+}

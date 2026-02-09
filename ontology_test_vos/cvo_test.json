@@ -1,0 +1,41 @@
+{
+  "title": "cvo",
+  "id": "urn:asset:device:cvo",
+  "description": "Thing Description of the cvo",
+  "support": "git://github.com/eclipse/thingweb.node-wot.git",
+  "@context": [
+    "https://www.w3.org/2019/wot/td/v1"
+  ],
+  "securityDefinitions": {
+    "nosec_sc": {
+      "scheme": "nosec"
+    }
+  },
+  "security": "nosec_sc",
+
+  "properties": {
+    "observedProperties1": {
+      "type": "object",
+      "description": "Realtime observed sensor values.",
+      "properties": {
+        "temperature": {
+          "type": "number",
+          "description": "Current temperature as reported by the sensor1",
+          "value": 21
+        }
+      }
+    },
+
+    "observedProperties2": {
+      "type": "object",
+      "description": "Realtime observed sensor values.",
+      "properties": {
+        "temperature": {
+          "type": "number",
+          "description": "Current temperature as reported by the sensor2",
+          "value": 23
+        }
+      }
+    }
+}
+}

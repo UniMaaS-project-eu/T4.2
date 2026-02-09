@@ -1,0 +1,136 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:site:test",
+      "idShort": "Site_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:site:test"
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:site:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:idta:submodeltemplate:site:1.0"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:site:test",
+      "idShort": "SiteSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Manufacturing Site"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Manufacturing Site Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "SiteName",
+          "valueType": "xs:string",
+          "value": "Site_test"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "SiteIdentifier",
+          "valueType": "xs:string",
+          "value": "ST001"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "LocationAddress",
+          "valueType": "xs:string",
+          "value": "123 Manufacturing Way, Industrial Park, MP 10001"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "LocationAspectDesignation",
+          "valueType": "xs:string",
+          "value": "+Site_test"
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Devices",
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Device_test",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:device:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "PerformedProcesses",
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Process_test",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:process:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "LogisticConnections",
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "LogisticRoute_test",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:logisticroute:test"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": []
+}

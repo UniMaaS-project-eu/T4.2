@@ -1,0 +1,161 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:processconfig:test",
+      "idShort": "ProcessConfiguration_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:processconfig:test"
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:processconfig:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:idta:submodeltemplate:processconfig:1.0"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:processconfig:test",
+      "idShort": "ProcessConfigurationSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Process Configuration"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Process Configuration Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "ConfigurationName",
+          "valueType": "xs:string",
+          "value": "Standard Machining Config"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "ConfigurationIdentifier",
+          "valueType": "xs:string",
+          "value": "CONFIG_TEST_001"
+        },
+        {
+          "modelType": "ReferenceElement",
+          "idShort": "RequiredProcess",
+          "value": {
+            "type": "ModelReference",
+            "keys": [
+              {
+                "type": "Submodel",
+                "value": "urn:aas:submodel:process:test"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "UsedResources",
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Resource_test",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:resource:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "InputProducts",
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "IntermediaryProduct_test",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:product:intermediary:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "OutputProducts",
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "EndProduct_test",
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:product:end:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "ProcessParameters",
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "CuttingSpeed",
+              "valueType": "xs:double",
+              "value": "150.0"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "FeedRate",
+              "valueType": "xs:double",
+              "value": "0.25"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "CoolingEnabled",
+              "valueType": "xs:boolean",
+              "value": "true"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": []
+}

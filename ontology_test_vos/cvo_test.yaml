@@ -1,0 +1,38 @@
+name: cvo
+type: cVO
+resourceType:
+  specification: WoT
+  version: 1.1
+deploymentType: A
+catalogue: 9093
+bindingNB:
+  bindingModeNB: [H]
+  hostname: localhost
+  ports:
+    httpPort: 8092
+    coapPort: 5685
+databaseConfig:
+  timeseriesDB:
+    influxDB: enabled
+    address: "http://localhost:8086"
+    dbToken: S18VeAlq042B4naMX31oqIaSGmUmOLAC-DV3VIdkxDJuAhTXLTVFEchyTSmCcUAmB7Wu94KgExzV8gJaDjzR3Q==
+    dbUser: admin
+    dbPass: influxpassword
+  persistentDB:
+    SQLite: enabled
+periodicFunction:
+  propertyUpdated1: 1000
+  propertyUpdated2: 1000
+consumedVOs:
+    sensor1:
+        url: "http://localhost:9090/sensor1"
+        events:
+        - propertyUpdated1
+    sensor2:
+        url: "http://localhost:9092/sensor2"
+        events:
+        - propertyUpdated2
+proxy:
+  propertiesMap:
+    observedProperties1: sensor1
+    observedProperties2: sensor2

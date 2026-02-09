@@ -1,0 +1,87 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:site:001",
+      "idShort": "Site001",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:site:001"
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:site:001"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:aas:submodeltemplate:site"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:site:001",
+      "idShort": "SiteSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Manufacturing Site"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Manufacturing Site Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "SiteName",
+          "valueType": "xs:string",
+          "value": "Main Manufacturing Plant"
+        },
+        {
+          "modelType": "ReferenceElement",
+          "idShort": "Device1",
+          "value": {
+            "type": "ModelReference",
+            "keys": [
+              {
+                "type": "Submodel",
+                "value": "urn:aas:submodel:device-custom:1"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "ReferenceElement",
+          "idShort": "Device2",
+          "value": {
+            "type": "ModelReference",
+            "keys": [
+              {
+                "type": "Submodel",
+                "value": "urn:aas:submodel:device-custom:2"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": []
+}

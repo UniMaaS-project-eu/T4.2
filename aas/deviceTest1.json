@@ -1,0 +1,215 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:device:1",
+      "idShort": "device1",
+      "modelType": "AssetAdministrationShell",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:device:1"
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:device-custom:1"
+            }
+          ]
+        },
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:idta:submodel:nameplate:1"
+            }
+          ]
+        },
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:idta:submodel:technicaldata:1"
+            }
+          ]
+        },
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:idta:submodel:timeseries:1"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "id": "urn:aas:submodel:device-custom:1",
+      "idShort": "DeviceCustom",
+      "kind": "Instance",
+      "modelType": "Submodel",
+      "semanticId": null,
+      "submodelElements": [
+        {
+          "idShort": "temperature1",
+          "modelType": "Property",
+          "valueType": "xs:double",
+          "value": "23.4"            
+        },
+        {
+          "idShort": "humidity1",
+          "modelType": "Property",
+          "valueType": "xs:double",
+          "value": "41.2"
+        },
+        {
+          "idShort": "Operations",
+          "modelType": "SubmodelElementCollection",
+          "value": [
+            {
+              "idShort": "Update",
+              "modelType": "Operation"
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "urn:idta:submodel:nameplate:1",
+      "idShort": "DigitalNameplate",
+      "kind": "Instance",
+      "modelType": "Submodel",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:idta:02006:DigitalNameplate:3.0.1"
+          }
+        ]
+      },
+      "submodelElements": [
+        {
+          "idShort": "ManufacturerName",
+          "modelType": "Property",
+          "valueType": "xs:string",
+          "value": "ACME Corp."
+        },
+        {
+          "idShort": "Model",
+          "modelType": "Property",
+          "valueType": "xs:string",
+          "value": "Press-2000"
+        },
+        {
+          "idShort": "SerialNumber",
+          "modelType": "Property",
+          "valueType": "xs:string",
+          "value": "SN-2025-0001"
+        }
+      ]
+    },
+
+    {
+      "id": "urn:idta:submodel:technicaldata:1",
+      "idShort": "TechnicalData",
+      "kind": "Instance",
+      "modelType": "Submodel",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:idta:02003:TechnicalData:1.2"
+          }
+        ]
+      },
+      "submodelElements": [
+        {
+          "idShort": "MaxPower",
+          "modelType": "Property",
+          "valueType": "xs:double",
+          "value": "50.0"
+        },
+        {
+          "idShort": "OperatingTemperatureRange",
+          "modelType": "Range",
+          "valueType": "xs:double",
+          "min": "-10",
+          "max": "60"
+        }
+      ]
+    },
+
+    {
+      "id": "urn:idta:submodel:timeseries:1",
+      "idShort": "TimeSeriesData",
+      "kind": "Instance",
+      "modelType": "Submodel",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:idta:02008:TimeSeriesData:1.1"
+          }
+        ]
+      },
+      "submodelElements": [
+        {
+          "idShort": "LinkedSegment",
+          "modelType": "SubmodelElementCollection",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "https://admin-shell.io/idta/TimeSeries/Segments/LinkedSegment/1/1"
+              }
+            ]
+          },
+          "value": [
+            {
+              "idShort": "Endpoint",
+              "modelType": "Property",
+              "valueType": "xs:string",
+              "value": "http://localhost:8086"
+            },
+            {
+              "idShort": "Organization",
+              "modelType": "Property",
+              "valueType": "xs:string",
+              "value": "wot"
+            },
+            {
+              "idShort": "Bucket",
+              "modelType": "Property",
+              "valueType": "xs:string",
+              "value": "observedProperties1"
+            },
+            {
+              "idShort": "Token",
+              "modelType": "Property",
+              "valueType": "xs:string",
+              "value": "S18VeAlq042B4naMX31oqIaSGmUmOLAC-DV3VIdkxDJuAhTXLTVFEchyTSmCcUAmB7Wu94KgExzV8gJaDjzR3Q=="
+            },
+            {
+              "idShort": "Query",
+              "modelType": "Property",
+              "valueType": "xs:string",
+              "value": "from(bucket:\"observedProperties1\") |> range(start:-1h)"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": []
+}
