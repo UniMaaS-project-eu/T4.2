@@ -1,0 +1,22 @@
+{
+    "title": "device",
+    "id": "urn:dev:wot:test",
+    "description": "Test.",
+    "securityDefinitions": {
+        "bearer_sc": {
+            "scheme": "bearer"
+        }
+    },
+    "security": "bearer_sc",
+    "@context": [
+        "https://www.w3.org/2022/wot/td/v1.1"
+    ],
+    "properties": {
+        "temperature": {
+            "type": "integer"
+        },
+        "humidity": {
+            "type": "integer"
+        }
+    }
+}

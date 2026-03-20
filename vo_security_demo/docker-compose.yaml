@@ -1,0 +1,139 @@
+services:
+  # DEVICE
+  device-verifier:
+    # Runs on port 8090
+    image: dockerhub.odins.es/nephele/oidc4vp:latest
+    container_name: device-verifier
+    networks:
+      - device
+    command: ["verifier"]
+    environment:
+      logs: "false"
+      xacml: "true"
+      xacml_domain: nephelePlatform
+      xacml_pdp: https://nephele.odins.es/pdp/verdict
+      blockchain_rest: https://nephele.odins.es
+    restart: unless-stopped
+
+  device-internal:
+    # Runs on ports 8081 and 9091
+    image: nepheleproject/vo-wot:0.18.15
+    container_name: device
+    networks:
+      - device
+    environment:
+      HOSTNAME: device
+    volumes:
+      - ./device/app.py:/app.py
+      - ./device/config.yaml:/config.yaml
+      - ./device/td.json:/td.json
+    restart: unless-stopped
+
+  device-proxy:
+    image: dockerhub.odins.es/nephele/pep-proxy:latest
+    container_name: device-proxy
+    networks:
+      device:
+      edge:
+        aliases:
+          - device
+    environment:
+      # BASIC SETTINGS
+      pep_protocol: "http"
+      pep_authtoken_type: "jwt"
+      PEPPROXY_CORS_ENABLED: "1"
+      PEP_ENDPOINT: "http://device:8080,http://device:9090"
+
+      # VERIFIER SETTINGS
+      oidc4vp_verifier_protocol: "http"
+      oidc4vp_verifier_host: "device-verifier"
+      oidc4vp_verifier_port: "8090"
+      oidc4vp_verifier_API: "GenericAPI"
+      oidc4vp_verifier_get_obtainvp: "/obtainVP"
+      oidc4vp_verifier_post_verifyvp: "/verifyVP"
+      oidc4vp_jwt_validatesignature: "1"
+      oidc4vp_jwt_algorithms: "ES256K"
+
+      # TARGET 1 SETTINGS (Port 8081)
+      target_protocol: "http"
+      target_host: "device"
+      target_port: "8081"
+      target_API: "GenericAPI"
+
+      # TARGET 2 SETTINGS (Port 9091)
+      target2_protocol: "http"
+      target2_host: "device"
+      target2_port: "9091"
+      target2_API: "GenericAPI"
+      target2_thingdescription: "/device"
+
+      # BLOCKCHAIN SETTINGS
+      blockchain_usevalidation: "0"
+      blockchain_api: "NativeAPI"
+      blockchain_protocol: "http"
+      blockchain_host: "localhost"
+      blockchain_port: "8000"
+      blockchain_get_token: "/token"
+    depends_on:
+      - device-internal
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  device-holder:
+    # Runs on port 8085
+    image: dockerhub.odins.es/nephele/oidc4vp:latest
+    container_name: device-holder
+    networks:
+      - device
+    command: ["holder"]
+    environment:
+      logs: "false"
+      blockchain_rest: https://nephele.odins.es
+      issuer_host: https://nephele.odins.es/issuer
+    restart: unless-stopped
+
+  # VO
+  vo-internal:
+    # Runs on ports 8080 and 9090
+    image: nepheleproject/vo-wot:0.18.15
+    container_name: vo
+    networks:
+      - vo
+      - edge
+    environment:
+      HOSTNAME: localhost
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    volumes:
+      - ./vo/app.py:/app.py
+      - ./vo/config.yaml:/config.yaml
+      - ./vo/td.json:/td.json
+    restart: unless-stopped
+
+  vo-holder:
+    # Runs on port 8085
+    image: dockerhub.odins.es/nephele/oidc4vp:latest
+    container_name: vo-holder
+    networks:
+      - vo
+      - edge
+    command: ["holder"]
+    environment:
+      logs: "false"
+      blockchain_rest: https://nephele.odins.es
+      issuer_host: https://nephele.odins.es/issuer
+    depends_on:
+      - device-internal
+      - device-proxy
+    restart: unless-stopped
+
+networks:
+  device:
+  edge:
+  vo:
