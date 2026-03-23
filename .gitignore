@@ -1,0 +1,22 @@
+# Python virtual environment
+venv/
+venv64/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Data/Database files (local only)
+influxdb/data/
+kafka/
