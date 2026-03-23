@@ -20,7 +20,7 @@ LOGGER.setLevel(logging.INFO)
 
 observedproperties1_init = {
     'properties': {
-        'congestion': 0
+        'availableCapacity': 0
     }
 }   
 
@@ -38,13 +38,13 @@ def read_from_temperature_sensors():
     # TOPIC_TEMP = f"device/{DEVICE}/temperature"
     # TOPIC_HUM = f"device/{DEVICE}/humidity"
 
-    TOPIC_LOGISTICROUTE = f'logisticroute/congestion'
+    TOPIC_LOGISTICROUTE = f'logisticroute/availableCapacity'
     #port = mqtt["port"]
-    readings = {"congestion": None}
+    readings = {"availableCapacity": None}
 
     def on_message(client, userdata, msg):
-        if msg.topic.endswith("congestion"):
-            readings["congestion"] = msg.payload.decode()
+        if msg.topic.endswith("availableCapacity"):
+            readings["availableCapacity"] = msg.payload.decode()
     client = mqtt.Client()
     client.on_message = on_message
     client.connect(broker)
@@ -53,20 +53,20 @@ def read_from_temperature_sensors():
 
     # Wait max 1 second for messages
     t0 = time.time()
-    while (readings["congestion"] is None) and (time.time() - t0 < 2):
+    while (readings["availableCapacity"] is None) and (time.time() - t0 < 2):
         time.sleep(0.05)
 
     client.loop_stop()
     client.disconnect()
-    print("Congestion:", readings["congestion"])
+    print("availableCapacity:", readings["availableCapacity"])
 
-    return [readings["congestion"]]
+    return [readings["availableCapacity"]]
 
 async def update():
     # Read VO observed properties
     measuredResources = await exposed_thing.read_property('observedProperties4')
     if measuredResources is None:
-        measuredResources = {"properties": {"congestion": None}}
+        measuredResources = {"properties": {"availableCapacity": None}}
 
     # Read sensor measurements
     sensor_measurements = read_from_temperature_sensors()
@@ -82,7 +82,7 @@ async def update():
 
     # --- Update corresponding AAS properties ---
     aas_base_url = "http://localhost:8081"  
-    submodel_id = to_base64("urn:aas:submodel:property4:test") 
+    submodel_id = to_base64("urn:aas:submodel:characteristic4:test") 
 
     for prop in property_names:
         payload = {
@@ -110,7 +110,7 @@ async def update_handler(params):
     # Read VO observed properties
     measuredResources = await exposed_thing.read_property('observedProperties4')
     if measuredResources is None:
-        measuredResources = {"properties": {"congestion": None}}
+        measuredResources = {"properties": {"availableCapacity": None}}
 
     # Read sensor measurements
     sensor_measurements = read_from_temperature_sensors()
@@ -126,7 +126,7 @@ async def update_handler(params):
 
     # --- Update corresponding AAS properties ---
     aas_base_url = "http://localhost:8081"  
-    submodel_id = to_base64("urn:aas:submodel:property4:test") 
+    submodel_id = to_base64("urn:aas:submodel:characteristic4:test") 
 
     for prop in property_names:
         payload = {

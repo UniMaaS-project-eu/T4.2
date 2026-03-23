@@ -15,7 +15,7 @@ PORT = 1883
 TOPIC_SENSOR1_DEVICE = f'device/sensor1/temperature'
 TOPIC_SENSOR2_DEVICE = f'device/sensor2/temperature'
 TOPIC_SENSOR_RESOURCE = f'resource/sensor/density'
-TOPIC_LOGISTICROUTE = f'logisticroute/congestion'
+TOPIC_LOGISTICROUTE = f'logisticroute/availableCapacity'
 
 client = mqtt.Client(
     callback_api_version=mqtt.CallbackAPIVersion.VERSION1,
@@ -42,17 +42,17 @@ try:
         temp1 = round(random.uniform(20.0, 26.0), 2)
         temp2 = round(random.uniform(20.0, 26.0), 2)
         density = round(random.uniform(0.0, 100.0), 2)
-        congestion = round(random.uniform(0.0, 100.0), 2)
+        availableCapacity = round(random.uniform(0.0, 100.0), 2)
 
         client.publish(TOPIC_SENSOR1_DEVICE, str(temp1))
         client.publish(TOPIC_SENSOR2_DEVICE, str(temp2))
         client.publish(TOPIC_SENSOR_RESOURCE, str(density))
-        client.publish(TOPIC_LOGISTICROUTE, str(congestion))
+        client.publish(TOPIC_LOGISTICROUTE, str(availableCapacity))
         
         print(f"{TOPIC_SENSOR1_DEVICE} -> {temp1}")
         print(f"{TOPIC_SENSOR2_DEVICE} -> {temp2}")
         print(f"{TOPIC_SENSOR_RESOURCE} -> {density}")
-        print(f"{TOPIC_LOGISTICROUTE} -> {congestion}")
+        print(f"{TOPIC_LOGISTICROUTE} -> {availableCapacity}")
 
         time.sleep(1)
 except KeyboardInterrupt:

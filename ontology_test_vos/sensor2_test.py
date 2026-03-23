@@ -84,7 +84,7 @@ async def update():
 
     # --- Update corresponding AAS properties ---
     aas_base_url = "http://localhost:8081"  
-    submodel_id = to_base64("urn:aas:submodel:property2:test") 
+    submodel_id = to_base64("urn:aas:submodel:characteristic2:test") 
 
     for prop in property_names:
         payload = {

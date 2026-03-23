@@ -7,6 +7,15 @@
         "assetKind": "Instance",
         "globalAssetId": "urn:asset:customerrequirement:test"
       },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#CustomerRequirement"
+          }
+        ]
+      },
       "submodels": [
         {
           "type": "ModelReference",
@@ -29,7 +38,7 @@
         "keys": [
           {
             "type": "GlobalReference",
-            "value": "urn:idta:submodeltemplate:customerrequirement:1.0"
+            "value": "http://unimaas-project.eu/MSCOntology#CustomerRequirement"
           }
         ]
       },
@@ -79,18 +88,6 @@
           "value": "High"
         },
         {
-          "modelType": "Property",
-          "idShort": "CustomerName",
-          "valueType": "xs:string",
-          "value": "Automotive Corp Inc."
-        },
-        {
-          "modelType": "Property",
-          "idShort": "RequirementStatus",
-          "valueType": "xs:string",
-          "value": "Approved"
-        },
-        {
           "modelType": "SubmodelElementCollection",
           "idShort": "RequirementSpecifications",
           "value": [
@@ -117,20 +114,38 @@
         {
           "modelType": "SubmodelElementCollection",
           "idShort": "SatisfyingProducts",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#satisfiesRequirement"
+              }
+            ]
+          },
           "value": [
             {
               "modelType": "SubmodelElementCollection",
-              "idShort": "Product_EndProduct",
+              "idShort": "Product_1",
               "value": [
                 {
                   "modelType": "ReferenceElement",
                   "idShort": "ProductReference",
+                  "semanticId": {
+                    "type": "ExternalReference",
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "value": "http://unimaas-project.eu/MSCOntology#satisfiesRequirement"
+                      }
+                    ]
+                  },
                   "value": {
                     "type": "ModelReference",
                     "keys": [
                       {
                         "type": "Submodel",
-                        "value": "urn:aas:submodel:product:end:test"
+                        "value": "urn:aas:submodel:product:test"
                       }
                     ]
                   }
@@ -142,36 +157,34 @@
                   "value": "Full"
                 }
               ]
-            },
-            {
-              "modelType": "SubmodelElementCollection",
-              "idShort": "Product_IntermediaryProduct",
-              "value": [
-                {
-                  "modelType": "ReferenceElement",
-                  "idShort": "ProductReference",
-                  "value": {
-                    "type": "ModelReference",
-                    "keys": [
-                      {
-                        "type": "Submodel",
-                        "value": "urn:aas:submodel:product:intermediary:test"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "modelType": "Property",
-                  "idShort": "ComplianceLevel",
-                  "valueType": "xs:string",
-                  "value": "Partial"
-                }
-              ]
             }
           ]
         }
       ]
     }
   ],
-  "conceptDescriptions": []
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#CustomerRequirement",
+      "idShort": "CustomerRequirement",
+      "description": [
+        {
+          "language": "en",
+          "text": "Specifications required by customer"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#satisfiesRequirement",
+      "idShort": "satisfiesRequirement",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Product to sc:CustomerRequirement"
+        }
+      ]
+    }
+  ]
 }

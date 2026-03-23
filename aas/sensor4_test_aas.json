@@ -7,6 +7,15 @@
         "assetKind": "Instance",
         "globalAssetId": "urn:asset:sensor4:test"
       },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Sensor"
+          }
+        ]
+      },
       "submodels": [
         {
           "type": "ModelReference",
@@ -29,7 +38,7 @@
         "keys": [
           {
             "type": "GlobalReference",
-            "value": "urn:idta:submodeltemplate:sensor:1.0"
+            "value": "http://unimaas-project.eu/MSCOntology#Sensor"
           }
         ]
       },
@@ -38,7 +47,7 @@
       "description": [
         {
           "language": "en",
-          "text": "Submodel representing a Sensor Device"
+          "text": "Submodel representing a Sensor from the MSCOntology ontology"
         }
       ],
       "displayName": [
@@ -92,17 +101,41 @@
 },
 {
 "modelType": "SubmodelElementCollection",
-"idShort": "ObservedProperties",
+"idShort": "ObservedCharacteristics",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#observes"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Characteristics observed by this Sensor (sc:observes)"
+            }
+          ],
 "value": [
 {
 "modelType": "ReferenceElement",
-"idShort": "Property4_test",
+              "idShort": "Characteristic_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#observes"
+                  }
+                ]
+              },
 "value": {
 "type": "ModelReference",
 "keys": [
 {
 "type": "Submodel",
-"value": "urn:aas:submodel:property4:test"
+"value": "urn:aas:submodel:characteristic4:test"
 }
 ]
 }
@@ -112,6 +145,12 @@
 {
 "modelType": "SubmodelElementCollection",
 "idShort": "InterfaceDescription",
+          "description": [
+            {
+              "language": "en",
+              "text": "Communication interface and endpoint configuration"
+            }
+          ],
 "value": [
 {
 "modelType": "Property",
@@ -130,5 +169,28 @@
 ]
 }
 ],
-"conceptDescriptions": []
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#Sensor",
+      "idShort": "Sensor",
+      "description": [
+        {
+          "language": "en",
+          "text": "Measurement device that observes characteristics of entities. Domain for sc:observes property"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#observes",
+      "idShort": "observes",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Sensor to sc:Characteristic. Domain: sc:Sensor, Range: sc:Characteristic. Inverse of sc:isObservedBy"
+        }
+      ]
+    }
+  ]
 }

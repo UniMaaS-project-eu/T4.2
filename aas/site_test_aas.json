@@ -7,6 +7,15 @@
         "assetKind": "Instance",
         "globalAssetId": "urn:asset:site:test"
       },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Site"
+          }
+        ]
+      },
       "submodels": [
         {
           "type": "ModelReference",
@@ -29,7 +38,7 @@
         "keys": [
           {
             "type": "GlobalReference",
-            "value": "urn:idta:submodeltemplate:site:1.0"
+            "value": "http://unimaas-project.eu/MSCOntology#Site"
           }
         ]
       },
@@ -38,7 +47,7 @@
       "description": [
         {
           "language": "en",
-          "text": "Submodel representing a Manufacturing Site"
+          "text": "Submodel representing a Manufacturing Site from the MSCOntology ontology"
         }
       ],
       "displayName": [
@@ -74,11 +83,84 @@
         },
         {
           "modelType": "SubmodelElementCollection",
-          "idShort": "Devices",
+          "idShort": "Charasteristics",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasCharacteristic"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Characteristics of this Site (sc:hasCharacteristic)"
+            }
+          ],
           "value": [
             {
               "modelType": "ReferenceElement",
-              "idShort": "Device_test",
+              "idShort": "Characteristic_AvailableCapacity",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasCharacteristic"
+                  }
+                ]
+              },
+              "description": [
+                {
+                  "language": "en",
+                  "text": "Available processing capacity of the Site"
+                }
+              ],
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:characteristic4:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Devices",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasDevice"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Devices at this Site (sc:hasDevice)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Device_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasDevice"
+                  }
+                ]
+              },
               "value": {
                 "type": "ModelReference",
                 "keys": [
@@ -93,11 +175,35 @@
         },
         {
           "modelType": "SubmodelElementCollection",
-          "idShort": "PerformedProcesses",
+          "idShort": "Processes",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#performs"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Processes performed at this Site (sc:performs)"
+            }
+          ],
           "value": [
             {
               "modelType": "ReferenceElement",
-              "idShort": "Process_test",
+              "idShort": "Process_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#performs"
+                  }
+                ]
+              },
               "value": {
                 "type": "ModelReference",
                 "keys": [
@@ -112,17 +218,41 @@
         },
         {
           "modelType": "SubmodelElementCollection",
-          "idShort": "LogisticConnections",
+          "idShort": "SiteLocation",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasLocation"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Geographic location of this Site (sc:hasLocation)"
+            }
+          ],
           "value": [
             {
               "modelType": "ReferenceElement",
-              "idShort": "LogisticRoute_test",
+              "idShort": "Location_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasLocation"
+                  }
+                ]
+              },
               "value": {
                 "type": "ModelReference",
                 "keys": [
                   {
                     "type": "Submodel",
-                    "value": "urn:aas:submodel:logisticroute:test"
+                    "value": "urn:aas:submodel:location1:test"
                   }
                 ]
               }
@@ -132,5 +262,61 @@
       ]
     }
   ],
-  "conceptDescriptions": []
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#Site",
+      "idShort": "Site",
+      "description": [
+        {
+          "language": "en",
+          "text": "Physical location where processes are performed. Subclass of sc:ConfigurableEntity"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasCharacteristic",
+      "idShort": "hasCharacteristic",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:ConfigurableEntity (Site, Device, Resource, Supplier) to sc:Characteristic. Domain: sc:ConfigurableEntity, Range: sc:Characteristic"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasDevice",
+      "idShort": "hasDevice",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Site to sc:Device. Domain: sc:Site, Range: sc:Device. No formal inverse defined in ontology; Device AAS should reference back with custom isPartOfSite_inverse"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#performs",
+      "idShort": "performs",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Site to sc:Process. Domain: sc:Site, Range: sc:Process. Inverse of sc:isPerformedAt"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasLocation",
+      "idShort": "hasLocation",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Site or sc:Supplier to sc:Location. Domain: sc:Site | sc:Supplier, Range: sc:Location"
+        }
+      ]
+    }
+  ]
 }

@@ -7,6 +7,15 @@
         "assetKind": "Instance",
         "globalAssetId": "urn:asset:resource:test"
       },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Resource"
+          }
+        ]
+      },
       "submodels": [
         {
           "type": "ModelReference",
@@ -29,7 +38,7 @@
         "keys": [
           {
             "type": "GlobalReference",
-            "value": "urn:idta:submodeltemplate:resource:1.0"
+            "value": "http://unimaas-project.eu/MSCOntology#Resource"
           }
         ]
       },
@@ -38,7 +47,7 @@
       "description": [
         {
           "language": "en",
-          "text": "Submodel representing a Manufacturing Resource"
+          "text": "Submodel representing a Manufacturing Resource from the MSCOntology ontology"
         }
       ],
       "displayName": [
@@ -81,6 +90,21 @@
         {
           "modelType": "ReferenceElement",
           "idShort": "ProvidedBySupplier",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#isProvidedBy"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Supplier that provides this Resource (sc:isProvidedBy)"
+            }
+          ],
           "value": {
             "type": "ModelReference",
             "keys": [
@@ -93,17 +117,41 @@
         },
         {
           "modelType": "SubmodelElementCollection",
-          "idShort": "TechnicalProperties",
+          "idShort": "Characteristics",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasCharacteristic"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Characteristics of this Resource (sc:hasCharacteristic)"
+            }
+          ],
           "value": [
             {
               "modelType": "ReferenceElement",
-              "idShort": "Property3_test",
+              "idShort": "Characteristic_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasCharacteristic"
+                  }
+                ]
+              },
               "value": {
                 "type": "ModelReference",
                 "keys": [
                   {
                     "type": "Submodel",
-                    "value": "urn:aas:submodel:property3:test"
+                    "value": "urn:aas:submodel:characteristic3:test"
                   }
                 ]
               }
@@ -113,10 +161,34 @@
         {
           "modelType": "SubmodelElementCollection",
           "idShort": "UsedInConfigurations",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#isUsedBy_inverse"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Process Configurations that use this Resource (inverse of sc:usesResource)"
+            }
+          ],
           "value": [
             {
               "modelType": "ReferenceElement",
-              "idShort": "ProcessConfig_test",
+              "idShort": "Configuration_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#isUsedBy_inverse"
+                  }
+                ]
+              },
               "value": {
                 "type": "ModelReference",
                 "keys": [
@@ -132,5 +204,39 @@
       ]
     }
   ],
-  "conceptDescriptions": []
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#Resource",
+      "idShort": "Resource",
+      "description": [
+        {
+          "language": "en",
+          "text": "Needed material, workforce, software, etc. resource to perform processes"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#isProvidedBy",
+      "idShort": "isProvidedBy",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Resource to sc:Supplier. Domain: sc:Resource, Range: sc:Supplier. Inverse of sc:provides"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasCharacteristic",
+      "idShort": "hasCharacteristic",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:ConfigurableEntity (including sc:Resource) to sc:Characteristic. Domain: sc:ConfigurableEntity, Range: sc:Characteristic"
+        }
+      ]
+    }
+  ]
 }

@@ -92,7 +92,7 @@ services:
   #   volumes:
   #     - ./mqtt_publisher.py:/mqtt_publisher.py
   #   working_dir: /
-  #   command: python mqtt_publisher.py
+  #   command: ./ontology_test_vos/mqtt_publisher.py
   #   depends_on:
   #     mosquitto:
   #       condition: service_healthy
@@ -136,7 +136,10 @@ services:
     depends_on:
       - influxdb
   aas-web-ui:
-    image: eclipsebasyx/aas-gui:SNAPSHOT
+    # image: eclipsebasyx/aas-gui:SNAPSHOT
+    # image: eclipsebasyx/aas-gui:SNAPSHOT-bee76f2
+    ###shmantikooooo
+    image: eclipsebasyx/aas-gui:v2-251001
     container_name: aas-ui
     ports:
       - '3000:3000'

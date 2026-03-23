@@ -1,18 +1,18 @@
 {
   "assetAdministrationShells": [
     {
-      "id": "urn:aas:supplier:test",
-      "idShort": "Supplier_test",
+      "id": "urn:aas:characteristic3:test",
+      "idShort": "Characteristic3_test",
       "assetInformation": {
         "assetKind": "Instance",
-        "globalAssetId": "urn:asset:supplier:test"
+        "globalAssetId": "urn:asset:characteristic3:test"
       },
       "semanticId": {
         "type": "ExternalReference",
         "keys": [
           {
             "type": "GlobalReference",
-            "value": "http://unimaas-project.eu/MSCOntology#Supplier"
+            "value": "http://unimaas-project.eu/MSCOntology#Characteristic"
           }
         ]
       },
@@ -22,7 +22,7 @@
           "keys": [
             {
               "type": "Submodel",
-              "value": "urn:aas:submodel:supplier:test"
+              "value": "urn:aas:submodel:characteristic3:test"
             }
           ]
         }
@@ -38,92 +38,110 @@
         "keys": [
           {
             "type": "GlobalReference",
-            "value": "http://unimaas-project.eu/MSCOntology#Supplier"
+            "value": "http://unimaas-project.eu/MSCOntology#Characteristic"
           }
         ]
       },
-      "id": "urn:aas:submodel:supplier:test",
-      "idShort": "SupplierSubmodel",
+      "id": "urn:aas:submodel:characteristic3:test",
+      "idShort": "Characteristic3Submodel",
       "description": [
         {
           "language": "en",
-          "text": "Submodel representing a Supplier from the MSCOntology ontology"
+          "text": "Submodel representing a Characteristic from the MSCOntology ontology"
         }
       ],
       "displayName": [
         {
           "language": "en",
-          "text": "Supplier Submodel"
+          "text": "Characteristic3 Submodel"
         }
       ],
       "submodelElements": [
         {
           "modelType": "Property",
-          "idShort": "SupplierName",
-          "valueType": "xs:string",
-          "value": "Supplier_test"
+          "idShort": "density",
+          "valueType": "xs:double",
+          "value": "30.5"
         },
         {
           "modelType": "Property",
-          "idShort": "SupplierIdentifier",
+          "idShort": "CharacteristicIdentifier",
           "valueType": "xs:string",
-          "value": "SUP001"
+          "value": "CHAR3_TEST"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "CharacteristicValue",
+          "valueType": "xs:double",
+          "value": "22.5"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "DataType",
+          "valueType": "xs:string",
+          "value": "double"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "Unit",
+          "valueType": "xs:string",
+          "value": "%"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "MinValue",
+          "valueType": "xs:double",
+          "value": "0.0"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "MaxValue",
+          "valueType": "xs:double",
+          "value": "100.0"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "NominalValue",
+          "valueType": "xs:double",
+          "value": "20.0"
         },
         {
           "modelType": "SubmodelElementCollection",
-          "idShort": "ContactInformation",
-          "value": [
-            {
-              "modelType": "Property",
-              "idShort": "Email",
-              "valueType": "xs:string",
-              "value": "contact@supplier_test.com"
-            },
-            {
-              "modelType": "Property",
-              "idShort": "Phone",
-              "valueType": "xs:string",
-              "value": "+1-555-123-4567"
-            },
-            {
-              "modelType": "Property",
-              "idShort": "Address",
-              "valueType": "xs:string",
-              "value": "456 Supplier Boulevard, Supply City, SC 20002"
-            }
-          ]
-        },
-        {
-          "modelType": "SubmodelElementCollection",
-          "idShort": "Resources",
+          "idShort": "CharacterizesEntity",
           "semanticId": {
             "type": "ExternalReference",
             "keys": [
               {
                 "type": "GlobalReference",
-                "value": "http://unimaas-project.eu/MSCOntology#provides"
+                "value": "http://unimaas-project.eu/MSCOntology#hasCharacteristic_inverse"
               }
             ]
           },
           "description": [
             {
               "language": "en",
-              "text": "Resources provided by this Supplier (sc:provides)"
+              "text": "ConfigurableEntity (Device, Resource, Site, or Supplier) that has this Characteristic (inverse of sc:hasCharacteristic)"
             }
           ],
           "value": [
             {
               "modelType": "ReferenceElement",
-              "idShort": "Resource_1",
+              "idShort": "Resource_Reference",
               "semanticId": {
                 "type": "ExternalReference",
                 "keys": [
                   {
                     "type": "GlobalReference",
-                    "value": "http://unimaas-project.eu/MSCOntology#provides"
+                    "value": "http://unimaas-project.eu/MSCOntology#hasCharacteristic_inverse"
                   }
                 ]
               },
+              "description": [
+                {
+                  "language": "en",
+                  "text": "Resource that has this density Characteristic"
+                }
+              ],
               "value": {
                 "type": "ModelReference",
                 "keys": [
@@ -138,32 +156,32 @@
         },
         {
           "modelType": "SubmodelElementCollection",
-          "idShort": "SupplierLocation",
+          "idShort": "ObservingSensors",
           "semanticId": {
             "type": "ExternalReference",
             "keys": [
               {
                 "type": "GlobalReference",
-                "value": "http://unimaas-project.eu/MSCOntology#hasLocation"
+                "value": "http://unimaas-project.eu/MSCOntology#isObservedBy"
               }
             ]
           },
           "description": [
             {
               "language": "en",
-              "text": "Geographic location of this Supplier (sc:hasLocation)"
+              "text": "Sensors that observe this Characteristic (sc:isObservedBy)"
             }
           ],
           "value": [
             {
               "modelType": "ReferenceElement",
-              "idShort": "Location_1",
+              "idShort": "Sensor_3",
               "semanticId": {
                 "type": "ExternalReference",
                 "keys": [
                   {
                     "type": "GlobalReference",
-                    "value": "http://unimaas-project.eu/MSCOntology#hasLocation"
+                    "value": "http://unimaas-project.eu/MSCOntology#isObservedBy"
                   }
                 ]
               },
@@ -172,7 +190,7 @@
                 "keys": [
                   {
                     "type": "Submodel",
-                    "value": "urn:aas:submodel:location2:test"
+                    "value": "urn:aas:submodel:sensor3:test"
                   }
                 ]
               }
@@ -185,34 +203,23 @@
   "conceptDescriptions": [
     {
       "modelType": "ConceptDescription",
-      "id": "http://unimaas-project.eu/MSCOntology#Supplier",
-      "idShort": "Supplier",
+      "id": "http://unimaas-project.eu/MSCOntology#Characteristic",
+      "idShort": "Characteristic",
       "description": [
         {
           "language": "en",
-          "text": "Supplier of resources. Subclass of sc:ConfigurableEntity"
+          "text": "Characteristic or attribute of ConfigurableEntity (Device, Resource, Site, Supplier, Process, Product)"
         }
       ]
     },
     {
       "modelType": "ConceptDescription",
-      "id": "http://unimaas-project.eu/MSCOntology#provides",
-      "idShort": "provides",
+      "id": "http://unimaas-project.eu/MSCOntology#isObservedBy",
+      "idShort": "isObservedBy",
       "description": [
         {
           "language": "en",
-          "text": "Object property linking sc:Supplier to sc:Resource. Domain: sc:Supplier, Range: sc:Resource. Inverse of sc:isProvidedBy"
-        }
-      ]
-    },
-    {
-      "modelType": "ConceptDescription",
-      "id": "http://unimaas-project.eu/MSCOntology#hasLocation",
-      "idShort": "hasLocation",
-      "description": [
-        {
-          "language": "en",
-          "text": "Object property linking sc:Site or sc:Supplier to sc:Location. Domain: sc:Site | sc:Supplier, Range: sc:Location"
+          "text": "Object property linking sc:Characteristic to sc:Sensor. Domain: sc:Characteristic, Range: sc:Sensor. Inverse of sc:observes"
         }
       ]
     }

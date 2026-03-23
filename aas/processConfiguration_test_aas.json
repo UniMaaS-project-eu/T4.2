@@ -7,6 +7,15 @@
         "assetKind": "Instance",
         "globalAssetId": "urn:asset:processconfig:test"
       },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#ProcessConfiguration"
+          }
+        ]
+      },
       "submodels": [
         {
           "type": "ModelReference",
@@ -29,7 +38,7 @@
         "keys": [
           {
             "type": "GlobalReference",
-            "value": "urn:idta:submodeltemplate:processconfig:1.0"
+            "value": "http://unimaas-project.eu/MSCOntology#ProcessConfiguration"
           }
         ]
       },
@@ -38,7 +47,7 @@
       "description": [
         {
           "language": "en",
-          "text": "Submodel representing a Process Configuration"
+          "text": "Submodel representing a Process Configuration from the MSCOntology ontology"
         }
       ],
       "displayName": [
@@ -63,6 +72,21 @@
         {
           "modelType": "ReferenceElement",
           "idShort": "RequiredProcess",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#requiresProcess"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "The Process that this Configuration requires (sc:requiresProcess)"
+            }
+          ],
           "value": {
             "type": "ModelReference",
             "keys": [
@@ -75,11 +99,35 @@
         },
         {
           "modelType": "SubmodelElementCollection",
-          "idShort": "UsedResources",
+          "idShort": "Resources",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#usesResource"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Resources used by this Process Configuration (sc:usesResource)"
+            }
+          ],
           "value": [
             {
               "modelType": "ReferenceElement",
-              "idShort": "Resource_test",
+              "idShort": "Resource_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#usesResource"
+                  }
+                ]
+              },
               "value": {
                 "type": "ModelReference",
                 "keys": [
@@ -94,17 +142,41 @@
         },
         {
           "modelType": "SubmodelElementCollection",
-          "idShort": "InputProducts",
+          "idShort": "Inputs",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasInput"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Input Products for this Process Configuration (sc:hasInput)"
+            }
+          ],
           "value": [
             {
               "modelType": "ReferenceElement",
-              "idShort": "IntermediaryProduct_test",
+              "idShort": "Product_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasInput"
+                  }
+                ]
+              },
               "value": {
                 "type": "ModelReference",
                 "keys": [
                   {
                     "type": "Submodel",
-                    "value": "urn:aas:submodel:product:intermediary:test"
+                    "value": "urn:aas:submodel:product:test"
                   }
                 ]
               }
@@ -113,17 +185,41 @@
         },
         {
           "modelType": "SubmodelElementCollection",
-          "idShort": "OutputProducts",
+          "idShort": "Outputs",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasOutput"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Output Products from this Process Configuration (sc:hasOutput)"
+            }
+          ],
           "value": [
             {
               "modelType": "ReferenceElement",
-              "idShort": "EndProduct_test",
+              "idShort": "Product_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasOutput"
+                  }
+                ]
+              },
               "value": {
                 "type": "ModelReference",
                 "keys": [
                   {
                     "type": "Submodel",
-                    "value": "urn:aas:submodel:product:end:test"
+                    "value": "urn:aas:submodel:product:test"
                   }
                 ]
               }
@@ -133,6 +229,12 @@
         {
           "modelType": "SubmodelElementCollection",
           "idShort": "ProcessParameters",
+          "description": [
+            {
+              "language": "en",
+              "text": "Configuration parameters for the process execution"
+            }
+          ],
           "value": [
             {
               "modelType": "Property",
@@ -157,5 +259,61 @@
       ]
     }
   ],
-  "conceptDescriptions": []
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#ProcessConfiguration",
+      "idShort": "ProcessConfiguration",
+      "description": [
+        {
+          "language": "en",
+          "text": "Configuration of a manufacturing process that binds the specific input and output parameters"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#requiresProcess",
+      "idShort": "requiresProcess",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:ProcessConfiguration to sc:Process. Domain: sc:ProcessConfiguration, Range: sc:Process"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#usesResource",
+      "idShort": "usesResource",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:ProcessConfiguration to sc:Resource. Domain: sc:ProcessConfiguration, Range: sc:Resource"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasInput",
+      "idShort": "hasInput",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:ProcessConfiguration to input sc:Product. Domain: sc:ProcessConfiguration, Range: sc:Product"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasOutput",
+      "idShort": "hasOutput",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:ProcessConfiguration to output sc:Product. Domain: sc:ProcessConfiguration, Range: sc:Product"
+        }
+      ]
+    }
+  ]
 }
