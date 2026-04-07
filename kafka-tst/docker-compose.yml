@@ -1,37 +1,59 @@
 services:
   kafka:
-    image: apache/kafka:latest
+    image: apache/kafka:4.2.0
+    container_name: kafka
+    hostname: kafka
     ports:
       - "9092:9092"
       - "9093:9093"
-    environment:
-      KAFKA_NODE_ID: 1
-      KAFKA_PROCESS_ROLES: broker,controller
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_HOST://0.0.0.0:9093,CONTROLLER://0.0.0.0:9094
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9093
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9094
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,CONTROLLER:PLAINTEXT #without considering security for simplicity
-      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: true
+    env_file:
+      - .env
+    volumes:
+      - ./scripts:/scripts:ro
+    command: ["/bin/bash", "/scripts/start-kafka.sh"]
+
+
     networks:
       - kafka-net
 
-
-
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
     ports:
       - "8089:8080"
     environment:
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_NAME: "local"
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka:9092"
+      KAFKA_CLUSTERS_0_PROPERTIES_SECURITY_PROTOCOL: "SASL_PLAINTEXT"
+      KAFKA_CLUSTERS_0_PROPERTIES_SASL_MECHANISM: "SCRAM-SHA-512"
+      KAFKA_CLUSTERS_0_PROPERTIES_SASL_JAAS_CONFIG: >-
+            org.apache.kafka.common.security.scram.ScramLoginModule required
+            username="consumer"
+            password="${KAFKA_CONSUMER_PASSWORD}";
     depends_on:
       - kafka
+    networks:
+      - kafka-net
 
+  kafka-acl-init:
+    image: apache/kafka:4.2.0
+    container_name: kafka-init
+    depends_on:
+      - kafka
+    env_file:
+      - .env
+    volumes:
+      - ./scripts:/scripts:ro
+    command: ["/bin/bash", "/scripts/init-acls.sh"]
     networks:
       - kafka-net
 
 networks:
   kafka-net:
     driver: bridge
+
+# secrets:
+#   kafka_admin_password:
+#     file: ./secrets/kafka_admin_password.txt
+#   kafka_consumer_password:
+#     file: ./secrets/kafka_consumer_password.txt
