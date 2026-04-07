@@ -1,6 +1,6 @@
 # Kafka Docker Compose Setup
 
-This project provides a local Apache Kafka setup with:
+This folder provides a local Apache Kafka setup with:
 
 * **Kafka 4.2.0** running in **KRaft mode** (broker + controller in one node)
 * **SASL/SCRAM-SHA-512 authentication** for internal and external client connections
