@@ -1,0 +1,302 @@
+{
+    "title": "Container",
+    "id": "urn:asset:container:1",
+    "description": "Thing Description of container",
+     "support": "git://github.com/eclipse/thingweb.node-wot.git",
+    "@context": [
+        "https://www.w3.org/2019/wot/td/v1"
+    ],
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "security": "nosec_sc",
+
+    "properties": {
+        "product_model": {
+            "type": "object",
+            "description": "Properties defined by the product model.",
+            "readOnly": true,
+            "properties": {
+                "modelName": {
+                    "type": "string",
+                    "description": "Name of the product model"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Short description of the product"
+                },
+                "usePurpose": {
+                    "type": "string",
+                    "description": "Use purpose of the product"
+                },
+                "manufacturerName": {
+                    "type": "string",
+                    "description": "Manufacturer company name"
+                },
+                "manufacturerAddress": {
+                    "type": "string",
+                    "description": "Manufacturer address"
+                },
+                "taricCode": {
+                    "type": "string",
+                    "description": "TARIC product classification code"
+                },
+                "durabilityMinYears": {
+                    "type": "number",
+                    "description": "Minimum durability of the product in years"
+                },
+                "durabilityMaxYears": {
+                    "type": "number",
+                    "description": "Maximum durability of the product in years"
+                },
+                "repairability": {
+                    "type": "string",
+                    "description": "Indicates if the product can be repaired"
+                },
+                "manufacturingCarbonFootprint": {
+                    "type": "number",
+                    "description": "Carbon footprint during manufacturing",
+                    "unit": "kg CO2e"
+                }
+            }
+        },
+        "registered_values": {
+            "type": "object",
+            "description": "Properties defined by the registration.",
+            "properties": {
+                "partNumber": {
+                    "type": "integer",
+                    "description": "Part number of the product",
+                    "maximum": 999999999
+                },
+                "manufacturingDate": {
+                    "type": "string",
+                    "description": "Manufacturing date of the product",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                },
+                "returnRatio": {
+                    "type": "number",
+                    "description": "Number of foldable containers that fit inside another",
+                    "minimum": 1,
+                    "maximum": 10
+                }
+            }
+        },
+        "status": {
+            "type": "string",
+            "description": "Current lifecycle stage of the product",
+            "observable": true,
+            "default": "manufactured",
+            "enum": ["manufactured", "in_use", "maintenance", "repaired", "retired", "recycled"]
+        },
+        "condition": {
+            "type": "string",
+            "description": "Physical condition of the product",
+            "observable": true,
+            "default": "new",
+            "enum": ["new", "good", "worn", "damaged", "repaired"]
+
+        },
+        "currentLocation": {
+            "type": "string",
+            "description": "Current facility or warehouse location",
+            "observable": true,
+            "default": "Plant Valencia"
+        },
+        "lastMaintenanceDate": {
+            "type": "string",
+            "description": "Last maintenance date of the product",
+            "observable": true,
+            "default": "",
+            "pattern": "^$|^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "lifecycleCarbonFootprint": {
+            "type": "number",
+            "description": "Total carbon footprint accumulated during lifecycle",
+            "observable": true,
+            "default": 176.58,
+            "unit": "kg CO2e"
+        },
+        "numberOfUses": {
+            "type": "integer",
+            "description": "Number of usage cycles",
+            "observable": true,
+            "default": 0,
+            "minimum": 0
+        }
+    },
+    "actions": {
+        "updateLocation": {
+            "description": "Action to update the current location of the product",
+            "input": {
+                "type": "object",
+                    "properties": {
+                    "newLocation": {
+                        "type": "string"
+                    }
+                },
+                "required": ["newLocation"]
+            }
+        },
+        "performMaintenance": {
+            "description": "Action to perform maintenance on the product",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "type": "string",
+                        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                    },
+                    "lifecycleCarbonFootprintIncrement": {
+                        "type": "number",
+                        "unit": "kg CO2e",
+                        "default": 0
+                    }
+                },
+                "required": ["date"]
+            }
+        },
+        "updateStatus": {
+            "description": "Action to update the lifecycle status of the product",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "enum": ["manufactured", "in_use", "maintenance", "repaired", "retired", "recycled"]
+                    }
+                },
+                "required": ["status"]
+            }
+        },
+        "updateCondition": {
+            "description": "Action to update the physical condition of the product",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "condition": {
+                        "type": "string",
+                        "enum": ["new", "good", "worn", "damaged", "repaired"]
+                    }
+                },
+                "required": ["condition"]
+            }
+        },
+        "registerCycle": {
+            "description": "Registers a new usage cycle of the product",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "lifecycleCarbonFootprintIncrement": {
+                        "type": "number",
+                        "unit": "kg CO2e",
+                        "default": 0
+                    }
+                }
+            }
+        },
+        "registerProductInstance": {
+            "description": "Registers a product instance from a supported product model type",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "modelType": {
+                        "type": "string",
+                        "enum": ["magnum_optimum", "europallet", "b_container"]
+                    },
+                    "partNumber": {
+                        "type": "integer",
+                        "maximum": 999999999
+                    },
+                    "manufacturingDate": {
+                        "type": "string",
+                        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                    },
+                    "returnRatio": {
+                        "type": "number",
+                        "minimum": 1,
+                        "maximum": 10
+                    }
+                },
+                "required": ["modelType", "partNumber", "manufacturingDate", "returnRatio"]
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "result": {
+                        "type": "boolean"
+                    },
+                    "message": { 
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "getProductInfo": {
+            "description": "Retrieves all available information about the product",
+            "output": {
+                "type": "object",
+                "properties": {
+                    "product_model": { "type": "object" },
+                    "registered_values": { "type": "object" },
+                    "status": { "type": "string" },
+                    "condition": { "type": "string" },
+                    "currentLocation": { "type": "string" },
+                    "lastMaintenanceDate": { "type": "string" },
+                    "lifecycleCarbonFootprint": { "type": "number" },
+                    "numberOfUses": { "type": "integer" }
+                }
+            }
+        }
+        
+    },
+
+    "events": {
+        "locationUpdated": {
+            "description": "Location updated",
+            "data": {
+                "type": "string"
+            }
+        },
+        "conditionUpdated": {
+            "description": "Condition update",
+            "data": {
+                "type": "string",
+                "enum": ["new", "good", "worn", "damaged", "repaired"]
+            }
+        },
+        "statusUpdated": {
+            "description": "Status update",
+            "data": {
+                "type": "string",
+                "enum": ["manufactured", "in_use", "maintenance", "repaired", "retired", "recycled"]
+            }
+        },
+        "cycleCountUpdated": {
+            "description": "Cycle count update from the device",
+            "data": {
+                "type": "object",
+                "properties": {
+                    "numberOfUses": {
+                        "type": "integer"
+                    },
+                    "lifecycleCarbonFootprint": {
+                        "type": "number",
+                        "unit": "kg CO2e"
+                    }
+                }
+            }
+        },
+        "maintenancePerformed": {
+            "description": "Maintenance performed event",
+            "data": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                }
+        }
+
+    }
+
+}

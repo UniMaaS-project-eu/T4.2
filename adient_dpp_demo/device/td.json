@@ -1,0 +1,30 @@
+{
+    "title": "device",
+    "id": "urn:asset:device:1",
+    "description": "Thing Description of the device",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "security": "nosec_sc",
+    "@context": [
+        "https://www.w3.org/2022/wot/td/v1.1"
+    ],
+    "events": {
+        "damageDetected": {
+            "description": "Emitted when damage is detected",
+            "data": {
+                "type": "object",
+                "properties": {
+                    "timestamp": {
+                        "type": "string",
+                        "pattern": "^$|^\\d{4}-\\d{2}-\\d{2}$",
+                        "description": "Time when damage was detected"
+                    }
+                },
+                "required": ["timestamp"]
+            }
+        }
+    }
+}
