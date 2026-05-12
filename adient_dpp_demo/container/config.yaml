@@ -23,3 +23,5 @@ consumedVOs:
     url: "http://localhost:9091/device" # assume the device VO is running on port 9091
     events:
       - damageDetected
+periodicFunction:
+  check_bridge_health: 10000

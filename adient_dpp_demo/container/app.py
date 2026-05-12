@@ -3,12 +3,15 @@
 from wotpy.wot.servient import Servient
 from wotpy.wot.wot import WoT
 from wotpy.protocols.http.client import HTTPClient
+import requests
 import logging
 import asyncio
+import aiohttp
 
 INF_YEARS = 999999
 
 
+bridge_healthy = False
 product_model_init = {}
 registered_values_init = {}
 
@@ -67,6 +70,9 @@ VALID_CONDITIONS = {
     "damaged",
     "repaired"
 }
+
+# Base URL for bridge communication
+BASE_URL = "https://unimaas.odins.es/dpp/vo-wot-ngsi-ld"
 
 logging.basicConfig()
 LOGGER = logging.getLogger()
@@ -256,7 +262,6 @@ def damageDetected_device_on_next(event):
     LOGGER.info("Damage event received: %s", event)
     asyncio.create_task(handle_damage_event(event))
 
-
 async def handle_damage_event(event):
     data = event.data or {}
     timestamp = data.get("timestamp")
@@ -264,27 +269,76 @@ async def handle_damage_event(event):
     exposed_thing.emit_event("conditionUpdated", "damaged")
 
 
-## Property change handlers - these can be used to trigger events or communicate with DPP when properties are updated
+# Helper functions for bridge communication
+
+# check bridge health periodically
+async def check_bridge_health():
+    global bridge_healthy
+    try:
+        async with aiohttp.request("GET", BASE_URL + "/health") as response:
+            if response.status == 200:
+                health = await response.json()
+                LOGGER.info("Bridge health: %s", health)
+                if health.get("status") == "ok":
+                    LOGGER.info("Bridge is healthy")
+                    bridge_healthy = True
+            else:
+                LOGGER.error("Bridge health check failed with status: %d", response.status)
+                bridge_healthy = False
+
+    except aiohttp.ClientError as e:
+        LOGGER.error("Bridge health check error: %s", e)
+        bridge_healthy = False
+
+#actual function to send property updates to the bridge
+async def send_request_to_bridge(data):
+    LOGGER.info("Preparing to send update to bridge for property: %s", data.data.name)
+    part_number = (await exposed_thing.read_property("registered_values")).get("partNumber")
+    property_name = data.data.name
+    value = data.data.value
+
+    headers = {
+        "Content-Type": "application/json", 
+        "accept": "application/json"
+    }
+    payload = {
+        "product_id": f"urn:ngsi-ld:Product:{part_number}",
+        "property": property_name,
+        "data": value
+    }
+
+    if bridge_healthy:
+        try:
+            async with aiohttp.request("POST", BASE_URL + "/update/property", json=payload, headers=headers) as response:
+                LOGGER.info("Bridge [%d]: %s", response.status, await response.text())
+                return response.status
+        except aiohttp.ClientError as e:
+            LOGGER.error("Bridge update failed: %s", e)
+            return None
+
+
+
+# Property change handlers - these can be used to trigger events or communicate with DPP when properties are updated
 def status_on_next(data):
     LOGGER.info("Status property updated: %s", data)
-    # send event or communicate with dpp
+    asyncio.create_task(send_request_to_bridge(data))
 
 def condition_on_next(data):
     LOGGER.info("Condition property updated: %s", data)
-    # send event or communicate with dpp
+    asyncio.create_task(send_request_to_bridge(data))
 
 def numberOfUses_on_next(data):
     LOGGER.info("numberOfUses property updated: %s", data)
-    # send event or communicate with dpp
+    asyncio.create_task(send_request_to_bridge(data))
 
 def currentLocation_on_next(data):
     LOGGER.info("currentLocation property updated: %s", data)
-    # send event or communicate with dpp
+    asyncio.create_task(send_request_to_bridge(data))
 
 def lastMaintenanceDate_on_next(data):
     LOGGER.info("lastMaintenanceDate property updated: %s", data)
-    # send event or communicate with dpp
+    asyncio.create_task(send_request_to_bridge(data))
 
 def lifecycleCarbonFootprint_on_next(data):
     LOGGER.info("lifecycleCarbonFootprint property updated: %s", data)
-    # send event or communicate with dpp
+    asyncio.create_task(send_request_to_bridge(data))
