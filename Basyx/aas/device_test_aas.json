@@ -1,0 +1,274 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:device:test",
+      "idShort": "Device_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:device:test"
+      },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntologylogy#Device"
+          }
+        ]
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:device:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntologylogy#Device"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:device:test",
+      "idShort": "DeviceSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Device from the MSCOntologylogy. Contains identifying information, technical specifications, and characteristics."
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Device Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Nameplate",
+          "description": [
+            {
+              "language": "en",
+              "text": "Identifying information about this Device"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "ManufacturerName",
+              "valueType": "xs:string",
+              "value": "Test Equipment Inc."
+            },
+            {
+              "modelType": "Property",
+              "idShort": "ManufacturerProductDesignation",
+              "valueType": "xs:string",
+              "value": "TestMachine-3000"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "SerialNumber",
+              "valueType": "xs:string",
+              "value": "SN-TEST-DEV-001"
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "TechnicalData",
+          "description": [
+            {
+              "language": "en",
+              "text": "Technical specifications of this Device"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "MaxPower",
+              "valueType": "xs:double",
+              "value": "75.5"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "Weight",
+              "valueType": "xs:double",
+              "value": "500.0"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "WeightUnit",
+              "valueType": "xs:string",
+              "value": "kg"
+            }
+          ]
+        },
+        {
+          "modelType": "ReferenceElement",
+          "idShort": "PartOfSite",
+          "description": [
+            {
+              "language": "en",
+              "text": "Inverse reference to the Site that contains this Device (inverse of sc:hasDevice)"
+            }
+          ],
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntologylogy#hasDevice_inverse"
+              }
+            ]
+          },
+          "value": {
+            "type": "ModelReference",
+            "keys": [
+              {
+                "type": "Submodel",
+                "value": "urn:aas:submodel:site:test"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Characteristics",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntologylogy#hasCharacteristic"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Characteristics of this Device (sc:hasCharacteristic). These are measurable or observable attributes that can be monitored by sensors."
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Characteristic_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntologylogy#hasCharacteristic"
+                  }
+                ]
+              },
+              "description": [
+                {
+                  "language": "en",
+                  "text": "Temperature characteristic of the Device"
+                }
+              ],
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:characteristic1:test"
+                  }
+                ]
+              }
+        },
+        {
+              "modelType": "ReferenceElement",
+              "idShort": "Characteristic_2",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntologylogy#hasCharacteristic"
+                  }
+                ]
+              },
+              "description": [
+                {
+                  "language": "en",
+                  "text": "Operating Status characteristic of the Device"
+                }
+              ],
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:characteristic2:test"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntologylogy#Device",
+      "idShort": "Device",
+      "description": [
+        {
+          "language": "en",
+          "text": "Equipment or machinery at a site. A Device is a ConfigurableEntity that can have Characteristics and is located within a Site."
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntologylogy#hasCharacteristic",
+      "idShort": "hasCharacteristic",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:ConfigurableEntity (including sc:Device) to sc:Characteristic. Domain: sc:ConfigurableEntity, Range: sc:Characteristic"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntologylogy#Characteristic",
+      "idShort": "Characteristic",
+      "description": [
+        {
+          "language": "en",
+          "text": "A distinguishing feature or measurable attribute that describes an entity (Device, Resource, Site, Supplier, Product). Characteristics can be observed by Sensors."
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntologylogy#observes",
+      "idShort": "observes",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Sensor to sc:Characteristic. Domain: sc:Sensor, Range: sc:Characteristic. Inverse of sc:isObservedBy"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,310 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:logisticroute:test",
+      "idShort": "LogisticRoute_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:logisticroute:test"
+      },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#LogisticRoute"
+          }
+        ]
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:logisticroute:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#LogisticRoute"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:logisticroute:test",
+      "idShort": "LogisticRouteSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Logistic Route from the MSCOntology ontology"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Logistic Route Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "RouteIdentifier",
+          "valueType": "xs:string",
+          "value": "LOG_ROUTE_TEST_001"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "RouteName",
+          "valueType": "xs:string",
+          "value": "Supplier_test to Site_test Route"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "RouteDescription",
+          "valueType": "xs:string",
+          "value": "Primary logistics route for material delivery from supplier to manufacturing site"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "RouteStatus",
+          "valueType": "xs:string",
+          "value": "Active"
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "StartingPoint",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasStartingPoint"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Origin location of the route (sc:hasStartingPoint)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Location_Start",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasStartingPoint"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:location2:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "EndingPoint",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasEndingPoint"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Destination location of the route (sc:hasEndingPoint)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Location_End",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasEndingPoint"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:location1:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "TransportCharacteristics",
+          "description": [
+            {
+              "language": "en",
+              "text": "Properties and characteristics of transportation"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "TransportationMode",
+              "valueType": "xs:string",
+              "value": "Road"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "Distance",
+              "valueType": "xs:double",
+              "value": "125.5"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "DistanceUnit",
+              "valueType": "xs:string",
+              "value": "km"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "EstimatedTransitTime",
+              "valueType": "xs:double",
+              "value": "2.5"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "TransitTimeUnit",
+              "valueType": "xs:string",
+              "value": "hours"
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "CostInformation",
+          "description": [
+            {
+              "language": "en",
+              "text": "Transmission/transportation cost information"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "TransmissionCost",
+              "valueType": "xs:double",
+              "value": "450.0"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "Currency",
+              "valueType": "xs:string",
+              "value": "EUR"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "CostPerUnit",
+              "valueType": "xs:double",
+              "value": "1.80"
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "LogisticsOperator",
+          "description": [
+            {
+              "language": "en",
+              "text": "Information about the carrier/logistics operator"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "CarrierName",
+              "valueType": "xs:string",
+              "value": "FastLogistics GmbH"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "ContactEmail",
+              "valueType": "xs:string",
+              "value": "logistics@fastlogistics.de"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "ContactPhone",
+              "valueType": "xs:string",
+              "value": "+49-555-987-6543"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#LogisticRoute",
+      "idShort": "LogisticRoute",
+      "description": [
+        {
+          "language": "en",
+          "text": "Transportation route between locations. Connects starting and ending points via sc:hasStartingPoint and sc:hasEndingPoint"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasStartingPoint",
+      "idShort": "hasStartingPoint",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:LogisticRoute to sc:Location (origin). Domain: sc:LogisticRoute, Range: sc:Location"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasEndingPoint",
+      "idShort": "hasEndingPoint",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:LogisticRoute to sc:Location (destination). Domain: sc:LogisticRoute, Range: sc:Location"
+        }
+      ]
+    }
+  ]
+}

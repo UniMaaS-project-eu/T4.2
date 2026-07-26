@@ -1,0 +1,190 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:customerrequirement:test",
+      "idShort": "CustomerRequirement_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:customerrequirement:test"
+      },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#CustomerRequirement"
+          }
+        ]
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:customerrequirement:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#CustomerRequirement"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:customerrequirement:test",
+      "idShort": "CustomerRequirementSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Customer Requirement"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Customer Requirement Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "RequirementIdentifier",
+          "valueType": "xs:string",
+          "value": "REQ_TEST_001"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "RequirementName",
+          "valueType": "xs:string",
+          "value": "High Precision Manufacturing"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "RequirementDescription",
+          "valueType": "xs:string",
+          "value": "Product must meet ISO 9001 quality standards with tolerance of ±0.01mm"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "RequirementType",
+          "valueType": "xs:string",
+          "value": "Quality"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "Priority",
+          "valueType": "xs:string",
+          "value": "High"
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "RequirementSpecifications",
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "ToleranceLevel",
+              "valueType": "xs:string",
+              "value": "±0.01mm"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "SurfaceFinish",
+              "valueType": "xs:string",
+              "value": "Ra 0.8 μm"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "MaterialCertification",
+              "valueType": "xs:string",
+              "value": "EN 10204 3.1"
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "SatisfyingProducts",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#satisfiesRequirement"
+              }
+            ]
+          },
+          "value": [
+            {
+              "modelType": "SubmodelElementCollection",
+              "idShort": "Product_1",
+              "value": [
+                {
+                  "modelType": "ReferenceElement",
+                  "idShort": "ProductReference",
+                  "semanticId": {
+                    "type": "ExternalReference",
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "value": "http://unimaas-project.eu/MSCOntology#satisfiesRequirement"
+                      }
+                    ]
+                  },
+                  "value": {
+                    "type": "ModelReference",
+                    "keys": [
+                      {
+                        "type": "Submodel",
+                        "value": "urn:aas:submodel:product:test"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "modelType": "Property",
+                  "idShort": "ComplianceLevel",
+                  "valueType": "xs:string",
+                  "value": "Full"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#CustomerRequirement",
+      "idShort": "CustomerRequirement",
+      "description": [
+        {
+          "language": "en",
+          "text": "Specifications required by customer"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#satisfiesRequirement",
+      "idShort": "satisfiesRequirement",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Product to sc:CustomerRequirement"
+        }
+      ]
+    }
+  ]
+}

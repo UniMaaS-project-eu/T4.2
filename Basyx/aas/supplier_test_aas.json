@@ -1,0 +1,220 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:supplier:test",
+      "idShort": "Supplier_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:supplier:test"
+      },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Supplier"
+          }
+        ]
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:supplier:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Supplier"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:supplier:test",
+      "idShort": "SupplierSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Supplier from the MSCOntology ontology"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Supplier Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "SupplierName",
+          "valueType": "xs:string",
+          "value": "Supplier_test"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "SupplierIdentifier",
+          "valueType": "xs:string",
+          "value": "SUP001"
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "ContactInformation",
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "Email",
+              "valueType": "xs:string",
+              "value": "contact@supplier_test.com"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "Phone",
+              "valueType": "xs:string",
+              "value": "+1-555-123-4567"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "Address",
+              "valueType": "xs:string",
+              "value": "456 Supplier Boulevard, Supply City, SC 20002"
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Resources",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#provides"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Resources provided by this Supplier (sc:provides)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Resource_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#provides"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:resource:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "SupplierLocation",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasLocation"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Geographic location of this Supplier (sc:hasLocation)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Location_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasLocation"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:location2:test"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#Supplier",
+      "idShort": "Supplier",
+      "description": [
+        {
+          "language": "en",
+          "text": "Supplier of resources. Subclass of sc:ConfigurableEntity"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#provides",
+      "idShort": "provides",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Supplier to sc:Resource. Domain: sc:Supplier, Range: sc:Resource. Inverse of sc:isProvidedBy"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasLocation",
+      "idShort": "hasLocation",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Site or sc:Supplier to sc:Location. Domain: sc:Site | sc:Supplier, Range: sc:Location"
+        }
+      ]
+    }
+  ]
+}

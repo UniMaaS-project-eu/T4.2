@@ -1,0 +1,256 @@
+
+
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:product:test",
+      "idShort": "Product_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:product:test"
+      },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Product"
+          }
+        ]
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:product:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Product"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:product:test",
+      "idShort": "ProductSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Product from the MSCOntology ontology"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Product Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "ProductName",
+          "valueType": "xs:string",
+          "value": "Industrial Gear Assembly"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "ProductIdentifier",
+          "valueType": "xs:string",
+          "value": "PROD_TEST_001"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "ProductAspectDesignation",
+          "valueType": "xs:string",
+          "value": "-GearAssembly"
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Components",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasComponent"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Component products that make up this product (sc:hasComponent)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "SubmodelElementCollection",
+              "idShort": "Component_1",
+              "value": [
+                {
+                  "modelType": "ReferenceElement",
+                  "idShort": "ComponentProduct",
+                  "semanticId": {
+                    "type": "ExternalReference",
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "value": "http://unimaas-project.eu/MSCOntology#hasComponent"
+                      }
+                    ]
+                  },
+                  "value": {
+                    "type": "ModelReference",
+                    "keys": [
+                      {
+                        "type": "Submodel",
+                        "value": "urn:aas:submodel:product:intermediary:test"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "modelType": "Property",
+                  "idShort": "Quantity",
+                  "valueType": "xs:integer",
+                  "value": "2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Requirements",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#satisfiesRequirement"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Customer requirements satisfied by this product (sc:satisfiesRequirement)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Requirement_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#satisfiesRequirement"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:customerrequirement:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "ReferenceElement",
+          "idShort": "ProducedBy",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasOutput_inverse"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Inverse reference: Process Configuration that produces this Product (inverse of sc:hasOutput)"
+            }
+          ],
+          "value": {
+            "type": "ModelReference",
+            "keys": [
+              {
+                "type": "Submodel",
+                "value": "urn:aas:submodel:processconfig:test"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "ProductWeight",
+          "valueType": "xs:double",
+          "value": "15.5"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "WeightUnit",
+          "valueType": "xs:string",
+          "value": "kg"
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#Product",
+      "idShort": "Product",
+      "description": [
+        {
+          "language": "en",
+          "text": "Product that is the output of a manufacturing process and maybe input to another process"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasComponent",
+      "idShort": "hasComponent",
+      "description": [
+        {
+          "language": "en",
+          "text": "Transitive object property linking sc:Product to its component sc:Products. Domain: sc:Product, Range: sc:Product"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#satisfiesRequirement",
+      "idShort": "satisfiesRequirement",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Product to sc:CustomerRequirement. Domain: sc:Product, Range: sc:CustomerRequirement"
+        }
+      ]
+    }
+  ]
+}

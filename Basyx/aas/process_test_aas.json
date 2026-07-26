@@ -1,0 +1,188 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:process:test",
+      "idShort": "Process_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:process:test"
+      },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Process"
+          }
+        ]
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:process:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Process"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:process:test",
+      "idShort": "ProcessSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Manufacturing Process from the MSCOntology ontology"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Process Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "ProcessName",
+          "valueType": "xs:string",
+          "value": "Test Machining Process"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "ProcessIdentifier",
+          "valueType": "xs:string",
+          "value": "PROC_TEST_001"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "ProcessType",
+          "valueType": "xs:string",
+          "value": "Machining"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "FunctionAspectDesignation",
+          "valueType": "xs:string",
+          "value": "=TestMachining"
+        },
+        {
+          "modelType": "ReferenceElement",
+          "idShort": "PerformedAtSite",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#isPerformedAt"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Site where this Process is performed (sc:isPerformedAt)"
+            }
+          ],
+          "value": {
+            "type": "ModelReference",
+            "keys": [
+              {
+                "type": "Submodel",
+                "value": "urn:aas:submodel:site:test"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Configurations",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasConfiguration_inverse"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Process Configurations that configure this Process (inverse of implicit relationship)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Configuration_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasConfiguration_inverse"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:processconfig:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "Property",
+          "idShort": "ProcessDescription",
+          "valueType": "xs:string",
+          "value": "A standard machining process for metal components using CNC technology"
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#Process",
+      "idShort": "Process",
+      "description": [
+        {
+          "language": "en",
+          "text": "Manufacturing, assembly or virtual process"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#isPerformedAt",
+      "idShort": "isPerformedAt",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Process to sc:Site where it is performed. Domain: sc:Process, Range: sc:Site. Inverse of sc:performs"
+        }
+      ]
+    }
+  ]
+}

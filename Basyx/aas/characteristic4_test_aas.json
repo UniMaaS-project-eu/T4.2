@@ -1,0 +1,227 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:characteristic4:test",
+      "idShort": "Characteristic4_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:characteristic4:test"
+      },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Characteristic"
+          }
+        ]
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:characteristic4:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Characteristic"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:characteristic4:test",
+      "idShort": "Characteristic4Submodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Characteristic from the MSCOntology ontology"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Characteristic4 Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "availableCapacity",
+          "valueType": "xs:double",
+          "value": "20.0"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "CharacteristicIdentifier",
+          "valueType": "xs:string",
+          "value": "CHAR4_TEST"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "CharacteristicValue",
+          "valueType": "xs:double",
+          "value": "30.0"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "DataType",
+          "valueType": "xs:string",
+          "value": "double"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "Unit",
+          "valueType": "xs:string",
+          "value": "%"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "MinValue",
+          "valueType": "xs:double",
+          "value": "0.0"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "MaxValue",
+          "valueType": "xs:double",
+          "value": "80.0"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "NominalValue",
+          "valueType": "xs:double",
+          "value": "20.0"
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "CharacterizesEntity",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasCharacteristic_inverse"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "ConfigurableEntity (Device, Resource, Site, or Supplier) that has this Characteristic (inverse of sc:hasCharacteristic)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Site_Reference",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasCharacteristic_inverse"
+                  }
+                ]
+              },
+              "description": [
+                {
+                  "language": "en",
+                  "text": "Site that has this availableCapacity Characteristic"
+                }
+              ],
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:site:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "ObservingSensors",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#isObservedBy"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Sensors that observe this Characteristic (sc:isObservedBy)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Sensor_4",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#isObservedBy"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:sensor4:test"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#Characteristic",
+      "idShort": "Characteristic",
+      "description": [
+        {
+          "language": "en",
+          "text": "Characteristic or attribute of ConfigurableEntity (Device, Resource, Site, Supplier, Process, Product)"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#isObservedBy",
+      "idShort": "isObservedBy",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Characteristic to sc:Sensor. Domain: sc:Characteristic, Range: sc:Sensor. Inverse of sc:observes"
+        }
+      ]
+    }
+  ]
+}

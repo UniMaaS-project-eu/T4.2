@@ -1,0 +1,170 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:location2:test",
+      "idShort": "Location2_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:location2:test"
+      },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Location"
+          }
+        ]
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:location2:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Location"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:location2:test",
+      "idShort": "Location2Submodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing Location 2 (Supplier) from the MSCOntology ontology"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Location 2 - Supplier Location Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "LocationIdentifier",
+          "valueType": "xs:string",
+          "value": "LOC_SUPPLIER_001"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "LocationName",
+          "valueType": "xs:string",
+          "value": "Supplier Distribution Center Location 2"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "Country",
+          "valueType": "xs:string",
+          "value": "Germany"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "City",
+          "valueType": "xs:string",
+          "value": "Supply City"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "PostalCode",
+          "valueType": "xs:string",
+          "value": "SC 20002"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "StreetAddress",
+          "valueType": "xs:string",
+          "value": "456 Supplier Boulevard"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "Latitude",
+          "valueType": "xs:double",
+          "value": "51.1657"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "Longitude",
+          "valueType": "xs:double",
+          "value": "10.4515"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "LocationDescription",
+          "valueType": "xs:string",
+          "value": "Supplier headquarters and distribution center for material supply"
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "RelatedEntities",
+          "description": [
+            {
+              "language": "en",
+              "text": "Entities (Site or Supplier) that have this as their location"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Supplier_Reference",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasLocation_inverse"
+                  }
+                ]
+              },
+              "description": [
+                {
+                  "language": "en",
+                  "text": "Supplier that has this Location (inverse of sc:hasLocation)"
+                }
+              ],
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:supplier:test"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#Location",
+      "idShort": "Location",
+      "description": [
+        {
+          "language": "en",
+          "text": "Physical geographic location. Can be referenced by Site or Supplier via sc:hasLocation"
+        }
+      ]
+    }
+  ]
+}

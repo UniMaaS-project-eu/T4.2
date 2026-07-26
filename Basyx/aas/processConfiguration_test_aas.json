@@ -1,0 +1,319 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:processconfig:test",
+      "idShort": "ProcessConfiguration_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:processconfig:test"
+      },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#ProcessConfiguration"
+          }
+        ]
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:processconfig:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#ProcessConfiguration"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:processconfig:test",
+      "idShort": "ProcessConfigurationSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Process Configuration from the MSCOntology ontology"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Process Configuration Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "ConfigurationName",
+          "valueType": "xs:string",
+          "value": "Standard Machining Config"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "ConfigurationIdentifier",
+          "valueType": "xs:string",
+          "value": "CONFIG_TEST_001"
+        },
+        {
+          "modelType": "ReferenceElement",
+          "idShort": "RequiredProcess",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#requiresProcess"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "The Process that this Configuration requires (sc:requiresProcess)"
+            }
+          ],
+          "value": {
+            "type": "ModelReference",
+            "keys": [
+              {
+                "type": "Submodel",
+                "value": "urn:aas:submodel:process:test"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Resources",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#usesResource"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Resources used by this Process Configuration (sc:usesResource)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Resource_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#usesResource"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:resource:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Inputs",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasInput"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Input Products for this Process Configuration (sc:hasInput)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Product_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasInput"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:product:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Outputs",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasOutput"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Output Products from this Process Configuration (sc:hasOutput)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Product_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasOutput"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:product:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "ProcessParameters",
+          "description": [
+            {
+              "language": "en",
+              "text": "Configuration parameters for the process execution"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "CuttingSpeed",
+              "valueType": "xs:double",
+              "value": "150.0"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "FeedRate",
+              "valueType": "xs:double",
+              "value": "0.25"
+            },
+            {
+              "modelType": "Property",
+              "idShort": "CoolingEnabled",
+              "valueType": "xs:boolean",
+              "value": "true"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#ProcessConfiguration",
+      "idShort": "ProcessConfiguration",
+      "description": [
+        {
+          "language": "en",
+          "text": "Configuration of a manufacturing process that binds the specific input and output parameters"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#requiresProcess",
+      "idShort": "requiresProcess",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:ProcessConfiguration to sc:Process. Domain: sc:ProcessConfiguration, Range: sc:Process"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#usesResource",
+      "idShort": "usesResource",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:ProcessConfiguration to sc:Resource. Domain: sc:ProcessConfiguration, Range: sc:Resource"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasInput",
+      "idShort": "hasInput",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:ProcessConfiguration to input sc:Product. Domain: sc:ProcessConfiguration, Range: sc:Product"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasOutput",
+      "idShort": "hasOutput",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:ProcessConfiguration to output sc:Product. Domain: sc:ProcessConfiguration, Range: sc:Product"
+        }
+      ]
+    }
+  ]
+}
