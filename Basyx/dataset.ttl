@@ -1,0 +1,261 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sc: <http://unimaas-project.eu/MSCOntology#> .
+@prefix scadient: <http://unimaas-project.eu/MSCOntology/data/adient/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+scadient:siteHasResource a owl:ObjectProperty ;
+    rdfs:label "site has resource" ;
+    rdfs:comment "Links a Site to the (container) Resources currently located at it, derived from the DPP currentLocation field" ;
+    rdfs:domain sc:Site ;
+    rdfs:range sc:Resource .
+
+scadient:site_12 a sc:Site ;
+    sc:country "HU" ;
+    sc:entity "internal" ;
+    sc:nodeId 12 ;
+    sc:performs scadient:process_metal_mechanisms_making ;
+    sc:productionRate "fortnightly batches" ;
+    sc:siteType "metal" ;
+    sc:tier 2 ;
+    scadient:suppliesTo scadient:site_37 .
+
+scadient:site_16 a sc:Site ;
+    sc:country "DE" ;
+    sc:entity "internal" ;
+    sc:nodeId 16 ;
+    sc:performs scadient:process_metal_mechanisms_making ;
+    sc:productionRate "fortnightly batches" ;
+    sc:siteType "metal tier 3" ;
+    sc:tier 3 ;
+    scadient:suppliesTo scadient:site_11,
+        scadient:site_50 .
+
+scadient:site_220 a sc:Site ;
+    sc:country "CZ" ;
+    sc:entity "external" ;
+    sc:nodeId 220 ;
+    sc:performs scadient:process_metal_structures_making ;
+    sc:productionRate "weekly batches" ;
+    sc:siteType "3p" ;
+    scadient:suppliesTo scadient:site_14,
+        scadient:site_64 .
+
+scadient:site_291 a sc:Site ;
+    sc:country "DE" ;
+    sc:entity "internal" ;
+    sc:nodeId 291 ;
+    sc:performs scadient:process_metal_mechanisms_making ;
+    sc:productionRate "fortnightly batches" ;
+    sc:siteType "metal tier3" ;
+    sc:tier 3 ;
+    scadient:suppliesTo scadient:site_11 .
+
+scadient:site_322 a sc:Site ;
+    sc:country "DE" ;
+    sc:entity "external" ;
+    sc:nodeId 322 ;
+    sc:performs scadient:process_metal_stampings_making ;
+    sc:productionRate "fortnightly batches" ;
+    sc:siteType "3p" ;
+    scadient:suppliesTo scadient:site_11 .
+
+scadient:site_335 a sc:Site ;
+    sc:country "PT" ;
+    sc:entity "external" ;
+    sc:nodeId 335 ;
+    sc:performs scadient:process_metal_stampings_making ;
+    sc:productionRate "fortnightly batches" ;
+    sc:siteType "3p" ;
+    scadient:suppliesTo scadient:site_33 .
+
+scadient:site_34 a sc:Site ;
+    sc:country "DE" ;
+    sc:entity "internal" ;
+    sc:nodeId 34 ;
+    sc:performs scadient:process_metal_mechanisms_making ;
+    sc:productionRate "fortnightly batches" ;
+    sc:siteType "metal tier3" ;
+    sc:tier 3 ;
+    scadient:suppliesTo scadient:site_11,
+        scadient:site_50 .
+
+scadient:site_35 a sc:Site ;
+    sc:country "DE" ;
+    sc:entity "internal" ;
+    sc:nodeId 35 ;
+    sc:performs scadient:process_metal_mechanisms_making ;
+    sc:productionRate "fortnightly batches" ;
+    sc:siteType "metal tier3" ;
+    sc:tier 3 ;
+    scadient:suppliesTo scadient:site_11,
+        scadient:site_33 .
+
+scadient:site_707 a sc:Site ;
+    sc:country "DE" ;
+    sc:entity "external" ;
+    sc:nodeId 707 ;
+    sc:performs scadient:process_metal_stampings_making ;
+    sc:productionRate "fortnightly batches" ;
+    sc:siteType "3p" ;
+    scadient:suppliesTo scadient:site_33 .
+
+scadient:site_730 a sc:Site ;
+    sc:country "PL" ;
+    sc:entity "external" ;
+    sc:nodeId 730 ;
+    sc:performs scadient:process_metal_stampings_making ;
+    sc:productionRate "fortnightly batches" ;
+    sc:siteType "3p" ;
+    scadient:suppliesTo scadient:site_50 .
+
+scadient:site_959 a sc:Site ;
+    sc:country "CZ" ;
+    sc:entity "external" ;
+    sc:nodeId 959 ;
+    sc:performs scadient:process_metal_stampings_making ;
+    sc:productionRate "fortnightly batches" ;
+    sc:siteType "3p" ;
+    scadient:suppliesTo scadient:site_11 .
+
+scadient:site_972 a sc:Site ;
+    sc:country "RO" ;
+    sc:entity "external" ;
+    sc:nodeId 972 ;
+    sc:performs scadient:process_metal_stampings_making ;
+    sc:productionRate "fortnightly batches" ;
+    sc:siteType "3p" ;
+    scadient:suppliesTo scadient:site_37,
+        scadient:site_50 .
+
+scadient:site_test a sc:Site .
+
+scadient:suppliesTo a owl:ObjectProperty ;
+    rdfs:label "supplies to" ;
+    rdfs:comment "Direct supply/delivery flow from one site to another (from Neo4j [:TO] relationship)" ;
+    rdfs:domain sc:Site ;
+    rdfs:range sc:Site .
+
+scadient:dpp_b_container_3334567 a sc:EquipmentResource,
+        sc:Resource ;
+    sc:name "B-container" ;
+    scadient:condition "new" ;
+    scadient:description "Metal returnable and foldable container" ;
+    scadient:durabilityMaxYears 15 ;
+    scadient:durabilityMinYears 5 ;
+    scadient:lifecycleCarbonFootprint 427.9 ;
+    scadient:manufacturerAddress "ul. Ks. Londzina 61, 43-246 Strumien, Poland" ;
+    scadient:manufacturerName "STRUMET sp. z o.o." ;
+    scadient:manufacturingCarbonFootprint 427.9 ;
+    scadient:manufacturingDate "2025-03-05"^^xsd:date ;
+    scadient:numberOfUses 0 ;
+    scadient:partNumber 3334567 ;
+    scadient:repairability "repairable_with_spare_parts" ;
+    scadient:returnRatio 4 ;
+    scadient:status "manufactured" ;
+    scadient:taricCode "7326901000" ;
+    scadient:usePurpose "Transport raw materials and finished goods between manufacturing plants" .
+
+scadient:dpp_europallet_2224567 a sc:EquipmentResource,
+        sc:Resource ;
+    sc:name "Europallet" ;
+    scadient:condition "new" ;
+    scadient:description "Wooden pallet with 1.2x1.08 meters" ;
+    scadient:durabilityMaxYears 20 ;
+    scadient:durabilityMinYears 10 ;
+    scadient:lifecycleCarbonFootprint 7.75 ;
+    scadient:manufacturerAddress "ul. Malikow 150, 25-639 Kielce, Poland" ;
+    scadient:manufacturerName "DS Smith Poland" ;
+    scadient:manufacturingCarbonFootprint 7.75 ;
+    scadient:manufacturingDate "2025-02-10"^^xsd:date ;
+    scadient:numberOfUses 0 ;
+    scadient:partNumber 2224567 ;
+    scadient:repairability "repairable" ;
+    scadient:status "manufactured" ;
+    scadient:taricCode "4415202000" ;
+    scadient:usePurpose "Transport raw materials and finished goods between manufacturing plants" .
+
+scadient:dpp_magnum_optimum_1114567 a sc:EquipmentResource,
+        sc:Resource ;
+    sc:name "Magnum optimum" ;
+    scadient:condition "new" ;
+    scadient:description "Plastic returnable and foldable container" ;
+    scadient:durabilityMaxYears 15 ;
+    scadient:durabilityMinYears 5 ;
+    scadient:lifecycleCarbonFootprint 176.58 ;
+    scadient:manufacturerAddress "Sacktannen 30, 19057 Schwerin, Germany" ;
+    scadient:manufacturerName "Schoeller Allibert GmbH" ;
+    scadient:manufacturingCarbonFootprint 176.58 ;
+    scadient:manufacturingDate "2025-01-01"^^xsd:date ;
+    scadient:numberOfUses 0 ;
+    scadient:partNumber 1114567 ;
+    scadient:repairability "repairable_with_spare_parts" ;
+    scadient:returnRatio 3 ;
+    scadient:status "manufactured" ;
+    scadient:taricCode "39231090" ;
+    scadient:usePurpose "Transport raw materials and finished goods between manufacturing plants" .
+
+scadient:site_14 a sc:Site ;
+    sc:country "HU" ;
+    sc:entity "internal" ;
+    sc:nodeId 14 ;
+    sc:performs scadient:process_full_seats_making ;
+    sc:productionRate "just-in-time" ;
+    sc:siteType "JIT" ;
+    sc:tier 1 .
+
+scadient:site_64 a sc:Site ;
+    sc:country "DE" ;
+    sc:entity "internal" ;
+    sc:nodeId 64 ;
+    sc:performs scadient:process_full_seats_making ;
+    sc:productionRate "just-in-time" ;
+    sc:siteType "JIT" ;
+    sc:tier 1 .
+
+scadient:site_37 a sc:Site ;
+    sc:country "ES" ;
+    sc:entity "internal" ;
+    sc:nodeId 37 ;
+    sc:performs scadient:process_metal_structures_making ;
+    sc:productionRate "weekly batches" ;
+    sc:siteType "metal" ;
+    sc:tier 2 ;
+    scadient:siteHasResource scadient:dpp_b_container_3334567 ;
+    scadient:suppliesTo scadient:site_50 .
+
+scadient:site_33 a sc:Site ;
+    sc:country "HU" ;
+    sc:entity "internal" ;
+    sc:nodeId 33 ;
+    sc:performs scadient:process_metal_structures_making ;
+    sc:productionRate "weekly batches" ;
+    sc:siteType "metal" ;
+    sc:tier 2 ;
+    scadient:suppliesTo scadient:site_14,
+        scadient:site_37,
+        scadient:site_50,
+        scadient:site_64 .
+
+scadient:site_11 a sc:Site ;
+    sc:country "PL" ;
+    sc:entity "internal" ;
+    sc:nodeId 11 ;
+    sc:performs scadient:process_metal_structures_making ;
+    sc:productionRate "weekly batches" ;
+    sc:siteType "metal" ;
+    sc:tier 2 ;
+    scadient:siteHasResource scadient:dpp_europallet_2224567 ;
+    scadient:suppliesTo scadient:site_33,
+        scadient:site_50 .
+
+scadient:site_50 a sc:Site ;
+    sc:country "RO" ;
+    sc:entity "internal" ;
+    sc:nodeId 50 ;
+    sc:performs scadient:process_metal_structures_making ;
+    sc:productionRate "weekly batches" ;
+    sc:siteType "metal" ;
+    sc:tier 2 ;
+    scadient:siteHasResource scadient:dpp_magnum_optimum_1114567 .
+

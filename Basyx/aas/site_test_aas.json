@@ -1,0 +1,322 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:site:test",
+      "idShort": "Site_test",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:site:test"
+      },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Site"
+          }
+        ]
+      },
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:submodel:site:test"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Site"
+          }
+        ]
+      },
+      "id": "urn:aas:submodel:site:test",
+      "idShort": "SiteSubmodel",
+      "description": [
+        {
+          "language": "en",
+          "text": "Submodel representing a Manufacturing Site from the MSCOntology ontology"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Manufacturing Site Submodel"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "SiteName",
+          "valueType": "xs:string",
+          "value": "Site_test"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "SiteIdentifier",
+          "valueType": "xs:string",
+          "value": "ST001"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "LocationAddress",
+          "valueType": "xs:string",
+          "value": "123 Manufacturing Way, Industrial Park, MP 10001"
+        },
+        {
+          "modelType": "Property",
+          "idShort": "LocationAspectDesignation",
+          "valueType": "xs:string",
+          "value": "+Site_test"
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Charasteristics",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasCharacteristic"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Characteristics of this Site (sc:hasCharacteristic)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Characteristic_AvailableCapacity",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasCharacteristic"
+                  }
+                ]
+              },
+              "description": [
+                {
+                  "language": "en",
+                  "text": "Available processing capacity of the Site"
+                }
+              ],
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:characteristic4:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Devices",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasDevice"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Devices at this Site (sc:hasDevice)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Device_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasDevice"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:device:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Processes",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#performs"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Processes performed at this Site (sc:performs)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Process_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#performs"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:process:test"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "SiteLocation",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasLocation"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Geographic location of this Site (sc:hasLocation)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Location_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#hasLocation"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "Submodel",
+                    "value": "urn:aas:submodel:location1:test"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#Site",
+      "idShort": "Site",
+      "description": [
+        {
+          "language": "en",
+          "text": "Physical location where processes are performed. Subclass of sc:ConfigurableEntity"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasCharacteristic",
+      "idShort": "hasCharacteristic",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:ConfigurableEntity (Site, Device, Resource, Supplier) to sc:Characteristic. Domain: sc:ConfigurableEntity, Range: sc:Characteristic"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasDevice",
+      "idShort": "hasDevice",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Site to sc:Device. Domain: sc:Site, Range: sc:Device. No formal inverse defined in ontology; Device AAS should reference back with custom isPartOfSite_inverse"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#performs",
+      "idShort": "performs",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Site to sc:Process. Domain: sc:Site, Range: sc:Process. Inverse of sc:isPerformedAt"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasLocation",
+      "idShort": "hasLocation",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Site or sc:Supplier to sc:Location. Domain: sc:Site | sc:Supplier, Range: sc:Location"
+        }
+      ]
+    }
+  ]
+}

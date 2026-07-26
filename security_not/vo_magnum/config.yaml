@@ -1,0 +1,34 @@
+name: Magnum
+type: VO
+resourceType:
+  specification: WoT
+  version: 1.1
+deploymentType: A
+catalogue: 9090
+bindingNB:
+  # bindingModeNB: [H, M, U, WS]
+  bindingModeNB: [H]
+  hostname: vo-magnum
+  ports:
+    httpPort: 8080
+bindingSB:
+  bindingModeSB: [H]
+  # securitySB:
+  #   securitySBHTTP:
+  #     securityScheme: oidc4vp
+  #     holderUrl: "http://vo-holder:8085"
+  #     requester: Container
+databaseConfig:
+  timeseriesDB:
+    influxDB: disabled
+  persistentDB:
+    SQLite: enabled
+consumedVOs:
+  device:
+    # url: "http://localhost:9091/device" # assume the device VO is running on port 9091
+    url: "http://device-magnum:9091/device" # assume the device VO is running on port 9091 gia ta containers
+    events:
+      - damageDetected
+      - lifecycleChanged
+periodicFunction:
+  check_bridge_health: 10000

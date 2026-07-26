@@ -1,0 +1,152 @@
+services:
+  device-magnum-internal:
+    image: nepheleproject/vo-wot:0.18.15
+    container_name: device-magnum
+    networks:
+      - device
+      - edge
+    environment:
+      HOSTNAME: device-magnum
+    volumes:
+      - ./device_magnum/app.py:/app.py
+      - ./device_magnum/config.yaml:/config.yaml
+      - ./device_magnum/td.json:/td.json
+    restart: unless-stopped
+
+  device-europallet-internal:
+    image: nepheleproject/vo-wot:0.18.15
+    container_name: device-europallet
+    networks:
+      - device
+      - edge
+    environment:
+      HOSTNAME: device-europallet
+    volumes:
+      - ./device_europallet/app.py:/app.py
+      - ./device_europallet/config.yaml:/config.yaml
+      - ./device_europallet/td.json:/td.json
+    restart: unless-stopped
+
+  device-bcontainer-internal:
+    # Runs on ports 8085 (HTTP binding) and 9097 (catalogue)
+    image: nepheleproject/vo-wot:0.18.15
+    container_name: device-bcontainer
+    networks:
+      - device
+      - edge
+    environment:
+      HOSTNAME: device-bcontainer
+    volumes:
+      - ./device_bcontainer/app.py:/app.py
+      - ./device_bcontainer/config.yaml:/config.yaml
+      - ./device_bcontainer/td.json:/td.json
+    restart: unless-stopped
+
+  vo-magnum-internal:
+    image: nepheleproject/vo-wot:0.18.15
+    container_name: vo-magnum
+    ports:
+      - "8095:8080"
+      - "9090:9090"
+    networks:
+      - edge
+      - kafka-net
+    environment:
+      HOSTNAME: vo-magnum
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9093
+      KAFKA_PUBLISHER_USERNAME: publisher
+      KAFKA_PUBLISHER_PASSWORD: client-secret
+    command: >
+      sh -c "pip install kafka-python==2.2.15 &&
+            pip install aiohttp &&
+            exec vo-wot -f /config.yaml -t /td.json /app.py"
+    volumes:
+      - ./vo_magnum/app_magnum.py:/app.py
+      - ./vo_magnum/config.yaml:/config.yaml
+      - ./vo_magnum/td_magnum.json:/td.json
+    depends_on:
+      - device-magnum-internal
+    restart: unless-stopped
+
+  vo-europallet-internal:
+    image: nepheleproject/vo-wot:0.18.15
+    container_name: vo-europallet
+    networks:
+      - edge
+      - kafka-net
+    environment:
+      HOSTNAME: vo-europallet
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9093
+      KAFKA_PUBLISHER_USERNAME: publisher
+      KAFKA_PUBLISHER_PASSWORD: client-secret
+    command: >
+      sh -c "pip install kafka-python==2.2.15 &&
+            pip install aiohttp &&
+            exec vo-wot -f /config.yaml -t /td.json /app.py"
+    volumes:
+      - ./vo_europallet/app_europallet.py:/app.py
+      - ./vo_europallet/config.yaml:/config.yaml
+      - ./vo_europallet/td_europallet.json:/td.json
+    depends_on:
+      - device-europallet-internal
+    restart: unless-stopped
+
+  vo-bcontainer-internal:
+    image: nepheleproject/vo-wot:0.18.15
+    container_name: vo-bcontainer
+    networks:
+      - edge
+      - kafka-net
+    environment:
+      HOSTNAME: vo-bcontainer
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9093
+      KAFKA_PUBLISHER_USERNAME: publisher
+      KAFKA_PUBLISHER_PASSWORD: client-secret
+    command: >
+      sh -c "pip install kafka-python==2.2.15 &&
+            pip install aiohttp &&
+            exec vo-wot -f /config.yaml -t /td.json /app.py"
+    volumes:
+      - ./vo_bcontainer/app_bcontainer.py:/app.py
+      - ./vo_bcontainer/config.yaml:/config.yaml
+      - ./vo_bcontainer/td_bcontainer.json:/td.json
+    depends_on:
+      - device-bcontainer-internal
+    restart: unless-stopped
+
+  cvo-internal:
+    image: nepheleproject/vo-wot:0.18.15
+    container_name: cvo
+    networks:
+      - edge
+      - kafka-net
+      - basyx-net
+    environment:
+      HOSTNAME: cvo
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9093
+      KAFKA_PUBLISHER_USERNAME: publisher
+      KAFKA_PUBLISHER_PASSWORD: client-secret
+    command: >
+      sh -c "pip install kafka-python==2.2.15 &&
+            pip install aiohttp &&
+            exec vo-wot -f /config.yaml -t /td.json /app.py"
+    volumes:
+      - ./cvo/app_cvo.py:/app.py
+      - ./cvo/config.yaml:/config.yaml
+      - ./cvo/td_cvo.json:/td.json
+    depends_on:
+      - vo-magnum-internal
+      - vo-europallet-internal
+      - vo-bcontainer-internal
+    restart: unless-stopped
+
+networks:
+  device:
+  edge:
+  vo:
+  kafka-net:
+    name: kafka-tst_kafka-net
+    external: true
+  basyx-net:
+    name: basyx-net
+    external: true

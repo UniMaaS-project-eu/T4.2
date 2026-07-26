@@ -1,0 +1,59 @@
+services:
+  kafka:
+    image: apache/kafka:4.2.0
+    container_name: kafka
+    hostname: kafka
+    ports:
+      # - "9092:9092"
+      - "9093:9093"
+    env_file:
+      - .env
+    volumes:
+      - ./scripts:/scripts:ro
+    command: ["/bin/bash", "/scripts/start-kafka.sh"]
+
+
+    networks:
+      - kafka-net
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - "8089:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: "local"
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka:9092"
+      KAFKA_CLUSTERS_0_PROPERTIES_SECURITY_PROTOCOL: "SASL_PLAINTEXT"
+      KAFKA_CLUSTERS_0_PROPERTIES_SASL_MECHANISM: "SCRAM-SHA-512"
+      KAFKA_CLUSTERS_0_PROPERTIES_SASL_JAAS_CONFIG: >-
+            org.apache.kafka.common.security.scram.ScramLoginModule required
+            username="consumer"
+            password="${KAFKA_CONSUMER_PASSWORD}";
+    depends_on:
+      - kafka
+    networks:
+      - kafka-net
+
+  kafka-acl-init:
+    image: apache/kafka:4.2.0
+    container_name: kafka-init
+    depends_on:
+      - kafka
+    env_file:
+      - .env
+    volumes:
+      - ./scripts:/scripts:ro
+    command: ["/bin/bash", "/scripts/init-acls.sh"]
+    networks:
+      - kafka-net
+
+networks:
+  kafka-net:
+    driver: bridge
+
+# secrets:
+#   kafka_admin_password:
+#     file: ./secrets/kafka_admin_password.txt
+#   kafka_consumer_password:
+#     file: ./secrets/kafka_consumer_password.txt

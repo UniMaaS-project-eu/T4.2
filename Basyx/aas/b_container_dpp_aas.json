@@ -1,0 +1,939 @@
+{
+  "assetAdministrationShells": [
+    {
+      "id": "urn:aas:adient:b-container:3334567",
+      "idShort": "DPP_b_container_3334567",
+      "modelType": "AssetAdministrationShell",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:adient:b-container:3334567"
+      },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Resource"
+          }
+        ]
+      },
+      "description": [
+        {
+          "language": "en",
+          "text": "Digital Product Passport for B-container unit 3334567 (UniMaaS ADIENT pilot)"
+        }
+      ],
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:adient:b-container:3334567:sm:nameplate"
+            }
+          ]
+        },
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:adient:b-container:3334567:sm:carbonfootprint"
+            }
+          ]
+        },
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:adient:b-container:3334567:sm:productmodel"
+            }
+          ]
+        },
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:adient:b-container:3334567:sm:productinstance"
+            }
+          ]
+        },
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:adient:b-container:3334567:sm:lifecycle"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "id": "urn:aas:adient:b-container:3334567:sm:nameplate",
+      "idShort": "DigitalNameplate",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "https://admin-shell.io/zvei/nameplate/2/0/Nameplate"
+          }
+        ]
+      },
+      "description": [
+        {
+          "language": "en",
+          "text": "Digital Nameplate according to IDTA 02006-2-0"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "URIOfTheProduct",
+          "valueType": "xs:string",
+          "value": "urn:asset:adient:b-container:3334567",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "0173-1#02-AAY811#001"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "MultiLanguageProperty",
+          "idShort": "ManufacturerName",
+          "value": [
+            {
+              "language": "en",
+              "text": "STRUMET sp. z o.o."
+            }
+          ],
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "0173-1#02-AAO677#002"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "MultiLanguageProperty",
+          "idShort": "ManufacturerProductDesignation",
+          "value": [
+            {
+              "language": "en",
+              "text": "Metal returnable and foldable container"
+            }
+          ],
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "0173-1#02-AAW338#001"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "ContactInformation",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation"
+              }
+            ]
+          },
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "NationalCode",
+              "valueType": "xs:string",
+              "value": "PL",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "0173-1#02-AAO134#002"
+                  }
+                ]
+              }
+            },
+            {
+              "modelType": "MultiLanguageProperty",
+              "idShort": "CityTown",
+              "value": [
+                {
+                  "language": "en",
+                  "text": "Strumien"
+                }
+              ],
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "0173-1#02-AAO132#002"
+                  }
+                ]
+              }
+            },
+            {
+              "modelType": "MultiLanguageProperty",
+              "idShort": "Street",
+              "value": [
+                {
+                  "language": "en",
+                  "text": "ul. Ks. Londzina 61"
+                }
+              ],
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "0173-1#02-AAO128#002"
+                  }
+                ]
+              }
+            },
+            {
+              "modelType": "MultiLanguageProperty",
+              "idShort": "Zipcode",
+              "value": [
+                {
+                  "language": "en",
+                  "text": "43-246"
+                }
+              ],
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "0173-1#02-AAO129#002"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "MultiLanguageProperty",
+          "idShort": "ManufacturerProductFamily",
+          "value": [
+            {
+              "language": "en",
+              "text": "Returnable transport item"
+            }
+          ],
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "0173-1#02-AAU731#001"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "SerialNumber",
+          "valueType": "xs:string",
+          "value": "3334567",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "0173-1#02-AAM556#002"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "YearOfConstruction",
+          "valueType": "xs:string",
+          "value": "2025",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "0173-1#02-AAP906#001"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "DateOfManufacture",
+          "valueType": "xs:date",
+          "value": "2025-03-05",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "0173-1#02-AAR972#002"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "id": "urn:aas:adient:b-container:3334567:sm:carbonfootprint",
+      "idShort": "CarbonFootprint",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/0/9"
+          }
+        ]
+      },
+      "description": [
+        {
+          "language": "en",
+          "text": "Carbon Footprint according to IDTA 02023-0-9"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "ProductCarbonFootprint",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "https://admin-shell.io/idta/CarbonFootprint/ProductCarbonFootprint/0/9"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Carbon footprint of the manufacturing phase"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "Property",
+              "idShort": "PCFCalculationMethod",
+              "valueType": "xs:string",
+              "value": "GHG Protocol",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "0173-1#02-ABG854#001"
+                  }
+                ]
+              }
+            },
+            {
+              "modelType": "Property",
+              "idShort": "PCFCO2eq",
+              "valueType": "xs:double",
+              "value": "427.9",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "0173-1#02-ABG855#001"
+                  }
+                ]
+              },
+              "description": [
+                {
+                  "language": "en",
+                  "text": "Manufacturing carbon footprint in kg CO2 eq"
+                }
+              ]
+            },
+            {
+              "modelType": "Property",
+              "idShort": "PCFReferenceValueForCalculation",
+              "valueType": "xs:string",
+              "value": "piece",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "0173-1#02-ABG856#001"
+                  }
+                ]
+              }
+            },
+            {
+              "modelType": "Property",
+              "idShort": "PCFQuantityOfMeasureForCalculation",
+              "valueType": "xs:double",
+              "value": "1.0",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "0173-1#02-ABG857#001"
+                  }
+                ]
+              }
+            },
+            {
+              "modelType": "Property",
+              "idShort": "PCFLifeCyclePhase",
+              "valueType": "xs:string",
+              "value": "A1-A3",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "0173-1#02-ABG858#001"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "id": "urn:aas:adient:b-container:3334567:sm:productmodel",
+      "idShort": "ProductModelData",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Resource"
+          }
+        ]
+      },
+      "description": [
+        {
+          "language": "en",
+          "text": "Fixed fields defined by the product model (MSC Ontology sc:Resource). Values are constant across all units of the same model."
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Product Model Data (fixed fields)"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "modelName",
+          "valueType": "xs:string",
+          "value": "B-container",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#name"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "description",
+          "valueType": "xs:string",
+          "value": "Metal returnable and foldable container",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:description"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "usePurpose",
+          "valueType": "xs:string",
+          "value": "Transport raw materials and finished goods between manufacturing plants",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:usePurpose"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "manufacturerName",
+          "valueType": "xs:string",
+          "value": "STRUMET sp. z o.o.",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:manufacturerName"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "manufacturerAddress",
+          "valueType": "xs:string",
+          "value": "ul. Ks. Londzina 61, 43-246 Strumien, Poland",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:manufacturerAddress"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "taricCode",
+          "valueType": "xs:string",
+          "value": "7326901000",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:taricCode"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "durabilityMinYears",
+          "valueType": "xs:integer",
+          "value": "5",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:durabilityMinYears"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "durabilityMaxYears",
+          "valueType": "xs:integer",
+          "value": "15",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:durabilityMaxYears"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "repairability",
+          "valueType": "xs:string",
+          "value": "repairable_with_spare_parts",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:repairability"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "manufacturingCarbonFootprint",
+          "valueType": "xs:double",
+          "value": "427.9",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:manufacturingCarbonFootprint"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Manufacturing carbon footprint in kg CO2 eq"
+            }
+          ]
+        },
+        {
+          "modelType": "Property",
+          "idShort": "ResourceType",
+          "valueType": "xs:string",
+          "value": "EquipmentResource",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#Resource"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "MSC Ontology resource subclass (sc:EquipmentResource - returnable transport equipment)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "id": "urn:aas:adient:b-container:3334567:sm:productinstance",
+      "idShort": "ProductInstanceData",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Resource"
+          }
+        ]
+      },
+      "description": [
+        {
+          "language": "en",
+          "text": "Dynamic fields entered when registering this specific product unit"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Product Instance Data (dynamic fields)"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "partNumber",
+          "valueType": "xs:integer",
+          "value": "3334567",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:partNumber"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Unique identifier of the product instance (up to 10 digits)"
+            }
+          ]
+        },
+        {
+          "modelType": "Property",
+          "idShort": "manufacturingDate",
+          "valueType": "xs:date",
+          "value": "2025-03-05",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:manufacturingDate"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Date when the product was manufactured (ISO 8601)"
+            }
+          ]
+        },
+        {
+          "modelType": "Property",
+          "idShort": "returnRatio",
+          "valueType": "xs:integer",
+          "value": "4",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:returnRatio"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Number of foldable containers that fit inside another (range 1-10)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "id": "urn:aas:adient:b-container:3334567:sm:lifecycle",
+      "idShort": "ProductLifecycle",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#hasCharacteristic"
+          }
+        ]
+      },
+      "description": [
+        {
+          "language": "en",
+          "text": "Lifecycle fields updated during product life via the AAS API (Kafka-driven updater). Modeled as inline characteristics of the Resource (sc:hasCharacteristic)."
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Product Lifecycle (updatable fields)"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "status",
+          "valueType": "xs:string",
+          "value": "manufactured",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:status"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Lifecycle stage: manufactured, in-use, maintenance, repaired, retired, recycled"
+            }
+          ]
+        },
+        {
+          "modelType": "Property",
+          "idShort": "numberOfUses",
+          "valueType": "xs:integer",
+          "value": "0",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:numberOfUses"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Number of usage cycles (>= 0)"
+            }
+          ]
+        },
+        {
+          "modelType": "Property",
+          "idShort": "condition",
+          "valueType": "xs:string",
+          "value": "new",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:condition"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Physical condition: new, good, worn, damaged, repaired"
+            }
+          ]
+        },
+        {
+          "modelType": "Property",
+          "idShort": "currentLocation",
+          "valueType": "xs:string",
+          "value": "Plant Barcelona",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#hasLocation"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Current facility or warehouse location"
+            }
+          ]
+        },
+        {
+          "modelType": "Property",
+          "idShort": "lastMaintenanceDate",
+          "valueType": "xs:string",
+          "value": "",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:lastMaintenanceDate"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Date of last maintenance (YYYY-MM-DD), empty if never maintained"
+            }
+          ]
+        },
+        {
+          "modelType": "Property",
+          "idShort": "lifecycleCarbonFootprint",
+          "valueType": "xs:double",
+          "value": "427.9",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:dpp:lifecycleCarbonFootprint"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Total carbon footprint accumulated during lifecycle in kg CO2 eq (initialized to manufacturing value)"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#Resource",
+      "idShort": "Resource",
+      "description": [
+        {
+          "language": "en",
+          "text": "Needed material, workforce, software, etc. resource to perform processes"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#EquipmentResource",
+      "idShort": "EquipmentResource",
+      "description": [
+        {
+          "language": "en",
+          "text": "Equipment resource used in a manufacturing service chain (subclass of sc:Resource)"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasCharacteristic",
+      "idShort": "hasCharacteristic",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:ConfigurableEntity (including sc:Resource) to sc:Characteristic"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#hasLocation",
+      "idShort": "hasLocation",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking an entity to its sc:Location"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#name",
+      "idShort": "name",
+      "description": [
+        {
+          "language": "en",
+          "text": "Datatype property: name of the entity"
+        }
+      ]
+    }
+  ]
+}

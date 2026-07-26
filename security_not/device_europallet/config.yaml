@@ -1,0 +1,19 @@
+name: device
+type: VO
+resourceType:
+  specification: WoT
+  version: 1.1
+deploymentType: A
+catalogue: 9095
+bindingNB:
+  bindingModeNB: [H]
+  hostname: device-europallet
+  ports:
+    httpPort: 8083
+databaseConfig:
+  timeseriesDB:
+    influxDB: disabled
+  persistentDB:
+    SQLite: disabled
+# periodicFunction:
+#   damage_simulation: 200000

@@ -1,0 +1,324 @@
+{
+  "assetAdministrationShells": [
+    {
+      "modelType": "AssetAdministrationShell",
+      "id": "urn:aas:adient:site:34",
+      "idShort": "Site_34",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset:adient:site:34"
+      },
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Site"
+          }
+        ]
+      },
+      "description": [
+        {
+          "language": "en",
+          "text": "Adient manufacturing site 34 (DE)"
+        }
+      ],
+      "submodels": [
+        {
+          "type": "ModelReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "urn:aas:adient:site:34:sm:sitedata"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "submodels": [
+    {
+      "modelType": "Submodel",
+      "kind": "Instance",
+      "id": "urn:aas:adient:site:34:sm:sitedata",
+      "idShort": "SiteData",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "http://unimaas-project.eu/MSCOntology#Site"
+          }
+        ]
+      },
+      "description": [
+        {
+          "language": "en",
+          "text": "Site data mirroring the MSC-Ontology sc:Site datatype and object properties"
+        }
+      ],
+      "displayName": [
+        {
+          "language": "en",
+          "text": "Site 34 Data"
+        }
+      ],
+      "submodelElements": [
+        {
+          "modelType": "Property",
+          "idShort": "SiteName",
+          "valueType": "xs:string",
+          "value": "site_34",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "urn:unimaas:adient:aas:siteName"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Matching key used to resolve DPP currentLocation to this Site"
+            }
+          ]
+        },
+        {
+          "modelType": "Property",
+          "idShort": "country",
+          "valueType": "xs:string",
+          "value": "DE",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#country"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "entity",
+          "valueType": "xs:string",
+          "value": "internal",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#entity"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "nodeId",
+          "valueType": "xs:integer",
+          "value": "34",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#nodeId"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "productionRate",
+          "valueType": "xs:string",
+          "value": "fortnightly batches",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#productionRate"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "siteType",
+          "valueType": "xs:string",
+          "value": "metal tier3",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#siteType"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "Property",
+          "idShort": "tier",
+          "valueType": "xs:integer",
+          "value": "3",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#tier"
+              }
+            ]
+          }
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "Performs",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology#performs"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Processes performed at this Site (sc:performs)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "Process_1",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology#performs"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology/data/adient/process_metal_mechanisms_making"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "modelType": "SubmodelElementCollection",
+          "idShort": "SuppliesTo",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://unimaas-project.eu/MSCOntology/data/adient/suppliesTo"
+              }
+            ]
+          },
+          "description": [
+            {
+              "language": "en",
+              "text": "Direct supply/delivery flow to other Sites (scadient:suppliesTo)"
+            }
+          ],
+          "value": [
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "SuppliesTo_11",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology/data/adient/suppliesTo"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "AssetAdministrationShell",
+                    "value": "urn:aas:adient:site:11"
+                  }
+                ]
+              }
+            },
+            {
+              "modelType": "ReferenceElement",
+              "idShort": "SuppliesTo_50",
+              "semanticId": {
+                "type": "ExternalReference",
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "value": "http://unimaas-project.eu/MSCOntology/data/adient/suppliesTo"
+                  }
+                ]
+              },
+              "value": {
+                "type": "ModelReference",
+                "keys": [
+                  {
+                    "type": "AssetAdministrationShell",
+                    "value": "urn:aas:adient:site:50"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#Site",
+      "idShort": "Site",
+      "description": [
+        {
+          "language": "en",
+          "text": "Physical location where processes are performed. Subclass of sc:ConfigurableEntity"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology#performs",
+      "idShort": "performs",
+      "description": [
+        {
+          "language": "en",
+          "text": "Object property linking sc:Site to sc:Process. Inverse of sc:isPerformedAt"
+        }
+      ]
+    },
+    {
+      "modelType": "ConceptDescription",
+      "id": "http://unimaas-project.eu/MSCOntology/data/adient/suppliesTo",
+      "idShort": "suppliesTo",
+      "description": [
+        {
+          "language": "en",
+          "text": "Direct supply/delivery flow from one site to another (from Neo4j [:TO] relationship)"
+        }
+      ]
+    }
+  ]
+}

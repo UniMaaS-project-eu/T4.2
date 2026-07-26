@@ -1,0 +1,27 @@
+name: Europallet
+type: VO
+resourceType:
+  specification: WoT
+  version: 1.1
+deploymentType: A
+catalogue: 9096
+bindingNB:
+  bindingModeNB: [H]
+  hostname: vo-europallet
+  ports:
+    httpPort: 8082
+bindingSB:
+  bindingModeSB: [H]
+databaseConfig:
+  timeseriesDB:
+    influxDB: disabled
+  persistentDB:
+    SQLite: enabled
+consumedVOs:
+  device:
+    url: "http://device-europallet:9095/device"
+    events:
+      - damageDetected
+      - lifecycleChanged
+periodicFunction:
+  check_bridge_health: 10000

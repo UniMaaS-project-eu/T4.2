@@ -1,0 +1,208 @@
+{
+    "title": "cvo",
+    "id": "urn:ngsi-ld:cVO:container-fleet",
+    "description": "Composite VO aggregating the lifecycle of the Magnum Optimum, Europallet and B-container VOs",
+    "base": "http://cvo:8087/cvo",
+    "@context": [
+        "https://www.w3.org/2019/wot/td/v1"
+    ],
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "security": "nosec_sc",
+    "properties": {
+        "magnum_lifecycle": {
+            "type": "object",
+            "description": "Properties updated during product life.",
+            "observable": true,
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "description": "Current lifecycle stage of the product",
+                    "observable": true,
+                    "default": "manufactured",
+                    "enum": [
+                        "manufactured",
+                        "in_use",
+                        "maintenance",
+                        "repaired",
+                        "retired",
+                        "recycled"
+                    ]
+                },
+                "condition": {
+                    "type": "string",
+                    "description": "Physical condition of the product",
+                    "observable": true,
+                    "default": "new",
+                    "enum": [
+                        "new",
+                        "good",
+                        "worn",
+                        "damaged",
+                        "repaired"
+                    ]
+                },
+                "currentLocation": {
+                    "type": "string",
+                    "description": "Current facility or warehouse location",
+                    "observable": true,
+                    "default": "Plant Valencia"
+                },
+                "lastMaintenanceDate": {
+                    "type": "string",
+                    "description": "Last maintenance date of the product",
+                    "observable": true,
+                    "default": "",
+                    "pattern": "^$|^\\d{4}-\\d{2}-\\d{2}$"
+                },
+                "lifecycleCarbonFootprint": {
+                    "type": "number",
+                    "description": "Total carbon footprint accumulated during lifecycle",
+                    "observable": true,
+                    "default": 176.58,
+                    "unit": "kg CO2e"
+                },
+                "numberOfUses": {
+                    "type": "integer",
+                    "description": "Number of usage cycles",
+                    "observable": true,
+                    "default": 0,
+                    "minimum": 0
+                }
+            }
+        },
+        "europallet_lifecycle": {
+            "type": "object",
+            "description": "Properties updated during product life.",
+            "observable": true,
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "description": "Current lifecycle stage of the product",
+                    "observable": true,
+                    "default": "manufactured",
+                    "enum": [
+                        "manufactured",
+                        "in_use",
+                        "maintenance",
+                        "repaired",
+                        "retired",
+                        "recycled"
+                    ]
+                },
+                "condition": {
+                    "type": "string",
+                    "description": "Physical condition of the product",
+                    "observable": true,
+                    "default": "new",
+                    "enum": [
+                        "new",
+                        "good",
+                        "worn",
+                        "damaged",
+                        "repaired"
+                    ]
+                },
+                "currentLocation": {
+                    "type": "string",
+                    "description": "Current facility or warehouse location",
+                    "observable": true,
+                    "default": "Warehouse Madrid"
+                },
+                "lastMaintenanceDate": {
+                    "type": "string",
+                    "description": "Last maintenance date of the product",
+                    "observable": true,
+                    "default": "",
+                    "pattern": "^$|^\\d{4}-\\d{2}-\\d{2}$"
+                },
+                "lifecycleCarbonFootprint": {
+                    "type": "number",
+                    "description": "Total carbon footprint accumulated during lifecycle",
+                    "observable": true,
+                    "default": 7.75,
+                    "unit": "kg CO2e"
+                },
+                "numberOfUses": {
+                    "type": "integer",
+                    "description": "Number of usage cycles",
+                    "observable": true,
+                    "default": 0,
+                    "minimum": 0
+                }
+            }
+        },
+        "bcontainer_lifecycle": {
+            "type": "object",
+            "description": "Properties updated during product life.",
+            "observable": true,
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "description": "Current lifecycle stage of the product",
+                    "observable": true,
+                    "default": "manufactured",
+                    "enum": [
+                        "manufactured",
+                        "in_use",
+                        "maintenance",
+                        "repaired",
+                        "retired",
+                        "recycled"
+                    ]
+                },
+                "condition": {
+                    "type": "string",
+                    "description": "Physical condition of the product",
+                    "observable": true,
+                    "default": "new",
+                    "enum": [
+                        "new",
+                        "good",
+                        "worn",
+                        "damaged",
+                        "repaired"
+                    ]
+                },
+                "currentLocation": {
+                    "type": "string",
+                    "description": "Current facility or warehouse location",
+                    "observable": true,
+                    "default": "Plant Barcelona"
+                },
+                "lastMaintenanceDate": {
+                    "type": "string",
+                    "description": "Last maintenance date of the product",
+                    "observable": true,
+                    "default": "",
+                    "pattern": "^$|^\\d{4}-\\d{2}-\\d{2}$"
+                },
+                "lifecycleCarbonFootprint": {
+                    "type": "number",
+                    "description": "Total carbon footprint accumulated during lifecycle",
+                    "observable": true,
+                    "default": 427.9,
+                    "unit": "kg CO2e"
+                },
+                "numberOfUses": {
+                    "type": "integer",
+                    "description": "Number of usage cycles",
+                    "observable": true,
+                    "default": 0,
+                    "minimum": 0
+                }
+            }
+        }
+    },
+    "events": {
+        "fleetLifecycleUpdated": {
+            "description": "Emitted whenever any product VO's lifecycle changes.",
+            "data": {
+                "type": "object"
+            }
+        }
+    }
+}

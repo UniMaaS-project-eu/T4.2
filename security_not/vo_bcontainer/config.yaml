@@ -1,0 +1,27 @@
+name: BContainer
+type: VO
+resourceType:
+  specification: WoT
+  version: 1.1
+deploymentType: A
+catalogue: 9098
+bindingNB:
+  bindingModeNB: [H]
+  hostname: vo-bcontainer
+  ports:
+    httpPort: 8084
+bindingSB:
+  bindingModeSB: [H]
+databaseConfig:
+  timeseriesDB:
+    influxDB: disabled
+  persistentDB:
+    SQLite: enabled
+consumedVOs:
+  device:
+    url: "http://device-bcontainer:9097/device"
+    events:
+      - damageDetected
+      - lifecycleChanged
+periodicFunction:
+  check_bridge_health: 10000
