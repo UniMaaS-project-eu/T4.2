@@ -98,7 +98,7 @@ Time-series database for container lifecycle metrics.
 
 **Network**:
 - All services run in isolated Docker networks `basyx-net` and `kafka-tst_kafka-net`
-- Ports: 8080-8085,8087 (VOs), 9090,9091,9095-9099 (catalogue), 3000 (BaSyx UI), 8086 (InfluxDB), 8089 (Kafka UI)
+- Ports: 8080- 8085, 8087 (VOs), 9090,9091,9095-9099 (catalogue), 3000 (BaSyx UI), 8086 (InfluxDB), 8089 (Kafka UI)
 
 ### Quick Start 
  
@@ -111,17 +111,17 @@ git checkout master
  
 #### 2. Start Kafka and Kafka→BaSyx Bridge
 ```bash
-docker-compose -f ./kafka-tst/docker-compose.yml up -d --build
+docker compose -f ./kafka-tst/docker-compose.yml up -d 
 ```
 
 #### 3. Start BaSyx
 ```bash
-docker-compose -f ./Basyx/docker-compose.yml up -d
+docker compose -f ./Basyx/docker-compose.yml up -d
 ```
  
 #### 4. Start Virtual Objects
 ```bash
-docker-compose -f ./security_not/docker-compose.yml up -d
+docker compose -f ./security_not/docker-compose.yml up -d
 ``` 
 
 
