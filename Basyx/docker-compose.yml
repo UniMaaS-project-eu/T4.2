@@ -93,8 +93,8 @@ services:
     image: influxdb:2.6.0
     container_name: influxdb
     ports:
-      - '8090:8086'
-      - '9999:9999'
+      - '8086:8086'
+      - '9992:9999'
     volumes:
       - ./influxdb/data:/var/lib/influxdb2
       - ./influxdb/config:/etc/influxdb2

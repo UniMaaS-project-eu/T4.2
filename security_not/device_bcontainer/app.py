@@ -19,7 +19,8 @@ async def triggerLifecycleUpdate_handler(params):
         "status": data.get("status"),
         "numberOfUses": data.get("numberOfUses"),
         "newLocation": data.get("newLocation"),
-        "carbonFootprintIncrement": data.get("carbonFootprintIncrement", 0)
+        "carbonFootprintIncrement": data.get("carbonFootprintIncrement", 0),
+        "condition": data.get("condition")
     })
     LOGGER.info(f"lifecycleChanged event emitted with data: {data}")
     return {"result": True, "message": "lifecycleChanged event emitted"}

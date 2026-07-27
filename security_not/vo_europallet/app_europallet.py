@@ -262,25 +262,65 @@ def lifecycleChanged_device_on_next(event):
     asyncio.create_task(handle_lifecycle_change_event(event))
 
 async def handle_lifecycle_change_event(event):
+    """
+    FIXED VERSION: Only update lifecycle fields that are actually present
+    in the device event. Do NOT overwrite with None.
+    
+    This prevents a partial device event from blanking out fields that were
+    not included in that event.
+    """
     data = event.data or {}
-    status = data.get("status")
-    number_of_uses = data.get("numberOfUses")
-    new_location = data.get("newLocation")
-    carbon_footprint_increment = data.get("carbonFootprintIncrement", 0)
-    lifecycle = await exposed_thing.read_property("lifecycle")
-    updated_footprint = lifecycle.get("lifecycleCarbonFootprint", 0) + carbon_footprint_increment
-
+    
+    # Read current lifecycle state
     current = await exposed_thing.read_property("lifecycle")
-    current["status"] = status
-    current["numberOfUses"] = number_of_uses
-    current["currentLocation"] = new_location
-    current["lifecycleCarbonFootprint"] = updated_footprint
-    await exposed_thing.write_property("lifecycle", current)
-
-    exposed_thing.emit_event("statusUpdated", status)
-    exposed_thing.emit_event("numberOfUsesUpdated", number_of_uses)
-    exposed_thing.emit_event("locationUpdated", new_location)
-    exposed_thing.emit_event("lifecycleCarbonFootprintUpdated", updated_footprint)
+    
+    # ✅ Mapping of device event keys to lifecycle property names.
+    # Only keys present in this mapping will be updated.
+    field_mapping = {
+        "status": "status",
+        "numberOfUses": "numberOfUses",
+        "newLocation": "currentLocation",
+        "condition": "condition"
+    }
+    
+    updated_fields = []  # Track which fields were actually updated
+    
+    # ✅ Only update fields that are present AND non-None in the event
+    for event_key, lifecycle_key in field_mapping.items():
+        if event_key in data and data[event_key] is not None:
+            current[lifecycle_key] = data[event_key]
+            updated_fields.append((lifecycle_key, data[event_key]))
+            LOGGER.info("Lifecycle updated from device event: %s = %s", 
+                       lifecycle_key, data[event_key])
+    
+    # ✅ Handle carbon footprint increment (optional, default 0)
+    if "carbonFootprintIncrement" in data:
+        increment = data.get("carbonFootprintIncrement", 0)
+        if isinstance(increment, (int, float)) and increment != 0:
+            updated_footprint = current.get("lifecycleCarbonFootprint", 0) + increment
+            current["lifecycleCarbonFootprint"] = updated_footprint
+            updated_fields.append(("lifecycleCarbonFootprint", updated_footprint))
+            LOGGER.info("Carbon footprint incremented: %s", updated_footprint)
+    
+    # ✅ Write the updated lifecycle back to the VO (only if something changed)
+    if updated_fields:
+        await exposed_thing.write_property("lifecycle", current)
+        LOGGER.info("Lifecycle written after device event: %s", updated_fields)
+        
+        # ✅ Emit events only for fields that were actually updated
+        for field_name, new_value in updated_fields:
+            if field_name == "status":
+                exposed_thing.emit_event("statusUpdated", new_value)
+            elif field_name == "numberOfUses":
+                exposed_thing.emit_event("numberOfUsesUpdated", new_value)
+            elif field_name == "currentLocation":
+                exposed_thing.emit_event("locationUpdated", new_value)
+            elif field_name == "condition":
+                exposed_thing.emit_event("conditionUpdated", new_value)
+            elif field_name == "lifecycleCarbonFootprint":
+                exposed_thing.emit_event("lifecycleCarbonFootprintUpdated", new_value)
+    else:
+        LOGGER.info("Device event contained no recognized/non-null fields; lifecycle unchanged")
 
 # Helper functions for bridge communication
 

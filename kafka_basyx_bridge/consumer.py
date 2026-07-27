@@ -108,21 +108,27 @@ def sm_url(submodel_id: str, path: str = "") -> str:
     return url
 
 
+# FIXED CODE
 def patch_element_value(submodel_id: str, id_short_path: str, value) -> bool:
-    """Value-only PATCH of a Property. Retries with the stringified value,
-    since BaSyx serializes xs:integer / xs:double values as JSON strings."""
+    """Value-only PATCH of a Property. BaSyx requires numeric types as JSON strings."""
     url = sm_url(submodel_id, id_short_path) + "/$value"
-    for candidate in (value, str(value)):
-        try:
-            r = requests.patch(url, json=candidate, timeout=10)
-        except requests.RequestException as e:
-            LOGGER.error("PATCH %s failed: %s", url, e)
-            return False
-        if r.status_code in (200, 204):
-            return True
-        if r.status_code != 400:
-            break
-    LOGGER.error("PATCH %s -> %s %s", url, r.status_code, r.text[:200])
+    
+    if isinstance(value, (int, float)):
+        candidate = str(value)
+    else:
+        candidate = value
+    
+    try:
+        r = requests.patch(url, json=candidate, timeout=10)
+    except requests.RequestException as e:
+        LOGGER.error("PATCH %s failed: %s", url, e)
+        return False
+    
+    if r.status_code in (200, 204):
+        LOGGER.debug("PATCH %s ← %s succeeded", url, r.status_code)
+        return True
+    
+    LOGGER.error("PATCH %s -> %s: %s", url, r.status_code, r.text[:200])
     return False
 
 
@@ -311,7 +317,9 @@ def handle_lifecycle_message(msg: dict):
             continue
         value = lifecycle[id_short]
         if value is None:
-            value = ""
+            LOGGER.debug("Skipping %s (null value in message)", id_short)
+            continue
+            # value = ""
         if patch_element_value(sm_id, id_short, value):
             LOGGER.info("AAS %s: %s = %s", part_number, id_short, value)
 
