@@ -73,13 +73,10 @@ GET  /shells/{aasId}/submodels/{smId}     # Get submodel
 PATCH /shells/{aasId}/submodels/{smId}/submodel-elements/{elementId}  # Update property
 ```
 
-### Layer 6: GraphDB RDF Semantic Store
+### Layer 6: RDF Dataset Export
 
-Ontology-based semantic layer for RDF dataset extraction from BaSyx and integration in the UniMaaS platform KG.
+The T4.2 implementation includes a generic BaSyx-to-MSC RDF exporter that converts AAS data into MSC Ontology-compatible RDF graphs. Designed to work across all UniMaaS pilots (Adient, ANV, Aegean, Catone).
 
-#### Bridge → GraphDB Synchronization
- 
-**File**: `./Basyx/basyx_to_msc_rdf.py`: Convert BaSyx AAS updates to RDF triples
 
 ### Layer 7: InfluxDB Time-Series Metrics
  
@@ -123,5 +120,23 @@ docker compose -f ./Basyx/docker-compose.yml up -d
 ```bash
 docker compose -f ./security_not/docker-compose.yml up -d
 ``` 
+#### 5: Build the RDF Exporter Image 
 
+```bash
+cd ./Basyx
 
+# IMPORTANT: Always include BOTH compose files
+# The extension file (-f docker-compose-rdf-exporter.yml) depends on services 
+# from the main file (-f docker-compose.yml)
+
+docker compose -f docker-compose.yml -f docker-compose-rdf-exporter.yml build basyx-rdf-exporter
+```
+#### 6: One-time export (on-demand)
+
+```bash
+UNIMAAS_PILOT=adient docker compose -f docker-compose.yml \
+    -f docker-compose-rdf-exporter.yml \
+    run --rm basyx-rdf-exporter
+
+# Output: rdf-datasets/msc_dataset_<timestamp>.ttl
+```

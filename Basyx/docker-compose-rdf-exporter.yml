@@ -1,0 +1,55 @@
+# Docker Compose extension for T4.2 RDF Exporter
+# Usage: docker compose -f docker-compose.yml -f docker-compose-rdf-exporter.yml <command>
+
+version: '3.8'
+
+services:
+
+  # RDF Exporter Service
+  # Converts BaSyx AAS → MSC RDF (on schedule or demand)
+  basyx-rdf-exporter:
+    build:
+      context: .
+      dockerfile: Dockerfile.rdf-exporter
+    container_name: basyx-rdf-exporter-t42
+    depends_on:
+      - aas-env
+    environment:
+      # Pilot selection (adient, anv, aegean, catone)
+      # Override: UNIMAAS_PILOT=anv docker compose up
+      UNIMAAS_PILOT: "${UNIMAAS_PILOT:-adient}"
+    volumes:
+      # Output directory: RDF Turtle files
+      - ./rdf-datasets:/output
+      # Optional: mount AAS JSON files for offline mode
+      - ./aas-dumps:/aas-dumps:ro
+    # Default: reads from BaSyx REST, writes to /output/msc_dataset.ttl
+    command: >
+      --basyx http://aas-env:8081
+      --pilot ${UNIMAAS_PILOT:-adient}
+      -o /output/msc_dataset.ttl
+    networks:
+      - kafka-net
+      - basyx-net
+    # restart: "no"  # Only run on-demand, not auto-restart
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  # Ensure rdf-datasets directory exists and is persistent
+  rdf-datasets:
+    driver: local
+
+# External networks (must already exist from base T4.2 compose)
+networks:
+  kafka-net:
+    external: true
+    name: kafka-tst_kafka-net
+
+  basyx-net:
+    external: true
+    name: basyx-net

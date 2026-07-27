@@ -1,0 +1,17 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies
+RUN pip install --no-cache-dir rdflib requests
+
+# Copy the exporter script
+COPY basyx_to_msc_rdf_generic.py .
+
+# Make it executable
+RUN chmod +x basyx_to_msc_rdf_generic.py
+
+# Default: export from BaSyx for Adient pilot
+# Can be overridden: docker run ... --files aas_*.json --pilot anv
+ENTRYPOINT ["python", "-u", "basyx_to_msc_rdf_generic.py"]
+CMD ["--basyx", "http://aas-env:8081", "--pilot", "adient", "-o", "/output/msc_dataset.ttl"]
