@@ -1,11 +1,11 @@
 {
   "assetAdministrationShells": [
     {
-      "id": "urn:aas:device:test",
-      "idShort": "Device_test",
+      "id": "urn:unimaas:adient:device:device_test",
+      "idShort": "device_test",
       "assetInformation": {
         "assetKind": "Instance",
-        "globalAssetId": "urn:asset:device:test"
+        "globalAssetId": "urn:asset:adient:device:device_test"
       },
       "semanticId": {
         "type": "ExternalReference",
@@ -42,7 +42,7 @@
           }
         ]
       },
-      "id": "urn:aas:submodel:device:test",
+      "id": "urn:aas:adient:device:device_test:sm:devicesubmodel",
       "idShort": "DeviceSubmodel",
       "description": [
         {
@@ -191,8 +191,8 @@
                   }
                 ]
               }
-        },
-        {
+            },
+            {
               "modelType": "ReferenceElement",
               "idShort": "Characteristic_2",
               "semanticId": {

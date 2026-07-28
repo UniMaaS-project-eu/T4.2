@@ -1,12 +1,12 @@
 {
   "assetAdministrationShells": [
     {
-      "id": "urn:aas:adient:b-container:3334567",
-      "idShort": "DPP_b_container_3334567",
+      "id": "urn:unimaas:adient:resource:b_container_3334567",
+      "idShort": "b_container_3334567",
       "modelType": "AssetAdministrationShell",
       "assetInformation": {
         "assetKind": "Instance",
-        "globalAssetId": "urn:asset:adient:b-container:3334567"
+        "globalAssetId": "urn:asset:adient:resource:b_container_3334567"
       },
       "semanticId": {
         "type": "ExternalReference",
@@ -29,7 +29,7 @@
           "keys": [
             {
               "type": "Submodel",
-              "value": "urn:aas:adient:b-container:3334567:sm:nameplate"
+              "value": "urn:aas:adient:resource:b_container_3334567:sm:nameplate"
             }
           ]
         },
@@ -38,7 +38,7 @@
           "keys": [
             {
               "type": "Submodel",
-              "value": "urn:aas:adient:b-container:3334567:sm:carbonfootprint"
+              "value": "urn:aas:adient:resource:b_container_3334567:sm:carbonfootprint"
             }
           ]
         },
@@ -47,7 +47,7 @@
           "keys": [
             {
               "type": "Submodel",
-              "value": "urn:aas:adient:b-container:3334567:sm:productmodel"
+              "value": "urn:aas:adient:resource:b_container_3334567:sm:productmodel"
             }
           ]
         },
@@ -56,7 +56,7 @@
           "keys": [
             {
               "type": "Submodel",
-              "value": "urn:aas:adient:b-container:3334567:sm:productinstance"
+              "value": "urn:aas:adient:resource:b_container_3334567:sm:productinstance"
             }
           ]
         },
@@ -65,7 +65,7 @@
           "keys": [
             {
               "type": "Submodel",
-              "value": "urn:aas:adient:b-container:3334567:sm:lifecycle"
+              "value": "urn:aas:adient:resource:b_container_3334567:sm:lifecycle"
             }
           ]
         }
@@ -76,7 +76,7 @@
     {
       "modelType": "Submodel",
       "kind": "Instance",
-      "id": "urn:aas:adient:b-container:3334567:sm:nameplate",
+      "id": "urn:aas:adient:resource:b_container_3334567:sm:nameplate",
       "idShort": "DigitalNameplate",
       "semanticId": {
         "type": "ExternalReference",
@@ -303,7 +303,7 @@
     {
       "modelType": "Submodel",
       "kind": "Instance",
-      "id": "urn:aas:adient:b-container:3334567:sm:carbonfootprint",
+      "id": "urn:aas:adient:resource:b_container_3334567:sm:carbonfootprint",
       "idShort": "CarbonFootprint",
       "semanticId": {
         "type": "ExternalReference",
@@ -428,7 +428,7 @@
     {
       "modelType": "Submodel",
       "kind": "Instance",
-      "id": "urn:aas:adient:b-container:3334567:sm:productmodel",
+      "id": "urn:aas:adient:resource:b_container_3334567:sm:productmodel",
       "idShort": "ProductModelData",
       "semanticId": {
         "type": "ExternalReference",
@@ -634,7 +634,7 @@
     {
       "modelType": "Submodel",
       "kind": "Instance",
-      "id": "urn:aas:adient:b-container:3334567:sm:productinstance",
+      "id": "urn:aas:adient:resource:b_container_3334567:sm:productinstance",
       "idShort": "ProductInstanceData",
       "semanticId": {
         "type": "ExternalReference",
@@ -726,7 +726,7 @@
     {
       "modelType": "Submodel",
       "kind": "Instance",
-      "id": "urn:aas:adient:b-container:3334567:sm:lifecycle",
+      "id": "urn:aas:adient:resource:b_container_3334567:sm:lifecycle",
       "idShort": "ProductLifecycle",
       "semanticId": {
         "type": "ExternalReference",
@@ -760,7 +760,7 @@
             "keys": [
               {
                 "type": "GlobalReference",
-                "value": "urn:unimaas:adient:dpp:status"
+                "value": "http://unimaas-project.eu/MSCOntology#status"
               }
             ]
           },
@@ -781,7 +781,7 @@
             "keys": [
               {
                 "type": "GlobalReference",
-                "value": "urn:unimaas:adient:dpp:numberOfUses"
+                "value": "http://unimaas-project.eu/MSCOntology#numberOfUses"
               }
             ]
           },
@@ -802,7 +802,7 @@
             "keys": [
               {
                 "type": "GlobalReference",
-                "value": "urn:unimaas:adient:dpp:condition"
+                "value": "http://unimaas-project.eu/MSCOntology#condition"
               }
             ]
           },
@@ -844,7 +844,7 @@
             "keys": [
               {
                 "type": "GlobalReference",
-                "value": "urn:unimaas:adient:dpp:lastMaintenanceDate"
+                "value": "http://unimaas-project.eu/MSCOntology#lastMaintenanceDate"
               }
             ]
           },
@@ -865,7 +865,7 @@
             "keys": [
               {
                 "type": "GlobalReference",
-                "value": "urn:unimaas:adient:dpp:lifecycleCarbonFootprint"
+                "value": "http://unimaas-project.eu/MSCOntology#lifecycleCarbonFootprint"
               }
             ]
           },

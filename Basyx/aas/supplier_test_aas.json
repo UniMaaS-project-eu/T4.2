@@ -1,11 +1,11 @@
 {
   "assetAdministrationShells": [
     {
-      "id": "urn:aas:supplier:test",
-      "idShort": "Supplier_test",
+      "id": "urn:unimaas:adient:supplier:supplier_test",
+      "idShort": "supplier_test",
       "assetInformation": {
         "assetKind": "Instance",
-        "globalAssetId": "urn:asset:supplier:test"
+        "globalAssetId": "urn:asset:supplier:supplier_test"
       },
       "semanticId": {
         "type": "ExternalReference",

@@ -1,11 +1,11 @@
 {
   "assetAdministrationShells": [
     {
-      "id": "urn:aas:sensor1:test",
-      "idShort": "Sensor1_test",
+      "id": "urn:unimaas:adient:sensor:sensor1_test",
+      "idShort": "sensor1_test",
       "assetInformation": {
         "assetKind": "Instance",
-        "globalAssetId": "urn:asset:sensor1:test"
+        "globalAssetId": "urn:asset:adient:sensor:sensor1_test"
       },
       "semanticId": {
         "type": "ExternalReference",

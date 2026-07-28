@@ -1,9 +1,23 @@
 FROM python:3.11-slim
 
+# Set metadata
+LABEL maintainer="UniMaaS Project"
+LABEL description="BaSyx to MSC-Ontology RDF Exporter"
+LABEL version="2.0"
+
 WORKDIR /app
 
-# Install dependencies
-RUN pip install --no-cache-dir rdflib requests
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+# Use specific versions for reproducibility
+RUN pip install --no-cache-dir \
+    rdflib==6.3.2 \
+    requests==2.31.0
 
 # Copy the exporter script
 COPY basyx_to_msc_rdf_generic.py .
@@ -11,7 +25,19 @@ COPY basyx_to_msc_rdf_generic.py .
 # Make it executable
 RUN chmod +x basyx_to_msc_rdf_generic.py
 
-# Default: export from BaSyx for Adient pilot
-# Can be overridden: docker run ... --files aas_*.json --pilot anv
+# Create output directory
+RUN mkdir -p /output
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Health check: verify Python script is callable
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python basyx_to_msc_rdf_generic.py --help > /dev/null 2>&1 || exit 1
+
+# Default entry point and command
+# Entry point: Always run the Python script
+# Command: Default arguments (can be overridden)
 ENTRYPOINT ["python", "-u", "basyx_to_msc_rdf_generic.py"]
 CMD ["--basyx", "http://aas-env:8081", "--pilot", "adient", "-o", "/output/msc_dataset.ttl"]

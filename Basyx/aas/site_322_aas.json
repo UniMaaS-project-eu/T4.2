@@ -2,11 +2,11 @@
   "assetAdministrationShells": [
     {
       "modelType": "AssetAdministrationShell",
-      "id": "urn:aas:adient:site:322",
-      "idShort": "Site_322",
+      "id": "urn:unimaas:adient:site:site_322",
+      "idShort": "site_322",
       "assetInformation": {
         "assetKind": "Instance",
-        "globalAssetId": "urn:asset:adient:site:322"
+        "globalAssetId": "urn:asset:adient:site:site_322"
       },
       "semanticId": {
         "type": "ExternalReference",

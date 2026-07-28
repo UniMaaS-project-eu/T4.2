@@ -1,11 +1,11 @@
 {
   "assetAdministrationShells": [
     {
-      "id": "urn:aas:process:test",
-      "idShort": "Process_test",
+      "id": "urn:unimaas:adient:process:process_test",
+      "idShort": "process_test",
       "assetInformation": {
         "assetKind": "Instance",
-        "globalAssetId": "urn:asset:process:test"
+        "globalAssetId": "urn:asset:adient:process:process_test"
       },
       "semanticId": {
         "type": "ExternalReference",

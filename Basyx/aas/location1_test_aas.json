@@ -1,11 +1,11 @@
 {
   "assetAdministrationShells": [
     {
-      "id": "urn:aas:location1:test",
-      "idShort": "Location1_test",
+      "id": "urn:unimaas:adient:location:location1_test",
+      "idShort": "location1_test",
       "assetInformation": {
         "assetKind": "Instance",
-        "globalAssetId": "urn:asset:location1:test"
+        "globalAssetId": "urn:asset:adient:location:location1_test"
       },
       "semanticId": {
         "type": "ExternalReference",
@@ -42,7 +42,7 @@
           }
         ]
       },
-      "id": "urn:aas:submodel:location1:test",
+      "id": "urn:aas:adient:location:location1_test:sm:location1submodel",
       "idShort": "Location1Submodel",
       "description": [
         {

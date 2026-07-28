@@ -1,320 +1,200 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sc: <http://unimaas-project.eu/MSCOntology#> .
 @prefix scadient: <http://unimaas-project.eu/MSCOntology/data/adient/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-scadient:logisticroute_test a sc:LogisticRoute ;
-    sc:hasEndingPoint scadient:location1_test ;
-    sc:hasStartingPoint scadient:location2_test .
+scadient:char_characteristic1_test a sc:Characteristic .
 
-scadient:processconfiguration_test a sc:ProcessConfiguration ;
-    sc:hasInput scadient:product_test ;
-    sc:hasOutput scadient:product_test ;
-    sc:requiresProcess scadient:process_test ;
-    sc:usesResource scadient:resource_test .
+scadient:char_characteristic2_test a sc:Characteristic .
 
-scadient:siteHasResource a owl:ObjectProperty ;
-    rdfs:label "site has resource" ;
-    rdfs:comment "Links a Site to the Resources (e.g., containers) currently located at it, derived from DPP currentLocation" ;
-    rdfs:domain sc:Site ;
-    rdfs:range sc:Resource .
+scadient:char_characteristic3_test a sc:Characteristic .
 
-scadient:site_12 a sc:Site ;
+scadient:char_characteristic4_test a sc:Characteristic .
+
+scadient:creq_customerrequirement_test a sc:CustomerRequirement .
+
+scadient:device_device_test a sc:Device .
+
+scadient:location_location1_test a sc:Location .
+
+scadient:location_location2_test a sc:Location .
+
+scadient:pconf_processconfiguration_test a sc:ProcessConfiguration .
+
+scadient:process_process_test a sc:Process .
+
+scadient:product_product_test a sc:Product .
+
+scadient:resource_b_container_3334567 a sc:Resource ;
+    sc:Resource "EquipmentResource"^^xsd:string ;
+    sc:condition "condition22"^^xsd:string ;
+    sc:hasLocation "location22"^^xsd:string ;
+    sc:lifecycleCarbonFootprint 663.3199999999999 ;
+    sc:name "B-container"^^xsd:string ;
+    sc:numberOfUses 22 ;
+    sc:status "status22"^^xsd:string .
+
+scadient:resource_europallet_2224567 a sc:Resource ;
+    sc:Resource "EquipmentResource"^^xsd:string ;
+    sc:condition "condition22"^^xsd:string ;
+    sc:hasLocation "location22"^^xsd:string ;
+    sc:lifecycleCarbonFootprint 32.75 ;
+    sc:name "Europallet"^^xsd:string ;
+    sc:numberOfUses 22 ;
+    sc:status "status22"^^xsd:string .
+
+scadient:resource_magnum_optimum_1114567 a sc:Resource ;
+    sc:Resource "EquipmentResource"^^xsd:string ;
+    sc:condition "condition23"^^xsd:string ;
+    sc:hasLocation "location23"^^xsd:string ;
+    sc:lifecycleCarbonFootprint 199.58 ;
+    sc:name "Magnum optimum"^^xsd:string ;
+    sc:numberOfUses 23 ;
+    sc:status "status23"^^xsd:string .
+
+scadient:resource_resource_test a sc:Resource .
+
+scadient:route_logisticroute_test a sc:LogisticRoute .
+
+scadient:sensor_sensor1_test a sc:Sensor .
+
+scadient:sensor_sensor2_test a sc:Sensor .
+
+scadient:sensor_sensor3_test a sc:Sensor .
+
+scadient:sensor_sensor4_test a sc:Sensor .
+
+scadient:site_site_11 a sc:Site .
+
+scadient:site_site_12 a sc:Site ;
     sc:country "HU"^^xsd:string ;
     sc:entity "internal"^^xsd:string ;
     sc:nodeId 12 ;
-    sc:performs scadient:process_metal_mechanisms_making ;
     sc:productionRate "fortnightly batches"^^xsd:string ;
     sc:siteType "metal"^^xsd:string ;
-    sc:tier 2 ;
-    scadient:suppliesTo scadient:site_37 .
+    sc:tier 2 .
 
-scadient:site_16 a sc:Site ;
-    sc:country "DE"^^xsd:string ;
-    sc:entity "internal"^^xsd:string ;
-    sc:nodeId 16 ;
-    sc:performs scadient:process_metal_mechanisms_making ;
-    sc:productionRate "fortnightly batches"^^xsd:string ;
-    sc:siteType "metal tier 3"^^xsd:string ;
-    sc:tier 3 ;
-    scadient:suppliesTo scadient:site_11,
-        scadient:site_50 .
-
-scadient:site_220 a sc:Site ;
-    sc:country "CZ"^^xsd:string ;
-    sc:entity "external"^^xsd:string ;
-    sc:nodeId 220 ;
-    sc:performs scadient:process_metal_structures_making ;
-    sc:productionRate "weekly batches"^^xsd:string ;
-    sc:siteType "3p"^^xsd:string ;
-    scadient:suppliesTo scadient:site_14,
-        scadient:site_64 .
-
-scadient:site_291 a sc:Site ;
-    sc:country "DE"^^xsd:string ;
-    sc:entity "internal"^^xsd:string ;
-    sc:nodeId 291 ;
-    sc:performs scadient:process_metal_mechanisms_making ;
-    sc:productionRate "fortnightly batches"^^xsd:string ;
-    sc:siteType "metal tier3"^^xsd:string ;
-    sc:tier 3 ;
-    scadient:suppliesTo scadient:site_11 .
-
-scadient:site_322 a sc:Site ;
-    sc:country "DE"^^xsd:string ;
-    sc:entity "external"^^xsd:string ;
-    sc:nodeId 322 ;
-    sc:performs scadient:process_metal_stampings_making ;
-    sc:productionRate "fortnightly batches"^^xsd:string ;
-    sc:siteType "3p"^^xsd:string ;
-    scadient:suppliesTo scadient:site_11 .
-
-scadient:site_335 a sc:Site ;
-    sc:country "PT"^^xsd:string ;
-    sc:entity "external"^^xsd:string ;
-    sc:nodeId 335 ;
-    sc:performs scadient:process_metal_stampings_making ;
-    sc:productionRate "fortnightly batches"^^xsd:string ;
-    sc:siteType "3p"^^xsd:string ;
-    scadient:suppliesTo scadient:site_33 .
-
-scadient:site_34 a sc:Site ;
-    sc:country "DE"^^xsd:string ;
-    sc:entity "internal"^^xsd:string ;
-    sc:nodeId 34 ;
-    sc:performs scadient:process_metal_mechanisms_making ;
-    sc:productionRate "fortnightly batches"^^xsd:string ;
-    sc:siteType "metal tier3"^^xsd:string ;
-    sc:tier 3 ;
-    scadient:suppliesTo scadient:site_11,
-        scadient:site_50 .
-
-scadient:site_35 a sc:Site ;
-    sc:country "DE"^^xsd:string ;
-    sc:entity "internal"^^xsd:string ;
-    sc:nodeId 35 ;
-    sc:performs scadient:process_metal_mechanisms_making ;
-    sc:productionRate "fortnightly batches"^^xsd:string ;
-    sc:siteType "metal tier3"^^xsd:string ;
-    sc:tier 3 ;
-    scadient:suppliesTo scadient:site_11,
-        scadient:site_33 .
-
-scadient:site_707 a sc:Site ;
-    sc:country "DE"^^xsd:string ;
-    sc:entity "external"^^xsd:string ;
-    sc:nodeId 707 ;
-    sc:performs scadient:process_metal_stampings_making ;
-    sc:productionRate "fortnightly batches"^^xsd:string ;
-    sc:siteType "3p"^^xsd:string ;
-    scadient:suppliesTo scadient:site_33 .
-
-scadient:site_730 a sc:Site ;
-    sc:country "PL"^^xsd:string ;
-    sc:entity "external"^^xsd:string ;
-    sc:nodeId 730 ;
-    sc:performs scadient:process_metal_stampings_making ;
-    sc:productionRate "fortnightly batches"^^xsd:string ;
-    sc:siteType "3p"^^xsd:string ;
-    scadient:suppliesTo scadient:site_50 .
-
-scadient:site_959 a sc:Site ;
-    sc:country "CZ"^^xsd:string ;
-    sc:entity "external"^^xsd:string ;
-    sc:nodeId 959 ;
-    sc:performs scadient:process_metal_stampings_making ;
-    sc:productionRate "fortnightly batches"^^xsd:string ;
-    sc:siteType "3p"^^xsd:string ;
-    scadient:suppliesTo scadient:site_11 .
-
-scadient:site_972 a sc:Site ;
-    sc:country "RO"^^xsd:string ;
-    sc:entity "external"^^xsd:string ;
-    sc:nodeId 972 ;
-    sc:performs scadient:process_metal_stampings_making ;
-    sc:productionRate "fortnightly batches"^^xsd:string ;
-    sc:siteType "3p"^^xsd:string ;
-    scadient:suppliesTo scadient:site_37,
-        scadient:site_50 .
-
-scadient:suppliesTo a owl:ObjectProperty ;
-    rdfs:label "supplies to" ;
-    rdfs:comment "Direct supply/delivery flow from one site to another" ;
-    rdfs:domain sc:Site ;
-    rdfs:range sc:Site .
-
-scadient:characteristic1_test a sc:Characteristic ;
-    sc:isObservedBy scadient:sensor1_test .
-
-scadient:characteristic2_test a sc:Characteristic ;
-    sc:isObservedBy scadient:sensor2_test .
-
-scadient:customerrequirement_test a sc:CustomerRequirement ;
-    sc:satisfiesRequirement scadient:product_test .
-
-scadient:dpp_b_container_3334567 a sc:EquipmentResource,
-        sc:Resource ;
-    sc:name "B-container"^^xsd:string ;
-    scadient:condition "new"^^xsd:string ;
-    scadient:description "Metal returnable and foldable container"^^xsd:string ;
-    scadient:durabilityMaxYears 15 ;
-    scadient:durabilityMinYears 5 ;
-    scadient:lifecycleCarbonFootprint 427.9 ;
-    scadient:manufacturerAddress "ul. Ks. Londzina 61, 43-246 Strumien, Poland"^^xsd:string ;
-    scadient:manufacturerName "STRUMET sp. z o.o."^^xsd:string ;
-    scadient:manufacturingCarbonFootprint 427.9 ;
-    scadient:manufacturingDate "2025-03-05"^^xsd:date ;
-    scadient:numberOfUses 0 ;
-    scadient:partNumber 3334567 ;
-    scadient:repairability "repairable_with_spare_parts"^^xsd:string ;
-    scadient:returnRatio 4 ;
-    scadient:status "manufactured"^^xsd:string ;
-    scadient:taricCode "7326901000"^^xsd:string ;
-    scadient:usePurpose "Transport raw materials and finished goods between manufacturing plants"^^xsd:string .
-
-scadient:dpp_europallet_2224567 a sc:EquipmentResource,
-        sc:Resource ;
-    sc:name "Europallet"^^xsd:string ;
-    scadient:condition "new"^^xsd:string ;
-    scadient:description "Wooden pallet with 1.2x1.08 meters"^^xsd:string ;
-    scadient:durabilityMaxYears 20 ;
-    scadient:durabilityMinYears 10 ;
-    scadient:lifecycleCarbonFootprint 7.75 ;
-    scadient:manufacturerAddress "ul. Malikow 150, 25-639 Kielce, Poland"^^xsd:string ;
-    scadient:manufacturerName "DS Smith Poland"^^xsd:string ;
-    scadient:manufacturingCarbonFootprint 7.75 ;
-    scadient:manufacturingDate "2025-02-10"^^xsd:date ;
-    scadient:numberOfUses 0 ;
-    scadient:partNumber 2224567 ;
-    scadient:repairability "repairable"^^xsd:string ;
-    scadient:status "manufactured"^^xsd:string ;
-    scadient:taricCode "4415202000"^^xsd:string ;
-    scadient:usePurpose "Transport raw materials and finished goods between manufacturing plants"^^xsd:string .
-
-scadient:dpp_magnum_optimum_1114567 a sc:EquipmentResource,
-        sc:Resource ;
-    sc:name "Magnum optimum"^^xsd:string ;
-    scadient:condition "new"^^xsd:string ;
-    scadient:description "Plastic returnable and foldable container"^^xsd:string ;
-    scadient:durabilityMaxYears 15 ;
-    scadient:durabilityMinYears 5 ;
-    scadient:lifecycleCarbonFootprint 176.58 ;
-    scadient:manufacturerAddress "Sacktannen 30, 19057 Schwerin, Germany"^^xsd:string ;
-    scadient:manufacturerName "Schoeller Allibert GmbH"^^xsd:string ;
-    scadient:manufacturingCarbonFootprint 176.58 ;
-    scadient:manufacturingDate "2025-01-01"^^xsd:date ;
-    scadient:numberOfUses 0 ;
-    scadient:partNumber 1114567 ;
-    scadient:repairability "repairable_with_spare_parts"^^xsd:string ;
-    scadient:returnRatio 3 ;
-    scadient:status "manufactured"^^xsd:string ;
-    scadient:taricCode "39231090"^^xsd:string ;
-    scadient:usePurpose "Transport raw materials and finished goods between manufacturing plants"^^xsd:string .
-
-scadient:sensor1_test a sc:Sensor ;
-    sc:observes scadient:characteristic1_test .
-
-scadient:sensor2_test a sc:Sensor ;
-    sc:observes scadient:characteristic2_test .
-
-scadient:sensor3_test a sc:Sensor ;
-    sc:observes scadient:characteristic3_test .
-
-scadient:sensor4_test a sc:Sensor ;
-    sc:observes scadient:characteristic4_test .
-
-scadient:site_test a sc:Site ;
-    sc:hasCharacteristic scadient:characteristic4_test ;
-    sc:hasDevice scadient:device_test ;
-    sc:hasLocation scadient:location1_test ;
-    sc:performs scadient:process_test .
-
-scadient:supplier_test a sc:Supplier ;
-    sc:hasLocation scadient:location2_test ;
-    sc:provides scadient:resource_test .
-
-scadient:characteristic3_test a sc:Characteristic ;
-    sc:isObservedBy scadient:sensor3_test .
-
-scadient:characteristic4_test a sc:Characteristic ;
-    sc:isObservedBy scadient:sensor4_test .
-
-scadient:location1_test a sc:Location .
-
-scadient:location2_test a sc:Location .
-
-scadient:process_test a sc:Process ;
-    sc:isPerformedAt scadient:site_test .
-
-scadient:resource_test a sc:Resource ;
-    sc:hasCharacteristic scadient:characteristic3_test ;
-    sc:isProvidedBy scadient:supplier_test .
-
-scadient:site_14 a sc:Site ;
+scadient:site_site_14 a sc:Site ;
     sc:country "HU"^^xsd:string ;
     sc:entity "internal"^^xsd:string ;
     sc:nodeId 14 ;
-    sc:performs scadient:process_full_seats_making ;
     sc:productionRate "just-in-time"^^xsd:string ;
     sc:siteType "JIT"^^xsd:string ;
     sc:tier 1 .
 
-scadient:site_64 a sc:Site ;
+scadient:site_site_16 a sc:Site ;
     sc:country "DE"^^xsd:string ;
     sc:entity "internal"^^xsd:string ;
-    sc:nodeId 64 ;
-    sc:performs scadient:process_full_seats_making ;
-    sc:productionRate "just-in-time"^^xsd:string ;
-    sc:siteType "JIT"^^xsd:string ;
-    sc:tier 1 .
+    sc:nodeId 16 ;
+    sc:productionRate "fortnightly batches"^^xsd:string ;
+    sc:siteType "metal tier 3"^^xsd:string ;
+    sc:tier 3 .
 
-scadient:product_test a sc:Product ;
-    sc:satisfiesRequirement scadient:customerrequirement_test .
-
-scadient:site_37 a sc:Site ;
-    sc:country "ES"^^xsd:string ;
-    sc:entity "internal"^^xsd:string ;
-    sc:nodeId 37 ;
-    sc:performs scadient:process_metal_structures_making ;
+scadient:site_site_220 a sc:Site ;
+    sc:country "CZ"^^xsd:string ;
+    sc:entity "external"^^xsd:string ;
+    sc:nodeId 220 ;
     sc:productionRate "weekly batches"^^xsd:string ;
-    sc:siteType "metal"^^xsd:string ;
-    sc:tier 2 ;
-    scadient:siteHasResource scadient:dpp_b_container_3334567 ;
-    scadient:suppliesTo scadient:site_50 .
+    sc:siteType "3p"^^xsd:string .
 
-scadient:site_33 a sc:Site ;
+scadient:site_site_291 a sc:Site ;
+    sc:country "DE"^^xsd:string ;
+    sc:entity "internal"^^xsd:string ;
+    sc:nodeId 291 ;
+    sc:productionRate "fortnightly batches"^^xsd:string ;
+    sc:siteType "metal tier3"^^xsd:string ;
+    sc:tier 3 .
+
+scadient:site_site_322 a sc:Site ;
+    sc:country "DE"^^xsd:string ;
+    sc:entity "external"^^xsd:string ;
+    sc:nodeId 322 ;
+    sc:productionRate "fortnightly batches"^^xsd:string ;
+    sc:siteType "3p"^^xsd:string .
+
+scadient:site_site_33 a sc:Site ;
     sc:country "HU"^^xsd:string ;
     sc:entity "internal"^^xsd:string ;
     sc:nodeId 33 ;
-    sc:performs scadient:process_metal_structures_making ;
     sc:productionRate "weekly batches"^^xsd:string ;
     sc:siteType "metal"^^xsd:string ;
-    sc:tier 2 ;
-    scadient:suppliesTo scadient:site_14,
-        scadient:site_37,
-        scadient:site_50,
-        scadient:site_64 .
+    sc:tier 2 .
 
-scadient:site_11 a sc:Site ;
-    sc:country "PL"^^xsd:string ;
+scadient:site_site_335 a sc:Site ;
+    sc:country "PT"^^xsd:string ;
+    sc:entity "external"^^xsd:string ;
+    sc:nodeId 335 ;
+    sc:productionRate "fortnightly batches"^^xsd:string ;
+    sc:siteType "3p"^^xsd:string .
+
+scadient:site_site_34 a sc:Site ;
+    sc:country "DE"^^xsd:string ;
     sc:entity "internal"^^xsd:string ;
-    sc:nodeId 11 ;
-    sc:performs scadient:process_metal_structures_making ;
+    sc:nodeId 34 ;
+    sc:productionRate "fortnightly batches"^^xsd:string ;
+    sc:siteType "metal tier3"^^xsd:string ;
+    sc:tier 3 .
+
+scadient:site_site_35 a sc:Site ;
+    sc:country "DE"^^xsd:string ;
+    sc:entity "internal"^^xsd:string ;
+    sc:nodeId 35 ;
+    sc:productionRate "fortnightly batches"^^xsd:string ;
+    sc:siteType "metal tier3"^^xsd:string ;
+    sc:tier 3 .
+
+scadient:site_site_37 a sc:Site ;
+    sc:country "ES"^^xsd:string ;
+    sc:entity "internal"^^xsd:string ;
+    sc:nodeId 37 ;
     sc:productionRate "weekly batches"^^xsd:string ;
     sc:siteType "metal"^^xsd:string ;
-    sc:tier 2 ;
-    scadient:siteHasResource scadient:dpp_europallet_2224567 ;
-    scadient:suppliesTo scadient:site_33,
-        scadient:site_50 .
+    sc:tier 2 .
 
-scadient:site_50 a sc:Site ;
+scadient:site_site_50 a sc:Site ;
     sc:country "RO"^^xsd:string ;
     sc:entity "internal"^^xsd:string ;
     sc:nodeId 50 ;
-    sc:performs scadient:process_metal_structures_making ;
     sc:productionRate "weekly batches"^^xsd:string ;
     sc:siteType "metal"^^xsd:string ;
-    sc:tier 2 ;
-    scadient:siteHasResource scadient:dpp_magnum_optimum_1114567 .
+    sc:tier 2 .
+
+scadient:site_site_64 a sc:Site ;
+    sc:country "DE"^^xsd:string ;
+    sc:entity "internal"^^xsd:string ;
+    sc:nodeId 64 ;
+    sc:productionRate "just-in-time"^^xsd:string ;
+    sc:siteType "JIT"^^xsd:string ;
+    sc:tier 1 .
+
+scadient:site_site_707 a sc:Site ;
+    sc:country "DE"^^xsd:string ;
+    sc:entity "external"^^xsd:string ;
+    sc:nodeId 707 ;
+    sc:productionRate "fortnightly batches"^^xsd:string ;
+    sc:siteType "3p"^^xsd:string .
+
+scadient:site_site_730 a sc:Site ;
+    sc:country "PL"^^xsd:string ;
+    sc:entity "external"^^xsd:string ;
+    sc:nodeId 730 ;
+    sc:productionRate "fortnightly batches"^^xsd:string ;
+    sc:siteType "3p"^^xsd:string .
+
+scadient:site_site_959 a sc:Site ;
+    sc:country "CZ"^^xsd:string ;
+    sc:entity "external"^^xsd:string ;
+    sc:nodeId 959 ;
+    sc:productionRate "fortnightly batches"^^xsd:string ;
+    sc:siteType "3p"^^xsd:string .
+
+scadient:site_site_972 a sc:Site ;
+    sc:country "RO"^^xsd:string ;
+    sc:entity "external"^^xsd:string ;
+    sc:nodeId 972 ;
+    sc:productionRate "fortnightly batches"^^xsd:string ;
+    sc:siteType "3p"^^xsd:string .
+
+scadient:site_site_test a sc:Site .
+
+scadient:supplier_supplier_test a sc:Supplier .
 

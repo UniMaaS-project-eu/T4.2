@@ -1,11 +1,11 @@
 {
   "assetAdministrationShells": [
     {
-      "id": "urn:aas:characteristic2:test",
-      "idShort": "Characteristic2_test",
+      "id": "urn:unimaas:adient:characteristic:characteristic2_test",
+      "idShort": "characteristic2_test",
       "assetInformation": {
         "assetKind": "Instance",
-        "globalAssetId": "urn:asset:characteristic2:test"
+        "globalAssetId": "urn:asset:adient:characteristic:characteristic2_test"
       },
       "semanticId": {
         "type": "ExternalReference",
@@ -42,7 +42,7 @@
           }
         ]
       },
-      "id": "urn:aas:submodel:characteristic2:test",
+      "id": "urn:aas:adient:characteristic:characteristic2_test:sm:characteristic2submodel",
       "idShort": "Characteristic2Submodel",
       "description": [
         {
@@ -85,7 +85,7 @@
           "modelType": "Property",
           "idShort": "Unit",
           "valueType": "xs:string",
-          "value": "°C"
+          "value": "\u00b0C"
         },
         {
           "modelType": "Property",

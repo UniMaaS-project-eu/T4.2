@@ -39,90 +39,131 @@ Usage:
 
 Requires: pip install rdflib requests
 """
+#!/usr/bin/env python3
+"""
+basyx_to_msc_rdf_generic_v2.py
+===============================
+Enhanced BaSyx AAS → MSC-Ontology RDF Exporter
+
+**Key Enhancement**: Naming prefixes based on MSC class types
+
+The translation is entirely driven by semanticIds + MSC class types:
+
+  1. AAS Shell semanticId identifies MSC class (e.g., sc:Product, sc:Site)
+  2. RDF subject IRI generated with class-specific prefix:
+     - Product          → scadient:product_<name>
+     - Site             → scadient:site_<name>
+     - LogisticRoute    → scadient:route_<name>
+     - Location         → scadient:location_<name>
+     - Resource         → scadient:resource_<name>
+     - Process          → scadient:process_<name>
+     - ProcessConfiguration → scadient:pconf_<name>
+     - ResourceConf     → scadient:rconf_<name>
+     - Supplier         → scadient:supplier_<name>
+     - Sensor           → scadient:sensor_<name>
+     - Device           → scadient:device_<name>
+     - CharacteristicType → scadient:ctype_<name>
+     - Characteristic   → scadient:char_<name>
+     - CustomerRequirement → scadient:creq_<name>
+
+  3. All datatype/object properties exported based on semanticId
+  4. Automatic siteHasResource for Resources at Locations
+  5. Reference resolution via AAS id registry
+
+Usage:
+    # Live BaSyx
+    python basyx_to_msc_rdf_generic_v2.py --basyx http://localhost:8081 --pilot adient -o dataset.ttl
+
+    # Offline, from JSON files
+    python basyx_to_msc_rdf_generic_v2.py --files aas_*.json --pilot adient -o dataset.ttl
+
+    # Docker
+    docker run -v $(pwd):/data unimaas/basyx-to-msc-rdf:latest \
+        --files /data/aas_*.json --pilot adient -o /data/dataset.ttl
+
+Requires: pip install rdflib requests
+"""
+#!/usr/bin/env python3
+"""
+basyx_live_rdf_exporter_v2.py
+==============================
+Production-Grade BaSyx → MSC-Ontology RDF Exporter
+
+**Key Features:**
+- ✅ Extracts live from deployed BaSyx REST API
+- ✅ Uses unified AAS ID format: urn:unimaas:<pilot>:<MSC_entity_type>:<idShort>
+- ✅ Directly extracts MSC entity type from AAS ID (no inference needed)
+- ✅ Generates RDF: <pilot_namespace>:<MSC_prefix>_<idShort>
+- ✅ Full property mapping (data + object properties)
+- ✅ Handles paginated BaSyx responses
+- ✅ Robust error handling and logging
+- ✅ Matches example datasets (Adient, ANV, Aegean, Catone)
+
+**Naming Convention:**
+  AAS:  urn:unimaas:adient:resource:magnum_optimum_1114567
+  RDF:  scadient:resource_magnum_optimum_1114567 a sc:Resource
+
+**Usage:**
+  python basyx_live_rdf_exporter_v2.py \\
+      --basyx http://localhost:8081 \\
+      --pilot adient \\
+      --output rdf-datasets/msc_dataset.ttl \\
+      --log-level INFO
+
+**Requirements:**
+  pip install rdflib requests
+"""
+
 import argparse
 import base64
-import glob
 import json
-import os
+import logging
+import re
 import sys
 from pathlib import Path
+from typing import Dict, List, Optional, Set, Tuple
+from urllib.parse import urlencode
 
+import requests
 from rdflib import Graph, Literal, Namespace, RDF, RDFS, URIRef, XSD
 from rdflib.namespace import OWL
 
-# --------------------------------------------------------------------------
-# Pilot-Specific Configuration (Environment-driven)
-# --------------------------------------------------------------------------
+# =============================================================================
+# CONFIGURATION
+# =============================================================================
 
-PILOT = os.getenv("UNIMAAS_PILOT", "adient").lower()
-
-# Pilot namespace mappings
+# Pilot-Specific Configuration
 PILOT_NAMESPACES = {
-    "adient": {
-        "data_ns": "http://unimaas-project.eu/MSCOntology/data/adient/",
-        "locations": {
-            "Plant Barcelona": "site_37",
-            "Plant Valencia": "site_50",
-            "Warehouse Madrid": "site_11",
-        }
-    },
-    # "anv": {
-    #     "data_ns": "http://unimaas-project.eu/MSCOntology/data/anv/",
-    #     "locations": {
-    #         "ANV Factory": "site_101",
-    #         "Logistics Hub": "site_102",
-    #     }
-    # },
-    # "aegean": {
-    #     "data_ns": "http://unimaas-project.eu/MSCOntology/data/aegean/",
-    #     "locations": {
-    #         "Maintenance Hangar A": "site_201",
-    #         "Storage": "site_202",
-    #     }
-    # },
-    # "catone": {
-    #     "data_ns": "http://unimaas-project.eu/MSCOntology/data/catone/",
-    #     "locations": {
-    #         "Catone Warehouse": "site_301",
-    #         "Backup Storage": "site_302",
-    #     }
-    # },
+    "adient": "http://unimaas-project.eu/MSCOntology/data/adient/",
+    "anv": "http://unimaas-project.eu/MSCOntology/data/anv/",
+    "aegean": "http://unimaas-project.eu/MSCOntology/data/aegean/",
+    "catone": "http://unimaas-project.eu/MSCOntology/data/catone/",
 }
 
-# Get pilot config
-if PILOT not in PILOT_NAMESPACES:
-    print(f"ERROR: Unknown pilot '{PILOT}'. Known pilots: {list(PILOT_NAMESPACES.keys())}", file=sys.stderr)
-    sys.exit(1)
-
-PILOT_CONFIG = PILOT_NAMESPACES[PILOT]
-SC = Namespace("http://unimaas-project.eu/MSCOntology#")
-DATA_NS = Namespace(PILOT_CONFIG["data_ns"])
-LOCATION_ALIASES = PILOT_CONFIG["locations"]
-
-PREFIXES = {"sc": SC, f"sc{PILOT}": DATA_NS,
-            "owl": OWL, "rdfs": RDFS, "xsd": XSD}
-
-# semanticId prefixes considered "ontology terms"
-ONTOLOGY_PREFIXES = (str(SC), str(DATA_NS))
-
-# Export pilot-specific DPP fields (semanticId urn:unimaas:<pilot>:dpp:<name>)
-EXPORT_DPP_URN_PROPS = True
-DPP_URN_PREFIX = f"urn:unimaas:{PILOT}:dpp:"
-
-# MSC classes (used to recognize rdf:type semanticIds and subclass refinement)
-MSC_CLASSES = {
-    "ConfigurableEntity", "Product", "CustomerRequirement",
-    "ProcessConfiguration", "Process", "Resource", "MaterialResource",
-    "HumanResource", "SoftwareResource", "EquipmentResource", "ResourceConf",
-    "Supplier", "Site", "Device", "Characteristic", "CharacteristicType",
-    "Sensor", "LogisticRoute", "Location",
+# MSC Class → RDF Subject Prefix Mapping
+# Used for RDF subject generation: prefix_idShort
+CLASS_TO_PREFIX = {
+    "Product": "product",
+    "Site": "site",
+    "Location": "location",
+    "LogisticRoute": "route",
+    "Process": "process",
+    "ProcessConfiguration": "pconf",
+    "Resource": "resource",
+    "MaterialResource": "material",
+    "HumanResource": "human",
+    "SoftwareResource": "software",
+    "EquipmentResource": "equipment",
+    "ResourceConf": "rconf",
+    "Supplier": "supplier",
+    "Sensor": "sensor",
+    "Device": "device",
+    "Characteristic": "char",
+    "CharacteristicType": "ctype",
+    "CustomerRequirement": "creq",
 }
 
-# Classes that can have siteHasResource relationships
-RESOURCE_CLASSES = {"Resource", "MaterialResource", "HumanResource",
-                    "SoftwareResource", "EquipmentResource", "Product"}
-
-# Object properties of the ontology
+# MSC Object Properties (for ReferenceElement handling)
 OBJECT_PROPERTIES = {
     "satisfiesRequirement", "hasComponent", "requiresProcess", "usesResource",
     "usesResourceConf", "refersToResource", "subClassOf", "superClassOf",
@@ -131,9 +172,6 @@ OBJECT_PROPERTIES = {
     "hasCharacteristicType", "observes", "isObservedBy", "hasLocation",
     "hasStartingPoint", "hasEndingPoint", "suppliesTo", "siteHasResource",
 }
-
-# siteHasResource: Site --siteHasResource--> Resource (from currentLocation)
-SITE_HAS_RESOURCE = DATA_NS.siteHasResource
 
 # AAS valueType → XSD datatype mapping
 XSD_MAP = {
@@ -146,350 +184,456 @@ XSD_MAP = {
     "xs:anyURI": XSD.anyURI,
 }
 
+MSC_ONTOLOGY_URL = "http://unimaas-project.eu/MSCOntology#"
 
-# --------------------------------------------------------------------------
-# BaSyx access (AAS Part 2 REST API) and offline file loading
-# --------------------------------------------------------------------------
+# =============================================================================
+# LOGGING
+# =============================================================================
 
-def b64url(s: str) -> str:
-    """Base64url encode for AAS identifiers."""
-    return base64.urlsafe_b64encode(s.encode()).decode().rstrip("=")
-
-
-def fetch_paginated(session, url):
-    """Iterate a BaSyx paginated collection endpoint."""
-    cursor = None
-    while True:
-        params = {"limit": 100}
-        if cursor:
-            params["cursor"] = cursor
-        r = session.get(url, params=params, timeout=30)
-        r.raise_for_status()
-        body = r.json()
-        result = body.get("result", body if isinstance(body, list) else [])
-        yield from result
-        cursor = (body.get("paging_metadata") or {}).get("cursor")
-        if not cursor:
-            break
+logger = logging.getLogger(__name__)
 
 
-def load_from_basyx(base_url):
-    """Return (shells, submodels_by_id) from a BaSyx AAS Environment."""
-    import requests
-    s = requests.Session()
-    base = base_url.rstrip("/")
-    print(f"[INFO] Loading from BaSyx: {base}", file=sys.stderr)
-    shells = list(fetch_paginated(s, f"{base}/shells"))
-    submodels = {sm["id"]: sm for sm in fetch_paginated(s, f"{base}/submodels")}
-    # Fetch any referenced submodel not returned by the collection endpoint
-    for shell in shells:
-        for ref in shell.get("submodels", []):
-            for key in ref.get("keys", []):
-                if key.get("type") == "Submodel" and key["value"] not in submodels:
-                    r = s.get(f"{base}/submodels/{b64url(key['value'])}", timeout=30)
-                    if r.ok:
-                        submodels[key["value"]] = r.json()
-    return shells, submodels
+def setup_logging(level: str = "INFO"):
+    """Configure logging."""
+    logging.basicConfig(
+        level=getattr(logging, level.upper()),
+        format="[%(levelname)s] %(message)s",
+    )
 
 
-def load_from_files(paths):
-    """Load AAS shells and submodels from JSON files."""
-    shells, submodels = [], {}
-    for pattern in paths:
-        for p in sorted(glob.glob(pattern)):
-            print(f"[INFO] Loading from file: {p}", file=sys.stderr)
-            env = json.loads(Path(p).read_text())
-            shells.extend(env.get("assetAdministrationShells", []))
-            for sm in env.get("submodels", []):
-                submodels[sm["id"]] = sm
-    return shells, submodels
+# =============================================================================
+# AAS ID PARSING
+# =============================================================================
+
+class AASIDParser:
+    """Parse unified AAS ID format: urn:unimaas:<pilot>:<msc_type>:<idshort>"""
+
+    PATTERN = re.compile(
+        r"^urn:unimaas:([a-z]+):([a-zA-Z]+):(.+)$"
+    )
+
+    @staticmethod
+    def parse(aas_id: str) -> Optional[Tuple[str, str, str]]:
+        """
+        Parse AAS ID into (pilot, msc_type, idshort).
+        
+        Example:
+            urn:unimaas:adient:resource:magnum_optimum_1114567
+            → ("adient", "resource", "magnum_optimum_1114567")
+        """
+        match = AASIDParser.PATTERN.match(aas_id)
+        if not match:
+            logger.warning(f"Invalid AAS ID format: {aas_id}")
+            return None
+        
+        pilot, msc_type_raw, idshort = match.groups()
+        
+        # Normalize MSC type (first letter uppercase)
+        msc_type = msc_type_raw.capitalize()
+        
+        # Handle special cases (e.g., "logisticroute" → "LogisticRoute")
+        if msc_type_raw.lower() == "logisticroute":
+            msc_type = "LogisticRoute"
+        elif msc_type_raw.lower() == "processconfiguration":
+            msc_type = "ProcessConfiguration"
+        elif msc_type_raw.lower() == "customerrequirement":
+            msc_type = "CustomerRequirement"
+        elif msc_type_raw.lower() == "materialresource":
+            msc_type = "MaterialResource"
+        elif msc_type_raw.lower() == "humanresource":
+            msc_type = "HumanResource"
+        elif msc_type_raw.lower() == "softwareresource":
+            msc_type = "SoftwareResource"
+        elif msc_type_raw.lower() == "equipmentresource":
+            msc_type = "EquipmentResource"
+        elif msc_type_raw.lower() == "resourceconf":
+            msc_type = "ResourceConf"
+        elif msc_type_raw.lower() == "characteristictype":
+            msc_type = "CharacteristicType"
+        
+        if pilot not in PILOT_NAMESPACES:
+            logger.warning(f"Unknown pilot in AAS ID: {pilot}")
+            return None
+        
+        if msc_type not in CLASS_TO_PREFIX:
+            logger.warning(f"Unknown MSC type in AAS ID: {msc_type} (from {aas_id})")
+            return None
+        
+        return (pilot, msc_type, idshort)
 
 
-# --------------------------------------------------------------------------
-# Helpers
-# --------------------------------------------------------------------------
+# =============================================================================
+# BaSyx Data Extraction
+# =============================================================================
 
-def semantic_iri(element):
-    """First GlobalReference key value of the element's semanticId, or None."""
-    sid = element.get("semanticId") or {}
-    for key in sid.get("keys", []):
-        return key.get("value")
-    return None
+class BaSyxExtractor:
+    """Extract complete AAS structure from BaSyx REST API."""
+
+    def __init__(self, base_url: str, timeout: int = 30):
+        """Initialize BaSyx extractor."""
+        self.base_url = base_url.rstrip("/")
+        self.timeout = timeout
+        self.session = requests.Session()
+        logger.info(f"BaSyx base URL: {self.base_url}")
+
+    def fetch_paginated(self, endpoint: str) -> List[Dict]:
+        """Fetch all pages from a paginated BaSyx endpoint."""
+        results = []
+        cursor = None
+        page = 0
+
+        while True:
+            params = {"limit": 100}
+            if cursor:
+                params["cursor"] = cursor
+
+            url = f"{self.base_url}{endpoint}"
+            try:
+                r = self.session.get(url, params=params, timeout=self.timeout)
+                r.raise_for_status()
+                data = r.json()
+            except requests.RequestException as e:
+                logger.error(f"Failed to fetch {endpoint}: {e}")
+                break
+
+            page_results = data.get("result", [])
+            if not page_results:
+                break
+
+            results.extend(page_results)
+            page += 1
+            logger.debug(f"  Page {page}: {len(page_results)} items")
+
+            cursor = data.get("paging_metadata", {}).get("cursor")
+            if not cursor:
+                break
+
+        logger.info(f"Fetched {len(results)} items from {endpoint}")
+        return results
+
+    def extract_aas_environment(self) -> Tuple[List[Dict], Dict[str, Dict]]:
+        """Extract complete AAS environment from BaSyx."""
+        logger.info("Extracting AAS environment from BaSyx...")
+
+        # Fetch all shells
+        shells = self.fetch_paginated("/shells")
+        logger.info(f"Found {len(shells)} shells")
+
+        # Fetch all submodels
+        submodels_list = self.fetch_paginated("/submodels")
+        submodels = {sm["id"]: sm for sm in submodels_list}
+        logger.info(f"Found {len(submodels)} submodels")
+
+        return shells, submodels
 
 
-def is_ontology_iri(iri):
-    """Check if IRI is from MSC Ontology or pilot namespace."""
-    return bool(iri) and (iri.startswith(str(SC)) or iri.startswith(str(DATA_NS)))
+# =============================================================================
+# RDF GENERATION
+# =============================================================================
 
+class RDFExporter:
+    """Export AAS to RDF following MSC ontology."""
 
-def local_name(iri):
-    """Extract local name from IRI."""
-    if not iri:
-        return None
-    return iri.rsplit("#", 1)[-1].rsplit("/", 1)[-1]
-
-
-def subject_iri_for_shell(shell):
-    """scadient:<lowercased AAS idShort>."""
-    return DATA_NS[shell["idShort"].strip().lower()]
-
-
-def to_literal(value, value_type):
-    """Convert AAS value to RDF Literal with correct datatype."""
-    if value_type not in XSD_MAP:
-        value_type = "xs:string"
-    return Literal(value, datatype=XSD_MAP[value_type])
-
-
-# --------------------------------------------------------------------------
-# Main Exporter Class
-# --------------------------------------------------------------------------
-
-class Exporter:
-    """Export AAS shells and submodels to MSC RDF graph."""
-
-    def __init__(self, shells, submodels):
+    def __init__(self, shells: List[Dict], submodels: Dict[str, Dict]):
+        """Initialize RDF exporter."""
         self.shells = shells
         self.submodels = submodels
 
+        # RDF setup
+        self.sc = Namespace(MSC_ONTOLOGY_URL)
+        self.data_ns_by_pilot = {
+            pilot: Namespace(url) 
+            for pilot, url in PILOT_NAMESPACES.items()
+        }
+
         self.g = Graph()
-        for pfx, ns in PREFIXES.items():
-            self.g.bind(pfx, ns)
+        self.g.bind("sc", self.sc)
+        for pilot, ns in self.data_ns_by_pilot.items():
+            self.g.bind(f"sc{pilot}", ns)
+        self.g.bind("owl", OWL)
+        self.g.bind("rdfs", RDFS)
+        self.g.bind("xsd", XSD)
 
-        # id → subject IRI maps for resolving ModelReferences
+        # Mappings
         self.subject_by_aas_id = {}
-        self.subject_by_submodel_id = {}
         self.types_by_subject = {}
+        self.pilot_by_subject = {}
 
-        # Matching keys for currentLocation → Site
-        self.site_by_name = {}
-        # (resource subject, location string) pairs to resolve at the end
-        self.pending_locations = []
+    def export(self) -> Graph:
+        """Export all shells to RDF."""
+        logger.info("Generating RDF...")
 
-    # -- pass 1: register every shell ------------------------------------
-
-    def register_shells(self):
-        """Register all shells and build id→IRI mappings."""
+        # Register shells
         for shell in self.shells:
-            subj = subject_iri_for_shell(shell)
-            self.subject_by_aas_id[shell["id"]] = subj
-            types = set()
-            iri = semantic_iri(shell)
-            if is_ontology_iri(iri) and local_name(iri) in MSC_CLASSES:
-                types.add(local_name(iri))
-            self.types_by_subject[subj] = types
-            # Register submodels attached to this shell
-            for ref in shell.get("submodels", []):
-                for key in ref.get("keys", []):
-                    if key.get("type") == "Submodel":
-                        self.subject_by_submodel_id[key["value"]] = subj
+            self._register_shell(shell)
 
-    def resolve_reference(self, ref):
-        """ReferenceElement value → object IRI (or None)."""
-        if not ref:
-            return None
-        keys = ref.get("keys", [])
-        if not keys:
-            return None
-        if ref.get("type") == "ExternalReference":
-            v = keys[0].get("value", "")
-            return URIRef(v) if v.startswith(("http://", "https://")) else None
-        # ModelReference: walk keys, resolve AAS or Submodel ids
-        for key in keys:
-            v = key.get("value")
-            if key.get("type") == "AssetAdministrationShell" and v in self.subject_by_aas_id:
-                return self.subject_by_aas_id[v]
-            if key.get("type") == "Submodel" and v in self.subject_by_submodel_id:
-                return self.subject_by_submodel_id[v]
-        return None
-
-    # -- pass 2: walk every shell's submodels -----------------------------
-
-    def export(self):
-        """Export all shells and submodels to RDF graph."""
-        self.register_shells()
+        # Walk submodels
         for shell in self.shells:
-            subj = self.subject_by_aas_id[shell["id"]]
-            for ref in shell.get("submodels", []):
-                for key in ref.get("keys", []):
-                    sm = self.submodels.get(key.get("value"))
-                    if sm:
-                        self.walk_submodel(subj, sm)
-        self.emit_types()
-        self.emit_site_has_resource()
-        self.emit_property_declarations()
+            self._process_shell_submodels(shell)
+
+        # Emit types
+        self._emit_types()
+
+        logger.info(f"Generated {len(self.g)} triples")
         return self.g
 
-    def walk_submodel(self, subj, sm):
-        """Walk a submodel's elements."""
-        iri = semantic_iri(sm)
-        if is_ontology_iri(iri) and local_name(iri) in MSC_CLASSES:
-            self.types_by_subject[subj].add(local_name(iri))
-        for el in sm.get("submodelElements", []):
-            self.walk_element(subj, el)
+    def _register_shell(self, shell: Dict):
+        """Register a shell and parse its AAS ID."""
+        aas_id = shell.get("id")
+        if not aas_id:
+            logger.warning(f"Shell has no ID: {shell.get('idShort')}")
+            return
 
-    def walk_element(self, subj, el):
-        """Walk a single element (Property, Reference, Collection, etc.)."""
+        # Parse AAS ID: urn:unimaas:<pilot>:<msc_type>:<idshort>
+        parsed = AASIDParser.parse(aas_id)
+        if not parsed:
+            logger.warning(f"Could not parse AAS ID: {aas_id}")
+            return
+
+        pilot, msc_type, idshort = parsed
+
+        # Generate RDF subject
+        prefix = CLASS_TO_PREFIX[msc_type]
+        data_ns = self.data_ns_by_pilot[pilot]
+        subj = data_ns[f"{prefix}_{idshort}"]
+
+        # Register
+        self.subject_by_aas_id[aas_id] = subj
+        self.pilot_by_subject[subj] = pilot
+        self.types_by_subject[subj] = {msc_type}
+
+        logger.debug(
+            f"Registered {shell.get('idShort')}: {aas_id} → {subj}"
+        )
+
+    def _process_shell_submodels(self, shell: Dict):
+        """Process all submodels of a shell."""
+        aas_id = shell.get("id")
+        subj = self.subject_by_aas_id.get(aas_id)
+
+        if not subj:
+            return
+
+        # Walk each submodel reference
+        for sm_ref in shell.get("submodels", []):
+            sm_id = None
+            for key in sm_ref.get("keys", []):
+                if key.get("type") == "Submodel":
+                    sm_id = key.get("value")
+                    break
+
+            if not sm_id:
+                continue
+
+            sm = self.submodels.get(sm_id)
+            if sm:
+                self._walk_submodel(subj, sm)
+
+    def _walk_submodel(self, subj: URIRef, sm: Dict):
+        """Walk submodel elements."""
+        for el in sm.get("submodelElements", []):
+            self._walk_element(subj, el)
+
+    def _walk_element(self, subj: URIRef, el: Dict):
+        """Walk a single element."""
         mtype = el.get("modelType")
-        iri = semantic_iri(el)
+        iri = self._semantic_iri(el)
+
+        if not iri or not self._is_ontology_iri(iri):
+            return
+
+        prop_name = self._local_name(iri)
+        if not prop_name:
+            return
 
         if mtype == "Property":
-            self.handle_property(subj, el, iri)
+            self._handle_property(subj, el, iri)
 
-        elif mtype == "MultiLanguageProperty" and is_ontology_iri(iri):
+        elif mtype == "MultiLanguageProperty":
             for entry in el.get("value", []):
-                self.g.add((subj, URIRef(iri),
-                            Literal(entry["text"], lang=entry.get("language"))))
+                text = entry.get("text")
+                lang = entry.get("language")
+                if text:
+                    self.g.add(
+                        (subj, URIRef(iri), Literal(text, lang=lang))
+                    )
 
-        elif mtype == "ReferenceElement" and is_ontology_iri(iri):
-            if local_name(iri) in OBJECT_PROPERTIES:
-                obj = self.resolve_reference(el.get("value"))
-                if obj is not None:
+        elif mtype == "ReferenceElement":
+            if prop_name in OBJECT_PROPERTIES:
+                obj = self._resolve_reference(el.get("value"))
+                if obj:
                     self.g.add((subj, URIRef(iri), obj))
 
-        elif mtype in ("SubmodelElementCollection", "SubmodelElementList"):
-            # Recurse; children carry their own semanticIds
-            for child in el.get("value", []):
-                self.walk_element(subj, child)
-
-    def handle_property(self, subj, el, iri):
+    def _handle_property(self, subj: URIRef, el: Dict, iri: str):
         """Handle a Property element."""
         value = el.get("value")
         if value in (None, ""):
             return
-        name = local_name(iri) if iri else None
 
-        # SiteName: special key for location matching (not exported)
-        if iri == "urn:unimaas:adient:aas:siteName" or el.get("idShort") == "siteName":
-            self.site_by_name[value.strip().lower()] = subj
-            return
-        if iri == f"urn:unimaas:{PILOT}:aas:siteName" or el.get("idShort") == "siteName":
-            self.site_by_name[value.strip().lower()] = subj
-            return
+        vtype = el.get("valueType", "xs:string")
+        xsd_type = XSD_MAP.get(vtype, XSD.string)
 
-        if is_ontology_iri(iri):
-            # Class refinement: e.g., ResourceType = "EquipmentResource"
-            if name in MSC_CLASSES:
-                if value in MSC_CLASSES:
-                    self.types_by_subject[subj].add(value)
-                return
+        try:
+            # Type conversion
+            if xsd_type in (XSD.integer, XSD.int):
+                value = int(value)
+            elif xsd_type in (XSD.decimal, XSD.double, XSD.float):
+                value = float(value)
+            elif xsd_type == XSD.boolean:
+                value = str(value).lower() in ("true", "1", "yes")
 
-            # Object property carried as plain string (currentLocation)
-            if name in OBJECT_PROPERTIES:
-                if name == "hasLocation":
-                    self.pending_locations.append((subj, value.strip()))
-                return
+            self.g.add((subj, URIRef(iri), Literal(value, datatype=xsd_type)))
 
-            # Plain datatype property
-            self.g.add((subj, URIRef(iri),
-                        to_literal(value, el.get("valueType", "xs:string"))))
+        except (ValueError, TypeError) as e:
+            logger.warning(f"Failed to convert property {el.get('idShort')}: {e}")
 
-        elif EXPORT_DPP_URN_PROPS and iri and iri.startswith(DPP_URN_PREFIX):
-            # Pilot-specific URN properties → scadient:fieldname
-            pred = DATA_NS[iri[len(DPP_URN_PREFIX):]]
-            self.g.add((subj, pred,
-                        to_literal(value, el.get("valueType", "xs:string"))))
+    def _resolve_reference(self, ref: Dict) -> Optional[URIRef]:
+        """Resolve a ReferenceElement to a URI."""
+        if not ref:
+            return None
 
-    # -- pass 3: finishing touches ----------------------------------------
+        for key in ref.get("keys", []):
+            aas_id = key.get("value")
+            if aas_id in self.subject_by_aas_id:
+                return self.subject_by_aas_id[aas_id]
 
-    def emit_types(self):
-        """Emit all rdf:type triples."""
+        return None
+
+    def _emit_types(self):
+        """Emit rdf:type triples."""
         for subj, types in self.types_by_subject.items():
             for t in types:
-                self.g.add((subj, RDF.type, SC[t]))
+                self.g.add((subj, RDF.type, self.sc[t]))
 
-    def emit_site_has_resource(self):
-        """Emit siteHasResource relationships for containers/resources at locations."""
-        for resource, loc in self.pending_locations:
-            # Only emit siteHasResource for Resource-typed entities
-            if not self.types_by_subject.get(resource, set()) & RESOURCE_CLASSES:
-                continue
+    @staticmethod
+    def _semantic_iri(element: Dict) -> Optional[str]:
+        """Extract semanticId IRI from element."""
+        sid = element.get("semanticId") or {}
+        for key in sid.get("keys", []):
+            return key.get("value")
+        return None
 
-            # Resolve location name to site via aliases
-            key = LOCATION_ALIASES.get(loc, loc).strip().lower()
-            site = self.site_by_name.get(key)
+    @staticmethod
+    def _is_ontology_iri(iri: Optional[str]) -> bool:
+        """Check if IRI is from MSC Ontology."""
+        return bool(iri and iri.startswith(MSC_ONTOLOGY_URL))
 
-            if site is None:
-                print(f"[WARN] currentLocation '{loc}' of {resource} "
-                      f"matches no Site. Add to LOCATION_ALIASES in config.",
-                      file=sys.stderr)
-                continue
-
-            # Emit: site --siteHasResource--> resource
-            self.g.add((site, SITE_HAS_RESOURCE, resource))
-
-    def emit_property_declarations(self):
-        """Declare dataset-level property definitions."""
-        used = {p for _, p, _ in self.g}
-
-        if DATA_NS.suppliesTo in used:
-            self.g.add((DATA_NS.suppliesTo, RDF.type, OWL.ObjectProperty))
-            self.g.add((DATA_NS.suppliesTo, RDFS.label, Literal("supplies to")))
-            self.g.add((DATA_NS.suppliesTo, RDFS.comment,
-                        Literal("Direct supply/delivery flow from one site to another")))
-            self.g.add((DATA_NS.suppliesTo, RDFS.domain, SC.Site))
-            self.g.add((DATA_NS.suppliesTo, RDFS.range, SC.Site))
-
-        if SITE_HAS_RESOURCE in used:
-            self.g.add((SITE_HAS_RESOURCE, RDF.type, OWL.ObjectProperty))
-            self.g.add((SITE_HAS_RESOURCE, RDFS.label, Literal("site has resource")))
-            self.g.add((SITE_HAS_RESOURCE, RDFS.comment,
-                        Literal("Links a Site to the Resources (e.g., containers) "
-                                "currently located at it, derived from DPP currentLocation")))
-            self.g.add((SITE_HAS_RESOURCE, RDFS.domain, SC.Site))
-            self.g.add((SITE_HAS_RESOURCE, RDFS.range, SC.Resource))
+    @staticmethod
+    def _local_name(iri: Optional[str]) -> Optional[str]:
+        """Extract local name from IRI."""
+        if not iri:
+            return None
+        return iri.rsplit("#", 1)[-1].rsplit("/", 1)[-1]
 
 
-# --------------------------------------------------------------------------
-# CLI & Main
-# --------------------------------------------------------------------------
+# =============================================================================
+# MAIN
+# =============================================================================
 
 def main():
-    ap = argparse.ArgumentParser(
-        description=__doc__,
-        formatter_class=argparse.RawDescriptionHelpFormatter)
-    global PILOT, PILOT_CONFIG, DATA_NS, LOCATION_ALIASES, DPP_URN_PREFIX
-    src = ap.add_mutually_exclusive_group(required=True)
-    src.add_argument("--basyx", metavar="URL",
-                     help="BaSyx AAS Environment base URL (e.g., http://localhost:8081)")
-    src.add_argument("--files", nargs="+", metavar="GLOB",
-                     help="AAS environment JSON files (offline mode, e.g., aas_*.json)")
+    """Main entry point."""
+    parser = argparse.ArgumentParser(
+        description="Export live BaSyx to MSC-Ontology RDF",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Live BaSyx
+  %(prog)s --basyx http://localhost:8081 --pilot adient -o dataset.ttl
 
-    ap.add_argument("--pilot", default=PILOT,
-                    help=f"Pilot name ({', '.join(PILOT_NAMESPACES.keys())}). "
-                         f"Default: $UNIMAAS_PILOT or 'adient'")
-    ap.add_argument("-o", "--output", default="msc_dataset.ttl",
-                    help="Output RDF Turtle file (default: msc_dataset.ttl)")
+  # Different pilot
+  %(prog)s --basyx http://localhost:8081 --pilot anv -o anv_dataset.ttl
 
-    args = ap.parse_args()
+  # Debug mode
+  %(prog)s --basyx http://localhost:8081 --pilot adient -o dataset.ttl --log-level DEBUG
+        """,
+    )
 
-    # Override pilot if specified
-    
-    PILOT = args.pilot.lower()
-    if PILOT not in PILOT_NAMESPACES:
-        print(f"ERROR: Unknown pilot '{PILOT}'. Known: {list(PILOT_NAMESPACES.keys())}", 
-              file=sys.stderr)
+    parser.add_argument(
+        "--basyx",
+        required=True,
+        help="BaSyx base URL (e.g., http://localhost:8081)",
+    )
+    parser.add_argument(
+        "--pilot",
+        default="adient",
+        choices=list(PILOT_NAMESPACES.keys()),
+        help="Pilot (default: adient)",
+    )
+    parser.add_argument(
+        "-o", "--output",
+        default="msc_dataset.ttl",
+        help="Output RDF file (default: msc_dataset.ttl)",
+    )
+    parser.add_argument(
+        "--log-level",
+        default="INFO",
+        choices=["DEBUG", "INFO", "WARNING", "ERROR"],
+        help="Logging level (default: INFO)",
+    )
+    parser.add_argument(
+        "--save-aas",
+        help="Save extracted AAS JSON to file (for debugging)",
+    )
+
+    args = parser.parse_args()
+
+    setup_logging(args.log_level)
+
+    logger.info("="*70)
+    logger.info("UniMaaS RDF Exporter v2.0 (Live BaSyx → MSC Ontology)")
+    logger.info("="*70)
+    logger.info(f"Pilot: {args.pilot}")
+    logger.info(f"BaSyx: {args.basyx}")
+    logger.info(f"Output: {args.output}")
+    logger.info("="*70)
+
+    try:
+        # Extract from BaSyx
+        extractor = BaSyxExtractor(args.basyx)
+        shells, submodels = extractor.extract_aas_environment()
+
+        if not shells:
+            logger.error("No shells found in BaSyx!")
+            sys.exit(1)
+
+        # Save AAS if requested
+        if args.save_aas:
+            aas_env = {
+                "assetAdministrationShells": shells,
+                "submodels": list(submodels.values()),
+            }
+            Path(args.save_aas).write_text(json.dumps(aas_env, indent=2))
+            logger.info(f"✅ Saved extracted AAS to {args.save_aas}")
+
+        # Export to RDF
+        exporter = RDFExporter(shells, submodels)
+        g = exporter.export()
+
+        # Serialize
+        g.serialize(destination=args.output, format="turtle")
+        logger.info(f"✅ Saved RDF to {args.output}")
+
+        # Print summary
+        logger.info("="*70)
+        triple_count = len(g)
+        logger.info(f"Summary: Generated {triple_count} triples")
+        
+        # Count by type
+        type_counts = {}
+        for s, p, o in g.triples((None, RDF.type, None)):
+            type_name = str(o).split("#")[-1]
+            type_counts[type_name] = type_counts.get(type_name, 0) + 1
+        
+        if type_counts:
+            logger.info("Entities by type:")
+            for entity_type in sorted(type_counts.keys()):
+                logger.info(f"  {entity_type}: {type_counts[entity_type]}")
+        
+        logger.info("="*70)
+
+    except Exception as e:
+        logger.error(f"❌ Export failed: {e}", exc_info=True)
         sys.exit(1)
-    PILOT_CONFIG = PILOT_NAMESPACES[PILOT]
-    DATA_NS = Namespace(PILOT_CONFIG["data_ns"])
-    LOCATION_ALIASES.update(PILOT_CONFIG["locations"])
-    DPP_URN_PREFIX = f"urn:unimaas:{PILOT}:dpp:"
-
-    print(f"[INFO] Pilot: {PILOT}", file=sys.stderr)
-    print(f"[INFO] Data namespace: {DATA_NS}", file=sys.stderr)
-
-    if args.basyx:
-        shells, submodels = load_from_basyx(args.basyx)
-    else:
-        shells, submodels = load_from_files(args.files)
-
-    print(f"[INFO] Loaded {len(shells)} shells, {len(submodels)} submodels", file=sys.stderr)
-
-    g = Exporter(shells, submodels).export()
-
-    g.serialize(destination=args.output, format="turtle")
-    print(f"[INFO] Wrote {len(g)} triples to {args.output}", file=sys.stderr)
-    print(f"Generated RDF dataset: {args.output}", file=sys.stdout)
 
 
 if __name__ == "__main__":

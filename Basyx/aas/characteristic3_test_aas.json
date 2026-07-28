@@ -1,11 +1,11 @@
 {
   "assetAdministrationShells": [
     {
-      "id": "urn:aas:characteristic3:test",
-      "idShort": "Characteristic3_test",
+      "id": "urn:unimaas:adient:characteristic:characteristic3_test",
+      "idShort": "characteristic3_test",
       "assetInformation": {
         "assetKind": "Instance",
-        "globalAssetId": "urn:asset:characteristic3:test"
+        "globalAssetId": "urn:asset:adient:characteristic:characteristic3_test"
       },
       "semanticId": {
         "type": "ExternalReference",
@@ -42,7 +42,7 @@
           }
         ]
       },
-      "id": "urn:aas:submodel:characteristic3:test",
+      "id": "urn:aas:adient:characteristic:characteristic3_test:sm:characteristic3submodel",
       "idShort": "Characteristic3Submodel",
       "description": [
         {

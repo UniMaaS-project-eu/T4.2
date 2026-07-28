@@ -129,7 +129,7 @@ cd ./Basyx
 # The extension file (-f docker-compose-rdf-exporter.yml) depends on services 
 # from the main file (-f docker-compose.yml)
 
-docker compose -f docker-compose.yml -f docker-compose-rdf-exporter.yml build basyx-rdf-exporter
+docker compose -f docker-compose.yml -f docker-compose-rdf-exporter.yml build --no-cache basyx-rdf-exporter
 ```
 #### 6: One-time export (on-demand)
 

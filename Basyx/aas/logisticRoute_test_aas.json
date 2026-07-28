@@ -1,11 +1,11 @@
 {
   "assetAdministrationShells": [
     {
-      "id": "urn:aas:logisticroute:test",
-      "idShort": "LogisticRoute_test",
+      "id": "urn:unimaas:adient:logisticroute:logisticroute_test",
+      "idShort": "logisticroute_test",
       "assetInformation": {
         "assetKind": "Instance",
-        "globalAssetId": "urn:asset:logisticroute:test"
+        "globalAssetId": "urn:asset:adient:logisticroute:logisticroute_test"
       },
       "semanticId": {
         "type": "ExternalReference",

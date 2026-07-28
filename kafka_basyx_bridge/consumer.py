@@ -61,16 +61,16 @@ if not KAFKA_PASSWORD:
 # partNumber -> AAS ids (aligned with the *_dpp_aas.json files loaded in BaSyx)
 PRODUCTS = {
     "1114567": {
-        "aasId": "urn:aas:adient:magnum-optimum:1114567",
-        "lifecycleSubmodelId": "urn:aas:adient:magnum-optimum:1114567:sm:lifecycle",
+        "aasId": "urn:unimaas:adient:resource:magnum_optimum_1114567",
+        "lifecycleSubmodelId": "urn:aas:adient:resource:magnum_optimum_1114567:sm:lifecycle",
     },
     "2224567": {
-        "aasId": "urn:aas:adient:europallet:2224567",
-        "lifecycleSubmodelId": "urn:aas:adient:europallet:2224567:sm:lifecycle",
+        "aasId": "urn:unimaas:adient:resource:europallet_2224567",
+        "lifecycleSubmodelId": "urn:aas:adient:resource:europallet_2224567:sm:lifecycle",
     },
     "3334567": {
-        "aasId": "urn:aas:adient:b-container:3334567",
-        "lifecycleSubmodelId": "urn:aas:adient:b-container:3334567:sm:lifecycle",
+        "aasId": "urn:unimaas:adient:resource:b_container_3334567",
+        "lifecycleSubmodelId": "urn:aas:adient:resource:b_container_3334567:sm:lifecycle",
     },
 }
 

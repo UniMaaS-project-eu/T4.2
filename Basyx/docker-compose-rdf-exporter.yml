@@ -1,55 +1,164 @@
 # Docker Compose extension for T4.2 RDF Exporter
+# Converts BaSyx AAS → MSC-Ontology RDF (Turtle)
+#
 # Usage: docker compose -f docker-compose.yml -f docker-compose-rdf-exporter.yml <command>
+#
+# Build:
+#   docker compose -f docker-compose.yml -f docker-compose-rdf-exporter.yml build basyx-rdf-exporter
+#
+# Run (on-demand):
+#   UNIMAAS_PILOT=adient docker compose -f docker-compose.yml -f docker-compose-rdf-exporter.yml run --rm basyx-rdf-exporter
+#
+# Run (background service):
+#   UNIMAAS_PILOT=adient docker compose -f docker-compose.yml -f docker-compose-rdf-exporter.yml up -d basyx-rdf-exporter
 
 version: '3.8'
 
 services:
 
-  # RDF Exporter Service
-  # Converts BaSyx AAS → MSC RDF (on schedule or demand)
+  # =========================================================================
+  # BaSyx RDF Exporter Service
+  # =========================================================================
+  # Extracts live AAS data from BaSyx and converts to MSC-Ontology RDF
+  # 
+  # Features:
+  # - Live extraction from BaSyx REST API (http://aas-env:8081)
+  # - Unified naming convention (urn:unimaas:<pilot>:<type>:<id>)
+  # - Multi-pilot support (adient, anv, aegean, catone)
+  # - Comprehensive logging and error handling
+  # - Docker-based for easy deployment
+  #
   basyx-rdf-exporter:
     build:
       context: .
       dockerfile: Dockerfile.rdf-exporter
     container_name: basyx-rdf-exporter-t42
+    
+    # =====================================================================
+    # Dependencies
+    # =====================================================================
+    # Depends on BaSyx being up and running
     depends_on:
-      - aas-env
+      aas-env:
+        condition: service_started
+      aas-registry:
+        condition: service_started
+      sm-registry:
+        condition: service_started
+    
+    # =====================================================================
+    # Environment Variables
+    # =====================================================================
     environment:
-      # Pilot selection (adient, anv, aegean, catone)
+      # Pilot selection: adient, anv, aegean, catone
       # Override: UNIMAAS_PILOT=anv docker compose up
       UNIMAAS_PILOT: "${UNIMAAS_PILOT:-adient}"
+      
+      # Optional: Log level (DEBUG, INFO, WARNING, ERROR)
+      LOG_LEVEL: "${LOG_LEVEL:-INFO}"
+      
+      # Optional: Timeout for BaSyx API requests (seconds)
+      BASYX_TIMEOUT: "${BASYX_TIMEOUT:-30}"
+    
+    # =====================================================================
+    # Volumes
+    # =====================================================================
     volumes:
-      # Output directory: RDF Turtle files
+      # Primary: Output directory for RDF Turtle files
       - ./rdf-datasets:/output
-      # Optional: mount AAS JSON files for offline mode
-      - ./aas-dumps:/aas-dumps:ro
-    # Default: reads from BaSyx REST, writes to /output/msc_dataset.ttl
+      
+      # Optional: Mount AAS JSON files for offline/backup mode
+      # Uncomment if you want to keep JSON copies
+      # - ./aas-dumps:/aas-dumps:ro
+    
+    # =====================================================================
+    # Networking
+    # =====================================================================
+    # Connect to both kafka and basyx networks to access all services
+    networks:
+      - kafka-net
+      - basyx-net
+    
+    # =====================================================================
+    # Command (Default: Read from BaSyx, write RDF)
+    # =====================================================================
+    # Command executed by default (from docker-compose run)
+    # Can be overridden at command line:
+    #   docker compose run basyx-rdf-exporter --files /aas-dumps/*.json ...
     command: >
       --basyx http://aas-env:8081
       --pilot ${UNIMAAS_PILOT:-adient}
       -o /output/msc_dataset.ttl
-    networks:
-      - kafka-net
-      - basyx-net
-    # restart: "no"  # Only run on-demand, not auto-restart
+      --log-level ${LOG_LEVEL:-INFO}
+    
+    # =====================================================================
+    # Restart Policy
+    # =====================================================================
+    # unless-stopped: Don't auto-restart on reboot, but respawn if crashes
+    # Change to "no" if you prefer manual control only
     restart: unless-stopped
+    
+    # =====================================================================
+    # Resource Limits (Optional)
+    # =====================================================================
+    # Uncomment to limit resources
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '1'
+    #       memory: 512M
+    #     reservations:
+    #       cpus: '0.5'
+    #       memory: 256M
+    
+    # =====================================================================
+    # Logging Configuration
+    # =====================================================================
     logging:
       driver: "json-file"
       options:
         max-size: "10m"
         max-file: "3"
+        labels: "basyx.service=rdf-exporter"
+    
+    # =====================================================================
+    # Healthcheck (Optional)
+    # =====================================================================
+    # Verify the container can reach BaSyx
+    healthcheck:
+      test: 
+        - CMD
+        - curl
+        - -f
+        - http://aas-env:8081/shells
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
+
+# =========================================================================
+# Volumes (Persistent Storage)
+# =========================================================================
 volumes:
-  # Ensure rdf-datasets directory exists and is persistent
   rdf-datasets:
     driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./rdf-datasets
 
-# External networks (must already exist from base T4.2 compose)
+
+# =========================================================================
+# Networks (External - must exist from base T4.2 compose)
+# =========================================================================
 networks:
+  # Kafka network (for future integration with Kafka-to-RDF bridge)
   kafka-net:
     external: true
     name: kafka-tst_kafka-net
-
+  
+  # BaSyx network (for AAS environment access)
   basyx-net:
     external: true
     name: basyx-net

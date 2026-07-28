@@ -3,11 +3,11 @@
 {
   "assetAdministrationShells": [
     {
-      "id": "urn:aas:product:test",
-      "idShort": "Product_test",
+      "id": "urn:unimaas:adient:product:product_test",
+      "idShort": "product_test",
       "assetInformation": {
         "assetKind": "Instance",
-        "globalAssetId": "urn:asset:product:test"
+        "globalAssetId": "urn:asset:adient:product:product_test"
       },
       "semanticId": {
         "type": "ExternalReference",
