@@ -28,3 +28,7 @@ consumedVOs:
 proxy:
   propertiesMap:
     temperature: vo1
+genericFunction: [vo_status]
+periodicFunction:
+  check: 5000
+  read_property_from_device: 5000

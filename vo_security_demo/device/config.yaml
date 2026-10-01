@@ -16,3 +16,5 @@ databaseConfig:
     influxDB: disabled
   persistentDB:
     SQLite: enabled
+periodicFunction:
+  read_temperature_property: 1000
