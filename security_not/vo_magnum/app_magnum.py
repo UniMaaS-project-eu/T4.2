@@ -343,16 +343,13 @@ async def check_bridge_health():
         LOGGER.error("Bridge health check error: %s", e)
         bridge_healthy = False
 
-#actual function to send property updates to the bridge
-async def send_request_to_bridge(data):
-    LOGGER.info("Preparing to send update to bridge for property: %s", data.data.name)
-    # part_number = (await exposed_thing.read_property("registered_values")).get("partNumber")
+# actual function to send property updates to the bridge
+async def send_request_to_bridge(property_name, value):
+    LOGGER.info("Preparing to send update to bridge for property: %s", property_name)
     part_number = registered_values_init.get("partNumber")  # Use the initial part number for bridge update
-    property_name = data.data.name
-    value = data.data.value
 
     headers = {
-        "Content-Type": "application/json", 
+        "Content-Type": "application/json",
         "accept": "application/json"
     }
     payload = {
